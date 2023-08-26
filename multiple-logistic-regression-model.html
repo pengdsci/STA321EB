@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 10 Multiple Logistic Regression Model | STA 321 E-pack: Advanced Statistics</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 10 Multiple Logistic Regression Model | STA 321 E-pack: Advanced Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 10 Multiple Logistic Regression Model | STA 321 E-pack: Advanced Statistics" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simple-logistic-regression-model.html"/>
+<link rel="next" href="predictive-modeling-with-logistic-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 321 E-Pack: Advanced Statistics</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-this-e-pack"><i class="fa fa-check"></i><b>1.1</b> Why This E-Pack?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#components-statistical-reports"><i class="fa fa-check"></i><b>1.2</b> Components Statistical Reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a.-introduction"><i class="fa fa-check"></i>A. Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#b.-materials"><i class="fa fa-check"></i>B. Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c.-methodology"><i class="fa fa-check"></i>C. Methodology</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#d.-results-and-conclusions"><i class="fa fa-check"></i>D. Results and Conclusions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#e.-general-discussion"><i class="fa fa-check"></i>E. General Discussion</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#f.-references-if-any"><i class="fa fa-check"></i>F. References (if any)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#g.-appendices-if-any"><i class="fa fa-check"></i>G. Appendices (if any)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#basics-of-rstudio"><i class="fa fa-check"></i><b>1.3</b> Basics of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#rstudio-gui"><i class="fa fa-check"></i><b>1.3.1</b> RStudio GUI</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#rmarkdown"><i class="fa fa-check"></i><b>1.3.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#collaborative-platforms"><i class="fa fa-check"></i><b>1.4</b> Collaborative Platforms</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#rpubs"><i class="fa fa-check"></i><b>1.4.1</b> RPubs</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#github-repository"><i class="fa fa-check"></i><b>1.4.2</b> GitHub Repository</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.5</b> Github</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#what-is-github"><i class="fa fa-check"></i><b>1.5.1</b> What is Github?</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#getting-started-with-github"><i class="fa fa-check"></i><b>1.5.2</b> Getting Started with GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html"><i class="fa fa-check"></i><b>2</b> Data Input and Output in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#built-in-data"><i class="fa fa-check"></i><b>2.1</b> Built-in Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#loading-external-data-sets"><i class="fa fa-check"></i><b>2.2</b> Loading External Data Sets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#preparing-r-workspace"><i class="fa fa-check"></i><b>2.2.1</b> Preparing R Workspace</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#setting-up-working-directory"><i class="fa fa-check"></i><b>2.2.2</b> Setting-up Working Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-common-files-into-r"><i class="fa fa-check"></i><b>2.3</b> Read Common Files into R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-txt-files-with-read.table"><i class="fa fa-check"></i><b>2.3.1</b> Read TXT files with read.table()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#data-values-separated-by-special-symbol"><i class="fa fa-check"></i><b>2.4</b> Data Values Separated By Special Symbol</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#importing-a-csv-into-r"><i class="fa fa-check"></i><b>2.4.1</b> Importing a CSV into R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-spss-and-other-data-sets-into-r"><i class="fa fa-check"></i><b>2.5</b> Import SAS, SPSS, and Other Data Sets into R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-spss-files-into-r"><i class="fa fa-check"></i><b>2.5.1</b> Import SPSS Files into R</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#mport-stata-files-into-r"><i class="fa fa-check"></i><b>2.5.2</b> mport Stata Files into R</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-systat-files-into-r"><i class="fa fa-check"></i><b>2.5.3</b> Import Systat Files into R</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-files-into-r"><i class="fa fa-check"></i><b>2.5.4</b> Import SAS Files into R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html"><i class="fa fa-check"></i><b>3</b> Base R Graphical Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#r-graphic-devices"><i class="fa fa-check"></i><b>3.1</b> R Graphic Devices</a></li>
+<li class="chapter" data-level="3.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#plotting-with-base-graphics-plot"><i class="fa fa-check"></i><b>3.2</b> Plotting with Base Graphics: <code>plot()</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#outer-and-inner-margins"><i class="fa fa-check"></i><b>3.2.1</b> Outer and Inner Margins</a></li>
+<li class="chapter" data-level="3.2.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#simple-multi-panel-plots"><i class="fa fa-check"></i><b>3.2.2</b> Simple multi-panel Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#making-our-own-colors"><i class="fa fa-check"></i><b>3.3</b> Making Our Own Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html"><i class="fa fa-check"></i><b>4</b> Effective Data Preparation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#data-set-description"><i class="fa fa-check"></i><b>4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="4.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#base-r-commands-for-data-management"><i class="fa fa-check"></i><b>4.2</b> Base R Commands for Data Management</a></li>
+<li class="chapter" data-level="4.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#working-with-scientific-notations"><i class="fa fa-check"></i><b>4.3</b> Working with Scientific Notations</a></li>
+<li class="chapter" data-level="4.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-ifelse-function"><i class="fa fa-check"></i><b>4.4</b> The <strong>ifelse()</strong> Function</a></li>
+<li class="chapter" data-level="4.5" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-cut-function"><i class="fa fa-check"></i><b>4.5</b> The <strong>cut()</strong> Function</a></li>
+<li class="chapter" data-level="4.6" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#with-and-within-functions"><i class="fa fa-check"></i><b>4.6</b> <strong>with()</strong> and <strong>within()</strong> Functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-with-function"><i class="fa fa-check"></i><b>4.6.1</b> The <strong>with()</strong> Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-merge-function---table-joins"><i class="fa fa-check"></i><b>4.7</b> The <strong>merge()</strong> Function - Table Joins</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#inner-join"><i class="fa fa-check"></i><b>4.7.1</b> Inner Join</a></li>
+<li class="chapter" data-level="4.7.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#left-join"><i class="fa fa-check"></i><b>4.7.2</b> Left Join</a></li>
+<li class="chapter" data-level="4.7.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#right-join"><i class="fa fa-check"></i><b>4.7.3</b> Right Join</a></li>
+<li class="chapter" data-level="4.7.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#full-outer-join"><i class="fa fa-check"></i><b>4.7.4</b> Full (outer) Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-data-frame"><i class="fa fa-check"></i><b>4.8</b> Subsetting Data Frame</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-columns"><i class="fa fa-check"></i><b>4.8.1</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="4.8.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-rows"><i class="fa fa-check"></i><b>4.8.2</b> Subsetting by Rows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Bootstrap Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>5.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#random-sample-from-population"><i class="fa fa-check"></i><b>5.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="5.1.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>5.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="5.1.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>5.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-intervals-1"><i class="fa fa-check"></i><b>5.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="5.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>5.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>5.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>5.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problem-set"><i class="fa fa-check"></i><b>5.4</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#data-set-description-1"><i class="fa fa-check"></i><b>5.4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="5.4.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problems"><i class="fa fa-check"></i><b>5.4.2</b> Problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html"><i class="fa fa-check"></i><b>6</b> Bootstrapping SLR</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-and-practical-questions"><i class="fa fa-check"></i><b>6.1</b> Data Set and Practical Questions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-description"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#practical-question"><i class="fa fa-check"></i><b>6.1.2</b> Practical Question</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>6.1.3</b> Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#simple-linear-regression-review"><i class="fa fa-check"></i><b>6.2</b> Simple Linear Regression: Review</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#structure-and-assumptions-of-simple-linear-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Structure and Assumptions of Simple Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#fitting-slr-to-data"><i class="fa fa-check"></i><b>6.3</b> Fitting SLR to Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#parametric-slr"><i class="fa fa-check"></i><b>6.3.1</b> Parametric SLR</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-regression"><i class="fa fa-check"></i><b>6.3.2</b> Bootstrap Regression</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#concluding-remarks"><i class="fa fa-check"></i><b>6.3.3</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="6.3.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-residual-method"><i class="fa fa-check"></i><b>6.3.4</b> Bootstrap Residual Method</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-selection-for-project-one"><i class="fa fa-check"></i><b>6.4</b> Data Set Selection for Project One</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-requirements"><i class="fa fa-check"></i><b>6.4.1</b> Data Set Requirements</a></li>
+<li class="chapter" data-level="6.4.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#web-sites-with-data-sets"><i class="fa fa-check"></i><b>6.4.2</b> Web Sites with Data Sets</a></li>
+<li class="chapter" data-level="6.4.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#analysis-and-writing-components"><i class="fa fa-check"></i><b>6.4.3</b> Analysis and Writing Components</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html"><i class="fa fa-check"></i><b>7</b> Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>7.1</b> The structure of MLR</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#assumptions-based-on-the-above-special-form."><i class="fa fa-check"></i><b>7.1.1</b> Assumptions based on the above special form.</a></li>
+<li class="chapter" data-level="7.1.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#potential-violations"><i class="fa fa-check"></i><b>7.1.2</b> Potential Violations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#variable-types"><i class="fa fa-check"></i><b>7.1.3</b> Variable types</a></li>
+<li class="chapter" data-level="7.1.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#dummy-and-discrete-numerical-explanatory-variables"><i class="fa fa-check"></i><b>7.1.4</b> Dummy and discrete numerical explanatory variables</a></li>
+<li class="chapter" data-level="7.1.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#interpretation-of-regression-coefficients-1"><i class="fa fa-check"></i><b>7.1.5</b> Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#model-building"><i class="fa fa-check"></i><b>7.2</b> Model building</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-structure-sample-size-and-preparation-for-mlr"><i class="fa fa-check"></i><b>7.2.1</b> Data structure, sample size, and preparation for MLR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#candidate-models-and-residual-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Candidate models and residual diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#significant-test-goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>7.2.3</b> Significant test, goodness-of-fit, and Variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#case-study--factors-that-impact-the-house-sale-prices"><i class="fa fa-check"></i><b>7.3</b> Case Study -Factors That Impact the House Sale Prices</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-description-1"><i class="fa fa-check"></i><b>7.3.1</b> Data Description</a></li>
+<li class="chapter" data-level="7.3.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#practical-question-1"><i class="fa fa-check"></i><b>7.3.2</b> Practical Question</a></li>
+<li class="chapter" data-level="7.3.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>7.3.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#fitting-mlr-to-data"><i class="fa fa-check"></i><b>7.3.4</b> Fitting MLR to Data</a></li>
+<li class="chapter" data-level="7.3.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#summary-of-the-model"><i class="fa fa-check"></i><b>7.3.5</b> Summary of the model</a></li>
+<li class="chapter" data-level="7.3.6" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#discussions"><i class="fa fa-check"></i><b>7.3.6</b> Discussions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#written-assignment"><i class="fa fa-check"></i><b>7.4</b> Written Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html"><i class="fa fa-check"></i><b>8</b> Bootstrapping MLR Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#parametric-linear-regression-model"><i class="fa fa-check"></i><b>8.1</b> Parametric Linear Regression Model</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-cases-boot.c"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Cases (BOOT.C)</a></li>
+<li class="chapter" data-level="8.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-residuals-boot.r"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Residuals (BOOT.R)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#fitted-model"><i class="fa fa-check"></i><b>8.3.1</b> Fitted Model</a></li>
+<li class="chapter" data-level="8.3.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#residual-bootstrap-samples"><i class="fa fa-check"></i><b>8.3.2</b> Residual Bootstrap Samples</a></li>
+<li class="chapter" data-level="8.3.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#implementation-of-residual-bootstrap-regression"><i class="fa fa-check"></i><b>8.3.3</b> Implementation of Residual Bootstrap Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#combining-all-inferential-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Combining All Inferential Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#modeling-assignment"><i class="fa fa-check"></i><b>8.4</b> Modeling Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html"><i class="fa fa-check"></i><b>9</b> Simple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#simple-binary-logistic-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Binary Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#the-model-structure"><i class="fa fa-check"></i><b>9.1.1</b> The Model Structure</a></li>
+<li class="chapter" data-level="9.1.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#interpretation-of-regression-coefficients-2"><i class="fa fa-check"></i><b>9.1.2</b> Interpretation of Regression Coefficients</a></li>
+<li class="chapter" data-level="9.1.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#use-of-simple-logistic-regression-model"><i class="fa fa-check"></i><b>9.1.3</b> Use of Simple Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#parameter-estimation"><i class="fa fa-check"></i><b>9.1.4</b> Parameter Estimation</a></li>
+<li class="chapter" data-level="9.1.5" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>9.1.5</b> Model Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="9.1.6" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.1.6</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#a-case-study"><i class="fa fa-check"></i><b>9.2</b> A Case Study</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#data-and-variable-descriptions"><i class="fa fa-check"></i><b>9.2.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#clinical-question"><i class="fa fa-check"></i><b>9.2.2</b> Clinical Question</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#building-the-simple-logistic-regression"><i class="fa fa-check"></i><b>9.2.3</b> Building the Simple Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#conclusion"><i class="fa fa-check"></i><b>9.3</b> Conclusion</a></li>
+<li class="chapter" data-level="9.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#analysis-assignment"><i class="fa fa-check"></i><b>9.4</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html"><i class="fa fa-check"></i><b>10</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model-1"><i class="fa fa-check"></i><b>10.1</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-requirements-sources-layout-and-cleansing"><i class="fa fa-check"></i><b>10.1.1</b> Data Requirements: Sources, Layout, and Cleansing</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#issues-of-predictor-variables-and-variable-inspection-transformation"><i class="fa fa-check"></i><b>10.1.2</b> Issues of Predictor Variables and Variable Inspection-Transformation</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#estimation-and-interpretation-of-regression-coefficients"><i class="fa fa-check"></i><b>10.1.3</b> Estimation and Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-blocks-for-predictive-performance"><i class="fa fa-check"></i><b>10.2</b> Building Blocks for Predictive Performance</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#understanding-the-performance-of-medical-diagnostics"><i class="fa fa-check"></i><b>10.2.1</b> Understanding the Performance of Medical Diagnostics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#performance-metrics-used-in-clinical-trials"><i class="fa fa-check"></i><b>10.2.2</b> Performance Metrics Used in Clinical Trials:</a></li>
+<li class="chapter" data-level="10.2.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#remarks"><i class="fa fa-check"></i><b>10.2.3</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#case-study"><i class="fa fa-check"></i><b>10.3</b> Case Study</a></li>
+<li class="chapter" data-level="10.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-and-variable-descriptions-1"><i class="fa fa-check"></i><b>10.4</b> Data and Variable Descriptions</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#research-question"><i class="fa fa-check"></i><b>10.4.1</b> Research Question</a></li>
+<li class="chapter" data-level="10.4.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#exploratory-analysis"><i class="fa fa-check"></i><b>10.4.2</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="10.4.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-the-multiple-logistic-regression-model"><i class="fa fa-check"></i><b>10.4.3</b> Building the Multiple Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.4.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#final-model-1"><i class="fa fa-check"></i><b>10.4.4</b> Final Model</a></li>
+<li class="chapter" data-level="10.4.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#summary-and-conclusion"><i class="fa fa-check"></i><b>10.4.5</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#analysis-assignment-1"><i class="fa fa-check"></i><b>10.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Predictive Modeling with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-in-predictive-modeling"><i class="fa fa-check"></i><b>11.1</b> Cross-Validation in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#the-logic-of-the-three-way-split"><i class="fa fa-check"></i><b>11.1.1</b> The Logic of the Three-way Split</a></li>
+<li class="chapter" data-level="11.1.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.1.2</b> Cross-validation (CV)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#predictive-performance-measures"><i class="fa fa-check"></i><b>11.2</b> Predictive Performance Measures</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#error-based-measures"><i class="fa fa-check"></i><b>11.2.1</b> Error-based Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#measuring-global-performance---roc-curve"><i class="fa fa-check"></i><b>11.3</b> Measuring Global Performance - ROC Curve</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-curve"><i class="fa fa-check"></i><b>11.3.1</b> ROC Curve</a></li>
+<li class="chapter" data-level="11.3.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#area-under-the-curve-auc"><i class="fa fa-check"></i><b>11.3.2</b> Area Under The Curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#case-study---diabetes-prediction-with-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Case Study - Diabetes Prediction with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-and-variable-descriptions-2"><i class="fa fa-check"></i><b>11.4.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="11.4.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#research-question-1"><i class="fa fa-check"></i><b>11.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="11.4.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#exploratory-analysis-1"><i class="fa fa-check"></i><b>11.4.3</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="11.4.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#standizing-numerical-predictor-variables"><i class="fa fa-check"></i><b>11.4.4</b> Standizing Numerical Predictor Variables</a></li>
+<li class="chapter" data-level="11.4.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-split---training-and-testing-data"><i class="fa fa-check"></i><b>11.4.5</b> Data Split - Training and Testing Data</a></li>
+<li class="chapter" data-level="11.4.6" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#best-model-identification"><i class="fa fa-check"></i><b>11.4.6</b> Best Model Identification</a></li>
+<li class="chapter" data-level="11.4.7" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-analysis---global-performance"><i class="fa fa-check"></i><b>11.4.7</b> ROC Analysis - Global Performance</a></li>
+<li class="chapter" data-level="11.4.8" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#summary-and-conclusion-1"><i class="fa fa-check"></i><b>11.4.8</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#analysis-assignment-2"><i class="fa fa-check"></i><b>11.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html"><i class="fa fa-check"></i><b>12</b> Poison Regression Modeling</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#linear-regression-models"><i class="fa fa-check"></i><b>12.1</b> Linear Regression Models</a></li>
+<li class="chapter" data-level="12.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.2</b> Binary Logistic Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-models"><i class="fa fa-check"></i><b>12.3</b> Poisson Regression Models</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assumptions-of-the-poisson-regression-model"><i class="fa fa-check"></i><b>12.3.1</b> Assumptions of the Poisson Regression Model</a></li>
+<li class="chapter" data-level="12.3.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#structure-of-poisson-regression-model-for-counts"><i class="fa fa-check"></i><b>12.3.2</b> Structure of Poisson Regression Model for Counts</a></li>
+<li class="chapter" data-level="12.3.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-models-for-rates"><i class="fa fa-check"></i><b>12.3.3</b> Poisson Models for Rates</a></li>
+<li class="chapter" data-level="12.3.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#estimation-of-regression-coefficients-and-goodness-of-fit"><i class="fa fa-check"></i><b>12.3.4</b> Estimation of Regression Coefficients and Goodness-of-fit</a></li>
+<li class="chapter" data-level="12.3.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-set-layout"><i class="fa fa-check"></i><b>12.3.5</b> Data Set Layout</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i"><i class="fa fa-check"></i><b>12.4</b> Case Study: Modeling Lung Cancer Rates in Four Cities of Denmark - Part I</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-cancer-counts"><i class="fa fa-check"></i><b>12.4.1</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="12.4.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-rates"><i class="fa fa-check"></i><b>12.4.2</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="12.4.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#some-graphical-comparison"><i class="fa fa-check"></i><b>12.4.3</b> Some Graphical Comparison</a></li>
+<li class="chapter" data-level="12.4.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#discussions-and-conclusions"><i class="fa fa-check"></i><b>12.4.4</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#concluding-remarks-2"><i class="fa fa-check"></i><b>12.5</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="12.6" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#analysis-assignment-3"><i class="fa fa-check"></i><b>12.6</b> Analysis Assignment</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-description-2"><i class="fa fa-check"></i><b>12.6.1</b> Data Description</a></li>
+<li class="chapter" data-level="12.6.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-formats-and-loading"><i class="fa fa-check"></i><b>12.6.2</b> Data Formats and Loading</a></li>
+<li class="chapter" data-level="12.6.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assignment-instructions"><i class="fa fa-check"></i><b>12.6.3</b> Assignment Instructions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html"><i class="fa fa-check"></i><b>13</b> Dispersed Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#residuals-of-poisson-regression"><i class="fa fa-check"></i><b>13.1</b> Residuals of Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#pearson-residuals"><i class="fa fa-check"></i><b>13.1.1</b> Pearson Residuals</a></li>
+<li class="chapter" data-level="13.1.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#deviance-residuals"><i class="fa fa-check"></i><b>13.1.2</b> Deviance Residuals</a></li>
+<li class="chapter" data-level="13.1.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example"><i class="fa fa-check"></i><b>13.1.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.1.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>13.1.4</b> Goodness-of-fit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#dispersion-and-dispersed-poisson-regression-model"><i class="fa fa-check"></i><b>13.2</b> Dispersion and Dispersed Poisson Regression Model</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#definition-of-dispersion"><i class="fa fa-check"></i><b>13.2.1</b> Definition of Dispersion</a></li>
+<li class="chapter" data-level="13.2.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-regression-model"><i class="fa fa-check"></i><b>13.2.2</b> Quasi-Poisson Regression Model</a></li>
+<li class="chapter" data-level="13.2.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example-1"><i class="fa fa-check"></i><b>13.2.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.2.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#summary-and-concluding-remarks"><i class="fa fa-check"></i><b>13.2.4</b> Summary and Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-i-denmark-cities-lung-cancer-rates"><i class="fa fa-check"></i><b>13.3</b> Case Study I: Denmark Cities Lung Cancer Rates</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#introduction-1"><i class="fa fa-check"></i><b>13.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.3.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-cancer-counts-1"><i class="fa fa-check"></i><b>13.3.2</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="13.3.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-rates-1"><i class="fa fa-check"></i><b>13.3.3</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="13.3.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-rate-model"><i class="fa fa-check"></i><b>13.3.4</b> Quasi-Poisson Rate Model</a></li>
+<li class="chapter" data-level="13.3.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#final-working-model"><i class="fa fa-check"></i><b>13.3.5</b> Final Working Model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons"><i class="fa fa-check"></i><b>13.3.6</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.3.7" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#discussions-and-conclusions-1"><i class="fa fa-check"></i><b>13.3.7</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-ii---ph.d.-and-mentors-productivity"><i class="fa fa-check"></i><b>13.4</b> Case Study II - Ph.D. and Mentor’s Productivity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#variable-description"><i class="fa fa-check"></i><b>13.4.1</b> Variable Description</a></li>
+<li class="chapter" data-level="13.4.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#research-question-2"><i class="fa fa-check"></i><b>13.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="13.4.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#data-preparation-and-variable-processing"><i class="fa fa-check"></i><b>13.4.3</b> Data Preparation and Variable Processing</a></li>
+<li class="chapter" data-level="13.4.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poison-regression-modeling-1"><i class="fa fa-check"></i><b>13.4.4</b> Poison Regression Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#section"><i class="fa fa-check"></i><b>13.5</b> </a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons-1"><i class="fa fa-check"></i><b>13.5.1</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.5.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#conclusions"><i class="fa fa-check"></i><b>13.5.2</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#analysis-assignment-4"><i class="fa fa-check"></i><b>13.6</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html"><i class="fa fa-check"></i><b>14</b> Concepts of Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#types-of-time-series-data"><i class="fa fa-check"></i><b>14.1</b> Types of Time Series Data</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#uncorrelated-data-constant-process-model-random-time-series"><i class="fa fa-check"></i><b>14.1.1</b> Uncorrelated data, constant process model: random time series</a></li>
+<li class="chapter" data-level="14.1.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#autocorrelated-data"><i class="fa fa-check"></i><b>14.1.2</b> Autocorrelated data</a></li>
+<li class="chapter" data-level="14.1.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#trend-data"><i class="fa fa-check"></i><b>14.1.3</b> Trend Data</a></li>
+<li class="chapter" data-level="14.1.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-data"><i class="fa fa-check"></i><b>14.1.4</b> Seasonal Data</a></li>
+<li class="chapter" data-level="14.1.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#nonstationary-data"><i class="fa fa-check"></i><b>14.1.5</b> Nonstationary Data</a></li>
+<li class="chapter" data-level="14.1.6" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#atypical-event-outliers"><i class="fa fa-check"></i><b>14.1.6</b> Atypical Event (Outliers)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-technical-terms-and-baseline-forecasting-models"><i class="fa fa-check"></i><b>14.2</b> Some Technical Terms and Baseline Forecasting Models</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-definitions"><i class="fa fa-check"></i><b>14.2.1</b> Some Definitions</a></li>
+<li class="chapter" data-level="14.2.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#baseline-methods"><i class="fa fa-check"></i><b>14.2.2</b> Baseline Methods</a></li>
+<li class="chapter" data-level="14.2.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-naive-method"><i class="fa fa-check"></i><b>14.2.3</b> Seasonal Naive Method</a></li>
+<li class="chapter" data-level="14.2.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#drift-method"><i class="fa fa-check"></i><b>14.2.4</b> Drift Method</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#accuracy-measures-in-time-series-forecasting"><i class="fa fa-check"></i><b>14.3</b> Accuracy Measures in Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#training-and-testing-data"><i class="fa fa-check"></i><b>14.3.1</b> Training and Testing Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#forecasting-errors"><i class="fa fa-check"></i><b>14.3.2</b> Forecasting Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#case-study-1"><i class="fa fa-check"></i><b>14.4</b> Case Study</a></li>
+<li class="chapter" data-level="14.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#analysis-assignment-5"><i class="fa fa-check"></i><b>14.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html"><i class="fa fa-check"></i><b>15</b> Time Series Decomposition</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#classical-decompositions"><i class="fa fa-check"></i><b>15.1</b> Classical Decompositions</a></li>
+<li class="chapter" data-level="15.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#understanding-the-classical-decomposition-of-time-series"><i class="fa fa-check"></i><b>15.2</b> Understanding the Classical Decomposition of Time Series</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#detect-trend"><i class="fa fa-check"></i><b>15.2.1</b> Detect Trend</a></li>
+<li class="chapter" data-level="15.2.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-the-seasonality"><i class="fa fa-check"></i><b>15.2.2</b> Extracting the Seasonality</a></li>
+<li class="chapter" data-level="15.2.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-remainder-errors"><i class="fa fa-check"></i><b>15.2.3</b> Extracting Remainder Errors</a></li>
+<li class="chapter" data-level="15.2.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#reconstruct-the-original-series-compose-new-series"><i class="fa fa-check"></i><b>15.2.4</b> Reconstruct the Original Series / Compose New Series</a></li>
+<li class="chapter" data-level="15.2.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#decomposing-time-series-with-decompose"><i class="fa fa-check"></i><b>15.2.5</b> Decomposing Time Series with <strong>decompose()</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing"><i class="fa fa-check"></i><b>15.3</b> Forecasting with Decomposing</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-additive-models-with-decomposing"><i class="fa fa-check"></i><b>15.3.1</b> Forecasting Additive Models with Decomposing</a></li>
+<li class="chapter" data-level="15.3.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#concepts-of-seasonal-and-trend-decomposition-using-loess-stl"><i class="fa fa-check"></i><b>15.3.2</b> Concepts of Seasonal and Trend Decomposition Using Loess (STL)</a></li>
+<li class="chapter" data-level="15.3.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecast-with-stl-decomposing"><i class="fa fa-check"></i><b>15.3.3</b> Forecast with STL decomposing</a></li>
+<li class="chapter" data-level="15.3.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#length-of-time-series"><i class="fa fa-check"></i><b>15.3.4</b> Length of Time Series</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#case-study-2"><i class="fa fa-check"></i><b>15.4</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#data-description-and"><i class="fa fa-check"></i><b>15.4.1</b> Data description and</a></li>
+<li class="chapter" data-level="15.4.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#define-time-series-object"><i class="fa fa-check"></i><b>15.4.2</b> Define time series object</a></li>
+<li class="chapter" data-level="15.4.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing-1"><i class="fa fa-check"></i><b>15.4.3</b> Forecasting with Decomposing</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#analysis-assignment-6"><i class="fa fa-check"></i><b>15.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html"><i class="fa fa-check"></i><b>16</b> Exponential Smoothing Methods</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#ets-framework"><i class="fa fa-check"></i><b>16.1</b> ETS Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-methods-1"><i class="fa fa-check"></i><b>16.1.1</b> Exponential Smoothing Methods</a></li>
+<li class="chapter" data-level="16.1.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-models"><i class="fa fa-check"></i><b>16.1.2</b> Exponential Smoothing Models</a></li>
+<li class="chapter" data-level="16.1.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#estimation-smoothing-parameters-in-smoothing-models"><i class="fa fa-check"></i><b>16.1.3</b> Estimation Smoothing Parameters in Smoothing Models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>16.2</b> Simple Exponential Smoothing</a></li>
+<li class="chapter" data-level="16.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holts-smoothing-model-linear-additive-trend"><i class="fa fa-check"></i><b>16.3</b> Holt’s Smoothing Model: Linear (additive) Trend</a></li>
+<li class="chapter" data-level="16.4" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#damped-trend-methods"><i class="fa fa-check"></i><b>16.4</b> Damped Trend Methods</a></li>
+<li class="chapter" data-level="16.5" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holt-winters-model-for-trend-and-seasonal-data"><i class="fa fa-check"></i><b>16.5</b> Holt-Winters Model for Trend and Seasonal Data</a></li>
+<li class="chapter" data-level="16.6" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#case-study-3"><i class="fa fa-check"></i><b>16.6</b> Case study</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 321 E-pack: Advanced Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-logistic-regression-model" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Topic 10</span> Multiple Logistic Regression Model<a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The general multivariable linear regression model is given below.</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k + \epsilon,
+\]</span></p>
+<p>where <span class="math inline">\(y\)</span> is the response variable that is assumed to be a random variable and <span class="math inline">\(\epsilon \to N(0, \sigma^2)\)</span>. This also implies that</p>
+<p><span class="math display">\[
+E[y] = \beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k
+\]</span></p>
+<p>For a population with binary data, the underlying random variable can only take exactly two values, say <span class="math inline">\(Y=1\)</span> or <span class="math inline">\(Y=0\)</span>, and <span class="math inline">\(P(Y=1) = p\)</span>, then <span class="math inline">\(E[Y] = 1\times p + 0\times (1-p) = p.\)</span></p>
+<p>That is, the success probability is the expected value of the binary random variable. If we mimic the formulation of the linear regression model by setting</p>
+<p>The simple linear regression model (also called the log-odds regression model) is also formulated with the mean response <span class="math inline">\(E[Y]\)</span>
+<span class="math display">\[
+\frac{E[Y]}{1-E[Y]} = \beta_0 + \beta_1x.
+\]</span></p>
+<p>Let <span class="math inline">\(g(t) = t/(1-t)\)</span> (also called logit function), the simple logistic regression is re-expressed as <span class="math inline">\(g(E[Y]) = \beta_0 + \beta_1x\)</span>.</p>
+<div id="multiple-logistic-regression-model-1" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Multiple Logistic Regression Model<a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let <span class="math inline">\(Y\)</span> be the binary response variable and <span class="math inline">\(\{x_1, x_2, \cdots, x_n \}\)</span> be the set of predictor variables. If <span class="math inline">\(Y\)</span> takes on either 1 or 0, the multiple logistic regression model is then defined as</p>
+<p><span class="math display">\[
+\frac{E[Y]}{1-E[Y]} = \beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k
+\]</span></p>
+<p>The success probability function</p>
+<p><span class="math display">\[
+p(x_1, x_2, \cdots, x_k)=P(Y=1|x_1, x_2, \cdots, x_k) =\frac{\exp(\beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k)}{1+\exp(\beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k)}
+\]</span></p>
+<p>If <span class="math inline">\(Y\)</span> takes on character values, R uses chooses the alphabetically higher value to model the above probability. For example, if <span class="math inline">\(Y\)</span> = “disease” or “no.disease”, by default, the logistic regression will be defined as</p>
+<p><span class="math display">\[
+p(x_1, x_2, \cdots, x_k)=P(Y=&quot;no.disease&quot;|x_1, x_2, \cdots, x_k) =\frac{\exp(\beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k)}{1+\exp(\beta_0 + \beta_1x_1 + \beta_2 x_2 + \cdots + \beta_kx_k)}
+\]</span>
+Of cause, you can also redefine the factor level of the response variable to model the probability of the desired category.</p>
+<div id="data-requirements-sources-layout-and-cleansing" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Data Requirements: Sources, Layout, and Cleansing<a href="multiple-logistic-regression-model.html#data-requirements-sources-layout-and-cleansing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The logistic regression models we are discussing require an I.I.D. sample collected from a cross-sectional study design. Auto-correlation between observations is <strong>not</strong> allowed. For longitudinal data that involves auto-correlation, different models can be used to handle the correlation between observations taken from the same subject in the study.</p>
+<p>The general data layout for fitting a logistic regression in R has the following form.</p>
+<table>
+<caption><span id="tab:table2">Table 10.1: </span>Data set layout for multiple logistic regression model</caption>
+<thead>
+<tr class="header">
+<th align="left">Y</th>
+<th align="left">X1</th>
+<th align="left">X2</th>
+<th align="left"></th>
+<th align="left">Xk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Y1</td>
+<td align="left">X11</td>
+<td align="left">X21</td>
+<td align="left">…</td>
+<td align="left">Xk1</td>
+</tr>
+<tr class="even">
+<td align="left">Y2</td>
+<td align="left">X12</td>
+<td align="left">X22</td>
+<td align="left">…</td>
+<td align="left">Xk2</td>
+</tr>
+<tr class="odd">
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+<tr class="even">
+<td align="left">Yn</td>
+<td align="left">X1n</td>
+<td align="left">X2n</td>
+<td align="left">…</td>
+<td align="left">Xkn</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="issues-of-predictor-variables-and-variable-inspection-transformation" class="section level3 hasAnchor" number="10.1.2">
+<h3><span class="header-section-number">10.1.2</span> Issues of Predictor Variables and Variable Inspection-Transformation<a href="multiple-logistic-regression-model.html#issues-of-predictor-variables-and-variable-inspection-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>All models have some explicit and implicit assumptions about the predictor variables and structure of the models. Unlike multiple linear regression models in which the diagnostic residual plots reveal some special patterns of potential violations of the model assumptions, in logistic regression modeling, we don’t have many diagnostic tools to use. Some pre-processing procedures should be performed on predictor variables before a logistic regression model is fit to the data.</p>
+<p>The variable inspection-transformation is an iterative process, some of the following potential issues of predictor variables may be considered in the inspection-transformation-inspection workflow.</p>
+<ul>
+<li><p><strong>Variable Types</strong>: Predictor variables could be numeric, categorical, or a mixture of numeric and categorical.</p></li>
+<li><p><strong>Collinearity</strong>: Predictor variables are assumed to be non-linearly correlated since the multicollinearity causes unstable estimates of the regression coefficients, hence, fails to obtain a valid model. Remedy for collinearity</p>
+<ul>
+<li><p>Remove some of the highly correlated independent variables - Variable selection.</p></li>
+<li><p>Perform an analysis designed for highly correlated variables such as principal components analysis or partial least squares regression - variable extraction.</p></li>
+<li><p>Variable centralization.</p></li>
+<li><p>Non-probabilistic variable selection - Regularization.</p></li>
+</ul></li>
+<li><p><strong>Dummy Variables</strong>: If categorical predictor variables were numerically coded, we have to turn these numerically coded variables into factor variables. For example, the status of a disease could be “severe”, “mild”, and “disease-free”, if a numerical coding: 2 = “severe”, 1 = “mild” and 0 = “disease-free”, then you need to R function <strong>factor()</strong> to convert the numerically coded disease status to a factor variable.</p></li>
+<li><p><strong>“Fake Variable”</strong>: The observation ID is <strong>NOT</strong> a variable, you should <strong>never</strong> include the observation ID in any of your regression models.</p></li>
+<li><p><strong>Sparse Category Variables</strong>: Group the categories in a meaningful way if necessary. For example, Assume that you have a data set of information about cars of different models from various manufacturers. If you want to build regression on a data set with a relatively small sample size, the use of the car-model as a categorical variable is not appropriate since too many different car models will result in too many dummy variables. From a mathematical point of view, the number of parameters should be less than the number of data points. However, from the statistical point of view, the desired sample size is 15 times the number of parameters to ensure stable estimates of model parameters.</p></li>
+<li><p><strong>Variable transformation</strong>: - In logistic regression models, the response variable has already been transformed in the form of log odds of “success”. The predictor variables could be transformed in different ways for different purposes.</p>
+<ul>
+<li><p><strong>Association Analysis</strong> - a transformation of predictor variables makes the interpretation of the coefficient much more difficult.</p></li>
+<li><p><strong>Predictive Analysis</strong> - transforming all <em>numerical variables</em> to the same scale may improve the performance of predictive models. One of the benefits of standardizing predictor variables is to make variable selection (model regularization) straightforward and interpretable.</p></li>
+</ul></li>
+<li><p><strong>Variable Discretization</strong> - several methods can be used for the discretization: (1) <strong>empirical approaches</strong> include equally spaced and equal frequency, (2) <strong>model-assisted approaches</strong> include decision tree and k-mean. Discretization is commonly used for different purposes.</p>
+<ul>
+<li><p>Model interpretability and understandability - it is easier to understand continuous data (such as age) when divided and stored into meaningful categories or groups. It is commonly used in association analysis.</p></li>
+<li><p>Fixing the potential imbalance issues that could potentially lead to an unstable estimate of the coefficients.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="estimation-and-interpretation-of-regression-coefficients" class="section level3 hasAnchor" number="10.1.3">
+<h3><span class="header-section-number">10.1.3</span> Estimation and Interpretation of Regression Coefficients<a href="multiple-logistic-regression-model.html#estimation-and-interpretation-of-regression-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As mentioned in the simple logistic regression model, regression coefficients are estimated by using the maximum likelihood approach.</p>
+<p>Let <span class="math inline">\(\{(y_1, x_{11}, x_{21}, \cdots, x_{k1}), (y_2, x_{12}, x_{22}, \cdots, x_{k2}), \cdots, (y_n, x_{1n}, x_{2n}, \cdots, x_{kn})\}\)</span> be a random sample taken from a binary population associated with <span class="math inline">\(Y\)</span>. <span class="math inline">\(x\)</span> is a nonrandom predictor variable associated with <span class="math inline">\(Y\)</span>. The logistic model is defined to be</p>
+<p><span class="math display">\[
+p(x) = \frac{e^{\beta_0 + \beta_1 x_1 +\cdots + \beta_kx_k}}{1 + e^{\beta_0 + \beta_1 x_1 + \cdots + \beta_kx_k}}.
+\]</span>
+The likelihood function of <span class="math inline">\((\beta_0, \beta_1, \cdots, \cdots, \beta_k)\)</span> is given by</p>
+<p><span class="math display">\[
+L(\beta_0, \beta_1,\cdots, \beta_k)
+= \prod_{i=1}^n \left[\frac{e^{\beta_0 + \beta_1 x_{i1}+\cdots+\beta_kx_{ik}}}{1 + e^{\beta_0 + \beta_1 x_{i1}+\cdots+\beta_kx_{ik}}}\right]^{y_i}\times \left[\frac{1}{1 + e^{\beta_0 + \beta_1 x_{i1}+\cdots+\beta_kx_{ik}}} \right]^{1-y_i}
+\]</span></p>
+<p>The maximum likelihood estimate (MLE) of <span class="math inline">\(\beta_0, \beta_1, \cdots, \beta_k\)</span>, denoted by <span class="math inline">\(\hat{\beta}_0,\hat{\beta}_1, \cdots, \hat{\beta}_k\)</span>, maximizes the above likelihood. The R build-in function <strong>glm()</strong> uses the MLE method to estimate parameters and reports related to MLE-based statistics.</p>
+<p>The coefficients are interpreted similarly as used in the simple logistic regression model. To interpret <span class="math inline">\(\beta_j\)</span> in the multiple logistic regression model,</p>
+<p><span class="math display">\[
+\log\left(\frac{P[Y=1|\cdots,x_j,\cdots]}{1-P[Y=1|\cdots,x_j,\cdots]}\right) = \beta_0 + \beta_1x_1 + \cdots + \beta_{j-1}x_{j-1}+ \beta_jx_j + \beta_{j+1} + \cdots+\beta_kx_k
+\]</span>
+If we <strong>fix the values of all <span class="math inline">\(X_i\)</span> except for increasing <span class="math inline">\(x_j\)</span> by one unit</strong>, then</p>
+<p><span class="math display">\[
+\log\left(\frac{P[Y=1|\cdots,(x_j+1),\cdots]}{1-P[Y=1|\cdots,(x_j+1),\cdots]}\right) = \beta_0 + \beta_1x_1 + \cdots + \beta_{j-1}x_{j-1}+ \beta_j(x_j+1) + \beta_{j+1}x_{j+1} + \cdots+\beta_kx_k
+\]</span>
+Then</p>
+<p><span class="math display">\[
+\beta_j = \log\left(\frac{P[Y=1|\cdots,(x_j+1),\cdots]}{1-P[Y=1|\cdots,(x_j+1),\cdots]}\right) - \log\left(\frac{P[Y=1|\cdots,x_j,\cdots]}{1-P[Y=1|\cdots,x_j,\cdots]}\right)
+=\log \left(\frac{\frac{P[Y=1|\cdots,(x_j+1),\cdots]}{1-P[Y=1|\cdots,(x_j+1),\cdots]}}{\frac{P[Y=1|\cdots,x_j,\cdots]}{1-P[Y=1|\cdots,x_j,\cdots]}}\right)
+\]</span></p>
+<p>Therefore, <span class="math inline">\(\beta_j\)</span> (for <span class="math inline">\(j=1, 2, \cdots, k\)</span>) is the log odds ratio as explained in the simple logistic regression model.</p>
+<p>If <span class="math inline">\(\beta_j = 0\)</span>, then <span class="math inline">\(x_j\)</span> is insignificant meaning that the odds of “success” in a subset of subjects with predictor values <span class="math inline">\(\{x_1, \cdots, x_{j-1}, x_{j+1}, x_{j+1}, \cdots, x_k \}\)</span> is equal to the odds of “success” in other subsets with predictor values <span class="math inline">\(\{x_1, \cdots, x_{j-1}, x_{j}, x_{j+1}, \cdots, x_k \}\)</span>.</p>
+</div>
+</div>
+<div id="building-blocks-for-predictive-performance" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Building Blocks for Predictive Performance<a href="multiple-logistic-regression-model.html#building-blocks-for-predictive-performance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Prediction in the logistic regression is not straightforward. The logistic regression function</p>
+<p><span class="math display">\[
+p(x) = \frac{e^{\beta_0 + \beta_1 x_1 +\cdots + \beta_kx_k}}{1 + e^{\beta_0 + \beta_1 x_1 + \cdots + \beta_kx_k}}.
+\]</span></p>
+<p>predicts the probability of “success” but not the status of “success”. In order to predict the value of <span class="math inline">\(Y\)</span>, we still need to have a cut-off probability to define the predicted “success” and “failure”. How to find the optimal cut-off probability will be addressed later module.</p>
+<p>Next, we assume there is a cut-off probability for predicting the original value of the response variable. Most software programs as R and SAS use 0.5 as the cut-off for predicting <span class="math inline">\(Y\)</span>.</p>
+<div id="understanding-the-performance-of-medical-diagnostics" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Understanding the Performance of Medical Diagnostics<a href="multiple-logistic-regression-model.html#understanding-the-performance-of-medical-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this section, we define some performance metrics of the logistic regression as a predictive model based on the predictive error. For ease of illustration, we consider a simple model using a diagnostic test result (X = T+ or T-) to predict a disease (Y = D+ or D-) to define these performance metrics where</p>
+<p>T+ = positive test result: numerical coding 1</p>
+<p>T- = negative test result: numerical coding 0</p>
+<p>D+ = diseased: numerical coding 1</p>
+<p>D- = disease-free: numerical coding 0</p>
+<p>The following metrics measure the predictive performance of the logistic regression model. The first two measures reflect the correct decision of the model and the last two error rates of the logistic regression model.</p>
+<ul>
+<li><p><strong>Positive Predictive Value</strong>: P(Y = D+ | X = T+)</p>
+<p><span class="math inline">\(PPV =P(Y=1|X=1)= \frac{e^{\beta_0+\beta_1}}{1+e^{\beta_0+\beta_1}}\)</span></p></li>
+<li><p><strong>Negative Predictive Value</strong>: P(Y = D- | X = T-)</p>
+<p><span class="math inline">\(NPV=P(Y=1|X=0)= \frac{e^{\beta_0}}{1+e^{\beta_0}}\)</span></p></li>
+<li><p><strong>False Positive Predictive Rate</strong>: P(Y = D- | X = T+)</p>
+<p><span class="math inline">\(FPPV=P(Y=0|X=1)= \frac{1}{1+e^{\beta_0+\beta_1}}\)</span></p></li>
+<li><p><strong>False Positive Predictive Rate</strong>: P(Y = D+ | X = T-)</p>
+<p><span class="math inline">\(FNPV=P(Y=0|X=0)= \frac{1}{1+e^{\beta_0}}\)</span></p></li>
+</ul>
+<p>The above four conditional probabilities can also be estimated by calculating the corresponding relative frequencies from the following two-way contingency table - also called <strong>confusion matrix</strong>. For convenience, we call the above four metrics <strong>prediction performance metrics</strong>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="multiple-logistic-regression-model.html#cb136-1" tabindex="-1"></a>D1 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;n11&quot;</span>, <span class="st">&quot;n12&quot;</span>)</span>
+<span id="cb136-2"><a href="multiple-logistic-regression-model.html#cb136-2" tabindex="-1"></a>D0 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;n21&quot;</span>, <span class="st">&quot;n22&quot;</span>)</span>
+<span id="cb136-3"><a href="multiple-logistic-regression-model.html#cb136-3" tabindex="-1"></a>M<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">rbind</span>(D1, D0))</span>
+<span id="cb136-4"><a href="multiple-logistic-regression-model.html#cb136-4" tabindex="-1"></a><span class="fu">names</span>(M)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;T+&quot;</span>, <span class="st">&quot;T-&quot;</span>)</span>
+<span id="cb136-5"><a href="multiple-logistic-regression-model.html#cb136-5" tabindex="-1"></a><span class="fu">row.names</span>(M) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;D+&quot;</span>, <span class="st">&quot;D-&quot;</span>)</span>
+<span id="cb136-6"><a href="multiple-logistic-regression-model.html#cb136-6" tabindex="-1"></a><span class="fu">kable</span>(M)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">T+</th>
+<th align="left">T-</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">D+</td>
+<td align="left">n11</td>
+<td align="left">n12</td>
+</tr>
+<tr class="even">
+<td align="left">D-</td>
+<td align="left">n21</td>
+<td align="left">n22</td>
+</tr>
+</tbody>
+</table>
+<p>The above four metrics are used by clinical diagnosis after the test was approved by the FDA since the diagnostic decision is based on the test result.</p>
+</div>
+<div id="performance-metrics-used-in-clinical-trials" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Performance Metrics Used in Clinical Trials:<a href="multiple-logistic-regression-model.html#performance-metrics-used-in-clinical-trials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now, let’s consider the case that a manufacturer conducting a clinical phase II trial and submitting the results for FDA approval. The FDA uses the following metrics in the approval process.</p>
+<ul>
+<li><p><strong>Sensitivity</strong>: P( T+ | D+)</p></li>
+<li><p><strong>Specificity</strong>: P( T- | D-)</p></li>
+<li><p><strong>False Negative Rate</strong>: P( T- | D+)</p></li>
+<li><p><strong>False Positive Rate</strong>: P( T+ | D-)</p></li>
+</ul>
+<p>The above metrics are well-defined since the disease status of subjects is known in the clinical trial. The estimated values of these metrics can be found in the clinical data. For convenience, we call the above four metrics <strong>Validation Performance Metrics</strong>.</p>
+</div>
+<div id="remarks" class="section level3 hasAnchor" number="10.2.3">
+<h3><span class="header-section-number">10.2.3</span> Remarks<a href="multiple-logistic-regression-model.html#remarks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here are several remarks on the above two sets of performance metrics.</p>
+<ul>
+<li><p>The <strong>prediction performance metrics</strong> are dependent on the choice of the cut-off “success” probability. They can be estimated from a fitted logistic regression model.</p></li>
+<li><p>The <strong>validation performance metrics</strong> are defined based on the data with known disease status. A proposed diagnostic test is good if both sensitivity and specificity are high.</p></li>
+<li><p>Thinking about the logistic regression model you developed as “a diagnostic test” (since it can predict the status of a disease), which sets of metrics you should use to show the goodness of your model? The answer is the set of <strong>validation performance metrics</strong>.</p></li>
+<li><p><strong>Sensitivity and Specificity</strong> are the basic building blocks used to define various performance metrics to assess the goodness of the predictive model using the <strong>testing data</strong> with known response values. This will be one of the major topics in the next module.</p></li>
+</ul>
+</div>
+</div>
+<div id="case-study" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Case Study<a href="multiple-logistic-regression-model.html#case-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this case study, we still use the diabetes data that was used in the last module.</p>
+</div>
+<div id="data-and-variable-descriptions-1" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Data and Variable Descriptions<a href="multiple-logistic-regression-model.html#data-and-variable-descriptions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are 9 variables in the data set.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>pregnant</strong>: Number of times pregnant</p></li>
+<li><p><strong>glucose</strong>: Plasma glucose concentration (glucose tolerance test)</p></li>
+<li><p><strong>pressure</strong>: Diastolic blood pressure (mm Hg)</p></li>
+<li><p><strong>triceps</strong>: Triceps skin fold thickness (mm)</p></li>
+<li><p><strong>insulin</strong>: 2-Hour serum insulin (mu U/ml)</p></li>
+<li><p><strong>mass</strong>: Body mass index (weight in kg/(height in m)^2)</p></li>
+<li><p><strong>pedigree</strong>: Diabetes pedigree function</p></li>
+<li><p><strong>age</strong>: Age (years)</p></li>
+<li><p><strong>diabetes</strong>: Class variable (test for diabetes)</p></li>
+</ol>
+<p>I load the data from R <strong>library{mlbench}</strong> in the following code. For convenience, I delete all records with missing values and keep only the records with complete records in this case study. The final analytic data set has 392 records. This</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="multiple-logistic-regression-model.html#cb137-1" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
+<span id="cb137-2"><a href="multiple-logistic-regression-model.html#cb137-2" tabindex="-1"></a><span class="fu">data</span>(PimaIndiansDiabetes2)           <span class="co"># load the data to R work-space</span></span>
+<span id="cb137-3"><a href="multiple-logistic-regression-model.html#cb137-3" tabindex="-1"></a>diabetes<span class="fl">.0</span> <span class="ot">=</span> PimaIndiansDiabetes2    <span class="co"># make a copy of the data for data cleansing </span></span>
+<span id="cb137-4"><a href="multiple-logistic-regression-model.html#cb137-4" tabindex="-1"></a>diabetes <span class="ot">=</span> <span class="fu">na.omit</span>(diabetes<span class="fl">.0</span>)       <span class="co"># Delete all records with missing components</span></span>
+<span id="cb137-5"><a href="multiple-logistic-regression-model.html#cb137-5" tabindex="-1"></a><span class="co">#head(diabetes)</span></span></code></pre></div>
+<div id="research-question" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Research Question<a href="multiple-logistic-regression-model.html#research-question" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The objective of this case study is to identify the risk factors for diabetes.</p>
+</div>
+<div id="exploratory-analysis" class="section level3 hasAnchor" number="10.4.2">
+<h3><span class="header-section-number">10.4.2</span> Exploratory Analysis<a href="multiple-logistic-regression-model.html#exploratory-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first make the following pairwise scatter plots to inspect the potential issues with predictor variables.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="multiple-logistic-regression-model.html#cb138-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
+<pre><code>## 
+## 载入程辑包：&#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:scales&#39;:
+## 
+##     alpha, rescale</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="multiple-logistic-regression-model.html#cb141-1" tabindex="-1"></a><span class="fu">pairs.panels</span>(diabetes[,<span class="sc">-</span><span class="dv">9</span>], </span>
+<span id="cb141-2"><a href="multiple-logistic-regression-model.html#cb141-2" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># correlation method</span></span>
+<span id="cb141-3"><a href="multiple-logistic-regression-model.html#cb141-3" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">&quot;#00AFBB&quot;</span>,</span>
+<span id="cb141-4"><a href="multiple-logistic-regression-model.html#cb141-4" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># show density plots</span></span>
+<span id="cb141-5"><a href="multiple-logistic-regression-model.html#cb141-5" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">TRUE</span> <span class="co"># show correlation ellipses</span></span>
+<span id="cb141-6"><a href="multiple-logistic-regression-model.html#cb141-6" tabindex="-1"></a>             )</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="multiple-logistic-regression-model.html#cb142-1" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:psych&quot;</span>, <span class="at">unload =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>From the correlation matrix plot, we can see several patterns in the predictor variables.</p>
+<ul>
+<li>All predictor variables are unimodal. But <strong>pregnant</strong> and <strong>age</strong> are significantly skewed. We next take a close look at the frequency distribution of these two variables.</li>
+</ul>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="multiple-logistic-regression-model.html#cb143-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb143-2"><a href="multiple-logistic-regression-model.html#cb143-2" tabindex="-1"></a><span class="fu">hist</span>(diabetes<span class="sc">$</span>pregnant, <span class="at">xlab=</span><span class="st">&quot;pregnant&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb143-3"><a href="multiple-logistic-regression-model.html#cb143-3" tabindex="-1"></a><span class="fu">hist</span>(diabetes<span class="sc">$</span>age, <span class="at">xlab =</span> <span class="st">&quot;age&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-119-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Based on the above histogram, we discretize <strong>pregnant</strong> and <strong>age</strong> in the following.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="multiple-logistic-regression-model.html#cb144-1" tabindex="-1"></a>preg <span class="ot">=</span> diabetes<span class="sc">$</span>pregnant</span>
+<span id="cb144-2"><a href="multiple-logistic-regression-model.html#cb144-2" tabindex="-1"></a>grp.preg <span class="ot">=</span> preg</span>
+<span id="cb144-3"><a href="multiple-logistic-regression-model.html#cb144-3" tabindex="-1"></a>grp.preg[preg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)] <span class="ot">=</span> <span class="st">&quot;4-6&quot;</span></span>
+<span id="cb144-4"><a href="multiple-logistic-regression-model.html#cb144-4" tabindex="-1"></a>grp.preg[preg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>)] <span class="ot">=</span> <span class="st">&quot;7-9&quot;</span></span>
+<span id="cb144-5"><a href="multiple-logistic-regression-model.html#cb144-5" tabindex="-1"></a>grp.preg[preg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">17</span>)] <span class="ot">=</span> <span class="st">&quot;10+&quot;</span></span>
+<span id="cb144-6"><a href="multiple-logistic-regression-model.html#cb144-6" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb144-7"><a href="multiple-logistic-regression-model.html#cb144-7" tabindex="-1"></a>age <span class="ot">=</span> diabetes<span class="sc">$</span>age</span>
+<span id="cb144-8"><a href="multiple-logistic-regression-model.html#cb144-8" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb144-9"><a href="multiple-logistic-regression-model.html#cb144-9" tabindex="-1"></a>grp.age <span class="ot">=</span> age</span>
+<span id="cb144-10"><a href="multiple-logistic-regression-model.html#cb144-10" tabindex="-1"></a>grp.age[age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">21</span><span class="sc">:</span><span class="dv">24</span>)] <span class="ot">=</span> <span class="st">&quot;21-25&quot;</span></span>
+<span id="cb144-11"><a href="multiple-logistic-regression-model.html#cb144-11" tabindex="-1"></a>grp.age[age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">25</span><span class="sc">:</span><span class="dv">30</span>)] <span class="ot">=</span> <span class="st">&quot;25-30&quot;</span></span>
+<span id="cb144-12"><a href="multiple-logistic-regression-model.html#cb144-12" tabindex="-1"></a>grp.age[age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">31</span><span class="sc">:</span><span class="dv">40</span>)] <span class="ot">=</span> <span class="st">&quot;31-40&quot;</span></span>
+<span id="cb144-13"><a href="multiple-logistic-regression-model.html#cb144-13" tabindex="-1"></a>grp.age[age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">41</span><span class="sc">:</span><span class="dv">50</span>)] <span class="ot">=</span> <span class="st">&quot;41-50&quot;</span></span>
+<span id="cb144-14"><a href="multiple-logistic-regression-model.html#cb144-14" tabindex="-1"></a>grp.age[age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">51</span><span class="sc">:</span><span class="dv">99</span>)] <span class="ot">=</span> <span class="st">&quot;50 +&quot;</span></span>
+<span id="cb144-15"><a href="multiple-logistic-regression-model.html#cb144-15" tabindex="-1"></a><span class="do">## added to the diabetes data set</span></span>
+<span id="cb144-16"><a href="multiple-logistic-regression-model.html#cb144-16" tabindex="-1"></a>diabetes<span class="sc">$</span>grp.age <span class="ot">=</span> grp.age</span>
+<span id="cb144-17"><a href="multiple-logistic-regression-model.html#cb144-17" tabindex="-1"></a>diabetes<span class="sc">$</span>grp.preg <span class="ot">=</span> grp.preg</span></code></pre></div>
+<ul>
+<li><p>A moderate correlation is observed in several pairs of variables: <strong>age</strong> v.s. <strong>pregnant</strong>, <strong>glucose</strong> v.s. <strong>insulin</strong>, and <strong>triceps</strong> v.s. <strong>mass</strong>. We will not drop any of these variables for the moment but will perform an automatic variable selection process to remove potential redundant variables since a few of them will be forced to be included in the final model.</p></li>
+<li><p>Since our goal is association analysis, we will not perform variable transformations for the time being.</p></li>
+<li><p>It is very common in real-world applications that some of the practically important variables are always included in the final model regardless of their statistical significance. In the diabetes study, three insulin, MBI, and pedigree are considered significant risk factors. We will include these three variables in the final model. This means the smallest model must have these three variables.</p></li>
+</ul>
+</div>
+<div id="building-the-multiple-logistic-regression-model" class="section level3 hasAnchor" number="10.4.3">
+<h3><span class="header-section-number">10.4.3</span> Building the Multiple Logistic Regression Model<a href="multiple-logistic-regression-model.html#building-the-multiple-logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the above exploratory analysis, we first build the full model and the smallest model.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="multiple-logistic-regression-model.html#cb145-1" tabindex="-1"></a>full.model <span class="ot">=</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span>grp.preg<span class="sc">+</span>glucose<span class="sc">+</span>pressure<span class="sc">+</span>triceps<span class="sc">+</span>insulin<span class="sc">+</span>mass<span class="sc">+</span>pedigree<span class="sc">+</span>grp.age, </span>
+<span id="cb145-2"><a href="multiple-logistic-regression-model.html#cb145-2" tabindex="-1"></a>          <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),  <span class="co">#  logit(p) = log(p/(1-p))!</span></span>
+<span id="cb145-3"><a href="multiple-logistic-regression-model.html#cb145-3" tabindex="-1"></a>          <span class="at">data =</span> diabetes)  </span>
+<span id="cb145-4"><a href="multiple-logistic-regression-model.html#cb145-4" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(full.model)<span class="sc">$</span>coef, </span>
+<span id="cb145-5"><a href="multiple-logistic-regression-model.html#cb145-5" tabindex="-1"></a>      <span class="at">caption=</span><span class="st">&quot;Summary of inferential statistics of the full model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-121">Table 10.2: </span>Summary of inferential statistics of the full model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-8.7503322</td>
+<td align="right">1.3331796</td>
+<td align="right">-6.5635058</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">grp.preg1</td>
+<td align="right">-0.3977538</td>
+<td align="right">0.5093087</td>
+<td align="right">-0.7809679</td>
+<td align="right">0.4348214</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.preg10+</td>
+<td align="right">0.3935217</td>
+<td align="right">0.7902561</td>
+<td align="right">0.4979673</td>
+<td align="right">0.6185071</td>
+</tr>
+<tr class="even">
+<td align="left">grp.preg2</td>
+<td align="right">-0.2958769</td>
+<td align="right">0.5571478</td>
+<td align="right">-0.5310564</td>
+<td align="right">0.5953797</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.preg3</td>
+<td align="right">0.3842810</td>
+<td align="right">0.5700718</td>
+<td align="right">0.6740923</td>
+<td align="right">0.5002526</td>
+</tr>
+<tr class="even">
+<td align="left">grp.preg4-6</td>
+<td align="right">-0.9140847</td>
+<td align="right">0.5668123</td>
+<td align="right">-1.6126761</td>
+<td align="right">0.1068149</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.preg7-9</td>
+<td align="right">-0.2284477</td>
+<td align="right">0.6514907</td>
+<td align="right">-0.3506538</td>
+<td align="right">0.7258481</td>
+</tr>
+<tr class="even">
+<td align="left">glucose</td>
+<td align="right">0.0382521</td>
+<td align="right">0.0060502</td>
+<td align="right">6.3224381</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">pressure</td>
+<td align="right">-0.0072937</td>
+<td align="right">0.0121999</td>
+<td align="right">-0.5978495</td>
+<td align="right">0.5499403</td>
+</tr>
+<tr class="even">
+<td align="left">triceps</td>
+<td align="right">0.0107744</td>
+<td align="right">0.0180674</td>
+<td align="right">0.5963470</td>
+<td align="right">0.5509435</td>
+</tr>
+<tr class="odd">
+<td align="left">insulin</td>
+<td align="right">-0.0002279</td>
+<td align="right">0.0013854</td>
+<td align="right">-0.1645109</td>
+<td align="right">0.8693290</td>
+</tr>
+<tr class="even">
+<td align="left">mass</td>
+<td align="right">0.0583354</td>
+<td align="right">0.0284914</td>
+<td align="right">2.0474744</td>
+<td align="right">0.0406115</td>
+</tr>
+<tr class="odd">
+<td align="left">pedigree</td>
+<td align="right">1.0412541</td>
+<td align="right">0.4461747</td>
+<td align="right">2.3337362</td>
+<td align="right">0.0196095</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age25-30</td>
+<td align="right">1.0829606</td>
+<td align="right">0.4193260</td>
+<td align="right">2.5826224</td>
+<td align="right">0.0098053</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age31-40</td>
+<td align="right">1.5405843</td>
+<td align="right">0.4909205</td>
+<td align="right">3.1381545</td>
+<td align="right">0.0017002</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age41-50</td>
+<td align="right">2.2601500</td>
+<td align="right">0.6144945</td>
+<td align="right">3.6780639</td>
+<td align="right">0.0002350</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age50 +</td>
+<td align="right">2.0014940</td>
+<td align="right">0.7174832</td>
+<td align="right">2.7896040</td>
+<td align="right">0.0052773</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="multiple-logistic-regression-model.html#cb146-1" tabindex="-1"></a>reduced.model <span class="ot">=</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> insulin <span class="sc">+</span> mass <span class="sc">+</span> pedigree, </span>
+<span id="cb146-2"><a href="multiple-logistic-regression-model.html#cb146-2" tabindex="-1"></a>          <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),  <span class="co"># logit(p) = log(p/(1-p))!</span></span>
+<span id="cb146-3"><a href="multiple-logistic-regression-model.html#cb146-3" tabindex="-1"></a>          <span class="at">data =</span> diabetes) </span>
+<span id="cb146-4"><a href="multiple-logistic-regression-model.html#cb146-4" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(reduced.model)<span class="sc">$</span>coef, </span>
+<span id="cb146-5"><a href="multiple-logistic-regression-model.html#cb146-5" tabindex="-1"></a>      <span class="at">caption=</span><span class="st">&quot;Summary of inferential statistics of the reduced model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-122">Table 10.3: </span>Summary of inferential statistics of the reduced model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-4.3288188</td>
+<td align="right">0.6463940</td>
+<td align="right">-6.696874</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">insulin</td>
+<td align="right">0.0047984</td>
+<td align="right">0.0010835</td>
+<td align="right">4.428585</td>
+<td align="right">0.0000095</td>
+</tr>
+<tr class="odd">
+<td align="left">mass</td>
+<td align="right">0.0673268</td>
+<td align="right">0.0178494</td>
+<td align="right">3.771943</td>
+<td align="right">0.0001620</td>
+</tr>
+<tr class="even">
+<td align="left">pedigree</td>
+<td align="right">1.0779952</td>
+<td align="right">0.3601870</td>
+<td align="right">2.992876</td>
+<td align="right">0.0027636</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="multiple-logistic-regression-model.html#cb147-1" tabindex="-1"></a><span class="do">## automatic variable selection</span></span>
+<span id="cb147-2"><a href="multiple-logistic-regression-model.html#cb147-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb147-3"><a href="multiple-logistic-regression-model.html#cb147-3" tabindex="-1"></a>final.model.forward <span class="ot">=</span> <span class="fu">stepAIC</span>(reduced.model, </span>
+<span id="cb147-4"><a href="multiple-logistic-regression-model.html#cb147-4" tabindex="-1"></a>                      <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower=</span><span class="fu">formula</span>(reduced.model),<span class="at">upper=</span><span class="fu">formula</span>(full.model)),</span>
+<span id="cb147-5"><a href="multiple-logistic-regression-model.html#cb147-5" tabindex="-1"></a>                      <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>,   <span class="co"># forward selection</span></span>
+<span id="cb147-6"><a href="multiple-logistic-regression-model.html#cb147-6" tabindex="-1"></a>                      <span class="at">trace =</span> <span class="dv">0</span>   <span class="co"># do not show the details</span></span>
+<span id="cb147-7"><a href="multiple-logistic-regression-model.html#cb147-7" tabindex="-1"></a>                      )</span>
+<span id="cb147-8"><a href="multiple-logistic-regression-model.html#cb147-8" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(final.model.forward)<span class="sc">$</span>coef, </span>
+<span id="cb147-9"><a href="multiple-logistic-regression-model.html#cb147-9" tabindex="-1"></a>      <span class="at">caption=</span><span class="st">&quot;Summary of inferential statistics of the final model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-123">Table 10.4: </span>Summary of inferential statistics of the final model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-9.5340546</td>
+<td align="right">1.0941037</td>
+<td align="right">-8.7140321</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">insulin</td>
+<td align="right">-0.0005617</td>
+<td align="right">0.0013568</td>
+<td align="right">-0.4140043</td>
+<td align="right">0.6788710</td>
+</tr>
+<tr class="odd">
+<td align="left">mass</td>
+<td align="right">0.0703082</td>
+<td align="right">0.0212351</td>
+<td align="right">3.3109430</td>
+<td align="right">0.0009298</td>
+</tr>
+<tr class="even">
+<td align="left">pedigree</td>
+<td align="right">1.0567094</td>
+<td align="right">0.4305469</td>
+<td align="right">2.4543423</td>
+<td align="right">0.0141143</td>
+</tr>
+<tr class="odd">
+<td align="left">glucose</td>
+<td align="right">0.0387018</td>
+<td align="right">0.0058814</td>
+<td align="right">6.5804090</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age25-30</td>
+<td align="right">1.0012238</td>
+<td align="right">0.3918271</td>
+<td align="right">2.5552695</td>
+<td align="right">0.0106106</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age31-40</td>
+<td align="right">1.3679308</td>
+<td align="right">0.4163693</td>
+<td align="right">3.2853782</td>
+<td align="right">0.0010185</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age41-50</td>
+<td align="right">2.1962925</td>
+<td align="right">0.4712387</td>
+<td align="right">4.6606796</td>
+<td align="right">0.0000032</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age50 +</td>
+<td align="right">1.9277491</td>
+<td align="right">0.5802575</td>
+<td align="right">3.3222305</td>
+<td align="right">0.0008930</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="multiple-logistic-regression-model.html#cb148-1" tabindex="-1"></a><span class="do">## Other global goodness-of-fit</span></span>
+<span id="cb148-2"><a href="multiple-logistic-regression-model.html#cb148-2" tabindex="-1"></a>global.measure<span class="ot">=</span><span class="cf">function</span>(s.logit){</span>
+<span id="cb148-3"><a href="multiple-logistic-regression-model.html#cb148-3" tabindex="-1"></a>dev.resid <span class="ot">=</span> s.logit<span class="sc">$</span>deviance</span>
+<span id="cb148-4"><a href="multiple-logistic-regression-model.html#cb148-4" tabindex="-1"></a>dev.<span class="fl">0.</span>resid <span class="ot">=</span> s.logit<span class="sc">$</span>null.deviance</span>
+<span id="cb148-5"><a href="multiple-logistic-regression-model.html#cb148-5" tabindex="-1"></a>aic <span class="ot">=</span> s.logit<span class="sc">$</span>aic</span>
+<span id="cb148-6"><a href="multiple-logistic-regression-model.html#cb148-6" tabindex="-1"></a>goodness <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">Deviance.residual =</span>dev.resid, <span class="at">Null.Deviance.Residual =</span> dev.<span class="fl">0.</span>resid,</span>
+<span id="cb148-7"><a href="multiple-logistic-regression-model.html#cb148-7" tabindex="-1"></a>      <span class="at">AIC =</span> aic)</span>
+<span id="cb148-8"><a href="multiple-logistic-regression-model.html#cb148-8" tabindex="-1"></a>goodness</span>
+<span id="cb148-9"><a href="multiple-logistic-regression-model.html#cb148-9" tabindex="-1"></a>}</span>
+<span id="cb148-10"><a href="multiple-logistic-regression-model.html#cb148-10" tabindex="-1"></a>goodness<span class="ot">=</span><span class="fu">rbind</span>(<span class="at">full.model =</span> <span class="fu">global.measure</span>(full.model),</span>
+<span id="cb148-11"><a href="multiple-logistic-regression-model.html#cb148-11" tabindex="-1"></a>      <span class="at">reduced.model=</span><span class="fu">global.measure</span>(reduced.model),</span>
+<span id="cb148-12"><a href="multiple-logistic-regression-model.html#cb148-12" tabindex="-1"></a>      <span class="at">final.model=</span><span class="fu">global.measure</span>(final.model.forward))</span>
+<span id="cb148-13"><a href="multiple-logistic-regression-model.html#cb148-13" tabindex="-1"></a><span class="fu">row.names</span>(goodness) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;full.model&quot;</span>, <span class="st">&quot;reduced.model&quot;</span>, <span class="st">&quot;final.model&quot;</span>)</span>
+<span id="cb148-14"><a href="multiple-logistic-regression-model.html#cb148-14" tabindex="-1"></a><span class="fu">kable</span>(goodness, <span class="at">caption =</span><span class="st">&quot;Comparison of global goodness-of-fit statistics&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-124">Table 10.5: </span>Comparison of global goodness-of-fit statistics</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Deviance.residual</th>
+<th align="right">Null.Deviance.Residual</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">full.model</td>
+<td align="right">324.9106</td>
+<td align="right">498.0978</td>
+<td align="right">358.9106</td>
+</tr>
+<tr class="even">
+<td align="left">reduced.model</td>
+<td align="right">434.7276</td>
+<td align="right">498.0978</td>
+<td align="right">442.7276</td>
+</tr>
+<tr class="odd">
+<td align="left">final.model</td>
+<td align="right">334.2005</td>
+<td align="right">498.0978</td>
+<td align="right">352.2005</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="final-model-1" class="section level3 hasAnchor" number="10.4.4">
+<h3><span class="header-section-number">10.4.4</span> Final Model<a href="multiple-logistic-regression-model.html#final-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the exploratory analysis, we observed three pairs of variables are linearly correlated. After automatic variable selection, triceps and age were dropped out from the final model. Both insulin and glucose are still in the model. Although insulin is statistically insignificant, we still include it in the model since it is clinically important.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="multiple-logistic-regression-model.html#cb149-1" tabindex="-1"></a><span class="co"># Odds ratio</span></span>
+<span id="cb149-2"><a href="multiple-logistic-regression-model.html#cb149-2" tabindex="-1"></a>model.coef.stats <span class="ot">=</span> <span class="fu">summary</span>(final.model.forward)<span class="sc">$</span>coef</span>
+<span id="cb149-3"><a href="multiple-logistic-regression-model.html#cb149-3" tabindex="-1"></a>odds.ratio <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">coef</span>(final.model.forward))</span>
+<span id="cb149-4"><a href="multiple-logistic-regression-model.html#cb149-4" tabindex="-1"></a>out.stats <span class="ot">=</span> <span class="fu">cbind</span>(model.coef.stats, <span class="at">odds.ratio =</span> odds.ratio)                 </span>
+<span id="cb149-5"><a href="multiple-logistic-regression-model.html#cb149-5" tabindex="-1"></a><span class="fu">kable</span>(out.stats,<span class="at">caption =</span> <span class="st">&quot;Summary Stats with Odds Ratios&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-125">Table 10.6: </span>Summary Stats with Odds Ratios</caption>
+<colgroup>
+<col width="17%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="25%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+<th align="right">odds.ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-9.5340546</td>
+<td align="right">1.0941037</td>
+<td align="right">-8.7140321</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000723</td>
+</tr>
+<tr class="even">
+<td align="left">insulin</td>
+<td align="right">-0.0005617</td>
+<td align="right">0.0013568</td>
+<td align="right">-0.4140043</td>
+<td align="right">0.6788710</td>
+<td align="right">0.9994384</td>
+</tr>
+<tr class="odd">
+<td align="left">mass</td>
+<td align="right">0.0703082</td>
+<td align="right">0.0212351</td>
+<td align="right">3.3109430</td>
+<td align="right">0.0009298</td>
+<td align="right">1.0728388</td>
+</tr>
+<tr class="even">
+<td align="left">pedigree</td>
+<td align="right">1.0567094</td>
+<td align="right">0.4305469</td>
+<td align="right">2.4543423</td>
+<td align="right">0.0141143</td>
+<td align="right">2.8768887</td>
+</tr>
+<tr class="odd">
+<td align="left">glucose</td>
+<td align="right">0.0387018</td>
+<td align="right">0.0058814</td>
+<td align="right">6.5804090</td>
+<td align="right">0.0000000</td>
+<td align="right">1.0394605</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age25-30</td>
+<td align="right">1.0012238</td>
+<td align="right">0.3918271</td>
+<td align="right">2.5552695</td>
+<td align="right">0.0106106</td>
+<td align="right">2.7216105</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age31-40</td>
+<td align="right">1.3679308</td>
+<td align="right">0.4163693</td>
+<td align="right">3.2853782</td>
+<td align="right">0.0010185</td>
+<td align="right">3.9272159</td>
+</tr>
+<tr class="even">
+<td align="left">grp.age41-50</td>
+<td align="right">2.1962925</td>
+<td align="right">0.4712387</td>
+<td align="right">4.6606796</td>
+<td align="right">0.0000032</td>
+<td align="right">8.9916151</td>
+</tr>
+<tr class="odd">
+<td align="left">grp.age50 +</td>
+<td align="right">1.9277491</td>
+<td align="right">0.5802575</td>
+<td align="right">3.3222305</td>
+<td align="right">0.0008930</td>
+<td align="right">6.8740202</td>
+</tr>
+</tbody>
+</table>
+<p>The interpretation of the odds ratios is similar to the case of simple logistic regression. The group-age variable <strong>grp.age</strong> has five categories. The baseline category is aged 21-24. We can see from the above table inferential table that the odds of getting diabetes increase as age increases. For example, the odds ratio associated with the age group 31-39 is 3.927 meaning that, given the same level of insulin, BMI, pedigree, and glucose, the odds of being diabetic in the age group of 31-40 is almost 4 times of that in the baseline group aged 21-24. But the same ratio becomes nine times when comparing the age group 41-50 with the baseline group of age 21-24.</p>
+</div>
+<div id="summary-and-conclusion" class="section level3 hasAnchor" number="10.4.5">
+<h3><span class="header-section-number">10.4.5</span> Summary and Conclusion<a href="multiple-logistic-regression-model.html#summary-and-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The case study focused on the association analysis between a set of potential risk factors for diabetes. The initial data set has 8 numerical and categorical variables.</p>
+<p>After exploratory analysis, we decide to re-group two sparse discrete variables <strong>pregnant</strong> and <strong>age</strong>, and then define dummy variables for the associated variables. These new group variables were used in the model search process.</p>
+<p>Since <strong>insulin</strong>, <strong>BMI</strong>, and <strong>pedigree</strong> are considered to be major contributors to the development of diabetes, we include three risk factors in the final model regardless of the statistical significance.</p>
+<p>After automatic variable selection, we obtain the final model with 4 factors, BMI, pedigree, glucose, age (with 4 dummy variables), and insulin (that is not statistically significant but clinically important).</p>
+<p>Diabetes prediction or classification is another important practical issue. We will address this practical question in the next module.</p>
+</div>
+</div>
+<div id="analysis-assignment-1" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> Analysis Assignment<a href="multiple-logistic-regression-model.html#analysis-assignment-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This assignment focuses on multiple logistic regression modeling using the same data set you used in the previous week. To be more specific, the data set has to meet the following requirements:</p>
+<ul>
+<li><p>The response variable must be binary. It could be made by dichotomizing a numerical variable or regrouping a categorical variable.</p></li>
+<li><p>At least two continuous predictor variables</p></li>
+<li><p>At least two categorical predictor variables</p></li>
+<li><p>The sample size should be at least 15 times the total number of numerical variables and <em>dummy</em> variables.</p></li>
+</ul>
+<p><strong>Components of the analysis report</strong></p>
+<p>The report should contain the same components as I included in the case study in this week’s class note. Please keep in mind that the interpretation of results is VERY important.</p>
+<ul>
+<li><p>Description of your data set and variables</p></li>
+<li><p>Research questions</p></li>
+<li><p>Data management and variable inspection</p>
+<ul>
+<li><p>variable creation based on existing variables</p></li>
+<li><p>variable transformation</p></li>
+<li><p>variable discretization</p></li>
+<li><p>handling sparse categorical variables</p></li>
+</ul></li>
+<li><p>model building process</p>
+<ul>
+<li><p>candidate models</p></li>
+<li><p>manual variable selection</p></li>
+<li><p>automatic variable selection</p></li>
+<li><p>final model identification</p></li>
+<li><p>summarize the inferential statistics in the final model.</p></li>
+</ul></li>
+<li><p>Conclusion and discussion</p></li>
+</ul>
+<p><strong>Remarks</strong>: <br></p>
+<ol style="list-style-type: decimal">
+<li><p>This assignment focuses only on the association analysis. <br></p></li>
+<li><p>Convert the regression coefficients in the final to odds ratio and then provide practical interpretation.<br></p></li>
+<li><p>The global goodness-of-fit measures (deviance, AIC, etc) in all candidate models should be reported during model selection.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-logistic-regression-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="predictive-modeling-with-logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA321EB/edit/master/09-MultipleLogisticRegression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA321EB.pdf", "STA321EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

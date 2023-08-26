@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 13 Dispersed Poisson Regression | STA 321 E-pack: Advanced Statistics</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 13 Dispersed Poisson Regression | STA 321 E-pack: Advanced Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 13 Dispersed Poisson Regression | STA 321 E-pack: Advanced Statistics" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="poison-regression-modeling.html"/>
+<link rel="next" href="concepts-of-time-series-forecasting.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 321 E-Pack: Advanced Statistics</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-this-e-pack"><i class="fa fa-check"></i><b>1.1</b> Why This E-Pack?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#components-statistical-reports"><i class="fa fa-check"></i><b>1.2</b> Components Statistical Reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a.-introduction"><i class="fa fa-check"></i>A. Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#b.-materials"><i class="fa fa-check"></i>B. Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c.-methodology"><i class="fa fa-check"></i>C. Methodology</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#d.-results-and-conclusions"><i class="fa fa-check"></i>D. Results and Conclusions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#e.-general-discussion"><i class="fa fa-check"></i>E. General Discussion</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#f.-references-if-any"><i class="fa fa-check"></i>F. References (if any)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#g.-appendices-if-any"><i class="fa fa-check"></i>G. Appendices (if any)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#basics-of-rstudio"><i class="fa fa-check"></i><b>1.3</b> Basics of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#rstudio-gui"><i class="fa fa-check"></i><b>1.3.1</b> RStudio GUI</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#rmarkdown"><i class="fa fa-check"></i><b>1.3.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#collaborative-platforms"><i class="fa fa-check"></i><b>1.4</b> Collaborative Platforms</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#rpubs"><i class="fa fa-check"></i><b>1.4.1</b> RPubs</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#github-repository"><i class="fa fa-check"></i><b>1.4.2</b> GitHub Repository</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.5</b> Github</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#what-is-github"><i class="fa fa-check"></i><b>1.5.1</b> What is Github?</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#getting-started-with-github"><i class="fa fa-check"></i><b>1.5.2</b> Getting Started with GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html"><i class="fa fa-check"></i><b>2</b> Data Input and Output in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#built-in-data"><i class="fa fa-check"></i><b>2.1</b> Built-in Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#loading-external-data-sets"><i class="fa fa-check"></i><b>2.2</b> Loading External Data Sets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#preparing-r-workspace"><i class="fa fa-check"></i><b>2.2.1</b> Preparing R Workspace</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#setting-up-working-directory"><i class="fa fa-check"></i><b>2.2.2</b> Setting-up Working Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-common-files-into-r"><i class="fa fa-check"></i><b>2.3</b> Read Common Files into R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-txt-files-with-read.table"><i class="fa fa-check"></i><b>2.3.1</b> Read TXT files with read.table()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#data-values-separated-by-special-symbol"><i class="fa fa-check"></i><b>2.4</b> Data Values Separated By Special Symbol</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#importing-a-csv-into-r"><i class="fa fa-check"></i><b>2.4.1</b> Importing a CSV into R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-spss-and-other-data-sets-into-r"><i class="fa fa-check"></i><b>2.5</b> Import SAS, SPSS, and Other Data Sets into R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-spss-files-into-r"><i class="fa fa-check"></i><b>2.5.1</b> Import SPSS Files into R</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#mport-stata-files-into-r"><i class="fa fa-check"></i><b>2.5.2</b> mport Stata Files into R</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-systat-files-into-r"><i class="fa fa-check"></i><b>2.5.3</b> Import Systat Files into R</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-files-into-r"><i class="fa fa-check"></i><b>2.5.4</b> Import SAS Files into R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html"><i class="fa fa-check"></i><b>3</b> Base R Graphical Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#r-graphic-devices"><i class="fa fa-check"></i><b>3.1</b> R Graphic Devices</a></li>
+<li class="chapter" data-level="3.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#plotting-with-base-graphics-plot"><i class="fa fa-check"></i><b>3.2</b> Plotting with Base Graphics: <code>plot()</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#outer-and-inner-margins"><i class="fa fa-check"></i><b>3.2.1</b> Outer and Inner Margins</a></li>
+<li class="chapter" data-level="3.2.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#simple-multi-panel-plots"><i class="fa fa-check"></i><b>3.2.2</b> Simple multi-panel Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#making-our-own-colors"><i class="fa fa-check"></i><b>3.3</b> Making Our Own Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html"><i class="fa fa-check"></i><b>4</b> Effective Data Preparation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#data-set-description"><i class="fa fa-check"></i><b>4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="4.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#base-r-commands-for-data-management"><i class="fa fa-check"></i><b>4.2</b> Base R Commands for Data Management</a></li>
+<li class="chapter" data-level="4.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#working-with-scientific-notations"><i class="fa fa-check"></i><b>4.3</b> Working with Scientific Notations</a></li>
+<li class="chapter" data-level="4.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-ifelse-function"><i class="fa fa-check"></i><b>4.4</b> The <strong>ifelse()</strong> Function</a></li>
+<li class="chapter" data-level="4.5" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-cut-function"><i class="fa fa-check"></i><b>4.5</b> The <strong>cut()</strong> Function</a></li>
+<li class="chapter" data-level="4.6" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#with-and-within-functions"><i class="fa fa-check"></i><b>4.6</b> <strong>with()</strong> and <strong>within()</strong> Functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-with-function"><i class="fa fa-check"></i><b>4.6.1</b> The <strong>with()</strong> Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-merge-function---table-joins"><i class="fa fa-check"></i><b>4.7</b> The <strong>merge()</strong> Function - Table Joins</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#inner-join"><i class="fa fa-check"></i><b>4.7.1</b> Inner Join</a></li>
+<li class="chapter" data-level="4.7.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#left-join"><i class="fa fa-check"></i><b>4.7.2</b> Left Join</a></li>
+<li class="chapter" data-level="4.7.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#right-join"><i class="fa fa-check"></i><b>4.7.3</b> Right Join</a></li>
+<li class="chapter" data-level="4.7.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#full-outer-join"><i class="fa fa-check"></i><b>4.7.4</b> Full (outer) Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-data-frame"><i class="fa fa-check"></i><b>4.8</b> Subsetting Data Frame</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-columns"><i class="fa fa-check"></i><b>4.8.1</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="4.8.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-rows"><i class="fa fa-check"></i><b>4.8.2</b> Subsetting by Rows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Bootstrap Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>5.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#random-sample-from-population"><i class="fa fa-check"></i><b>5.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="5.1.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>5.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="5.1.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>5.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-intervals-1"><i class="fa fa-check"></i><b>5.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="5.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>5.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>5.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>5.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problem-set"><i class="fa fa-check"></i><b>5.4</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#data-set-description-1"><i class="fa fa-check"></i><b>5.4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="5.4.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problems"><i class="fa fa-check"></i><b>5.4.2</b> Problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html"><i class="fa fa-check"></i><b>6</b> Bootstrapping SLR</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-and-practical-questions"><i class="fa fa-check"></i><b>6.1</b> Data Set and Practical Questions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-description"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#practical-question"><i class="fa fa-check"></i><b>6.1.2</b> Practical Question</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>6.1.3</b> Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#simple-linear-regression-review"><i class="fa fa-check"></i><b>6.2</b> Simple Linear Regression: Review</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#structure-and-assumptions-of-simple-linear-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Structure and Assumptions of Simple Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#fitting-slr-to-data"><i class="fa fa-check"></i><b>6.3</b> Fitting SLR to Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#parametric-slr"><i class="fa fa-check"></i><b>6.3.1</b> Parametric SLR</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-regression"><i class="fa fa-check"></i><b>6.3.2</b> Bootstrap Regression</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#concluding-remarks"><i class="fa fa-check"></i><b>6.3.3</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="6.3.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-residual-method"><i class="fa fa-check"></i><b>6.3.4</b> Bootstrap Residual Method</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-selection-for-project-one"><i class="fa fa-check"></i><b>6.4</b> Data Set Selection for Project One</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-requirements"><i class="fa fa-check"></i><b>6.4.1</b> Data Set Requirements</a></li>
+<li class="chapter" data-level="6.4.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#web-sites-with-data-sets"><i class="fa fa-check"></i><b>6.4.2</b> Web Sites with Data Sets</a></li>
+<li class="chapter" data-level="6.4.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#analysis-and-writing-components"><i class="fa fa-check"></i><b>6.4.3</b> Analysis and Writing Components</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html"><i class="fa fa-check"></i><b>7</b> Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>7.1</b> The structure of MLR</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#assumptions-based-on-the-above-special-form."><i class="fa fa-check"></i><b>7.1.1</b> Assumptions based on the above special form.</a></li>
+<li class="chapter" data-level="7.1.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#potential-violations"><i class="fa fa-check"></i><b>7.1.2</b> Potential Violations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#variable-types"><i class="fa fa-check"></i><b>7.1.3</b> Variable types</a></li>
+<li class="chapter" data-level="7.1.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#dummy-and-discrete-numerical-explanatory-variables"><i class="fa fa-check"></i><b>7.1.4</b> Dummy and discrete numerical explanatory variables</a></li>
+<li class="chapter" data-level="7.1.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#interpretation-of-regression-coefficients-1"><i class="fa fa-check"></i><b>7.1.5</b> Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#model-building"><i class="fa fa-check"></i><b>7.2</b> Model building</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-structure-sample-size-and-preparation-for-mlr"><i class="fa fa-check"></i><b>7.2.1</b> Data structure, sample size, and preparation for MLR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#candidate-models-and-residual-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Candidate models and residual diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#significant-test-goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>7.2.3</b> Significant test, goodness-of-fit, and Variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#case-study--factors-that-impact-the-house-sale-prices"><i class="fa fa-check"></i><b>7.3</b> Case Study -Factors That Impact the House Sale Prices</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-description-1"><i class="fa fa-check"></i><b>7.3.1</b> Data Description</a></li>
+<li class="chapter" data-level="7.3.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#practical-question-1"><i class="fa fa-check"></i><b>7.3.2</b> Practical Question</a></li>
+<li class="chapter" data-level="7.3.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>7.3.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#fitting-mlr-to-data"><i class="fa fa-check"></i><b>7.3.4</b> Fitting MLR to Data</a></li>
+<li class="chapter" data-level="7.3.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#summary-of-the-model"><i class="fa fa-check"></i><b>7.3.5</b> Summary of the model</a></li>
+<li class="chapter" data-level="7.3.6" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#discussions"><i class="fa fa-check"></i><b>7.3.6</b> Discussions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#written-assignment"><i class="fa fa-check"></i><b>7.4</b> Written Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html"><i class="fa fa-check"></i><b>8</b> Bootstrapping MLR Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#parametric-linear-regression-model"><i class="fa fa-check"></i><b>8.1</b> Parametric Linear Regression Model</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-cases-boot.c"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Cases (BOOT.C)</a></li>
+<li class="chapter" data-level="8.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-residuals-boot.r"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Residuals (BOOT.R)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#fitted-model"><i class="fa fa-check"></i><b>8.3.1</b> Fitted Model</a></li>
+<li class="chapter" data-level="8.3.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#residual-bootstrap-samples"><i class="fa fa-check"></i><b>8.3.2</b> Residual Bootstrap Samples</a></li>
+<li class="chapter" data-level="8.3.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#implementation-of-residual-bootstrap-regression"><i class="fa fa-check"></i><b>8.3.3</b> Implementation of Residual Bootstrap Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#combining-all-inferential-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Combining All Inferential Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#modeling-assignment"><i class="fa fa-check"></i><b>8.4</b> Modeling Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html"><i class="fa fa-check"></i><b>9</b> Simple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#simple-binary-logistic-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Binary Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#the-model-structure"><i class="fa fa-check"></i><b>9.1.1</b> The Model Structure</a></li>
+<li class="chapter" data-level="9.1.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#interpretation-of-regression-coefficients-2"><i class="fa fa-check"></i><b>9.1.2</b> Interpretation of Regression Coefficients</a></li>
+<li class="chapter" data-level="9.1.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#use-of-simple-logistic-regression-model"><i class="fa fa-check"></i><b>9.1.3</b> Use of Simple Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#parameter-estimation"><i class="fa fa-check"></i><b>9.1.4</b> Parameter Estimation</a></li>
+<li class="chapter" data-level="9.1.5" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>9.1.5</b> Model Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="9.1.6" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.1.6</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#a-case-study"><i class="fa fa-check"></i><b>9.2</b> A Case Study</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#data-and-variable-descriptions"><i class="fa fa-check"></i><b>9.2.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#clinical-question"><i class="fa fa-check"></i><b>9.2.2</b> Clinical Question</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#building-the-simple-logistic-regression"><i class="fa fa-check"></i><b>9.2.3</b> Building the Simple Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#conclusion"><i class="fa fa-check"></i><b>9.3</b> Conclusion</a></li>
+<li class="chapter" data-level="9.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#analysis-assignment"><i class="fa fa-check"></i><b>9.4</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html"><i class="fa fa-check"></i><b>10</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model-1"><i class="fa fa-check"></i><b>10.1</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-requirements-sources-layout-and-cleansing"><i class="fa fa-check"></i><b>10.1.1</b> Data Requirements: Sources, Layout, and Cleansing</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#issues-of-predictor-variables-and-variable-inspection-transformation"><i class="fa fa-check"></i><b>10.1.2</b> Issues of Predictor Variables and Variable Inspection-Transformation</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#estimation-and-interpretation-of-regression-coefficients"><i class="fa fa-check"></i><b>10.1.3</b> Estimation and Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-blocks-for-predictive-performance"><i class="fa fa-check"></i><b>10.2</b> Building Blocks for Predictive Performance</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#understanding-the-performance-of-medical-diagnostics"><i class="fa fa-check"></i><b>10.2.1</b> Understanding the Performance of Medical Diagnostics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#performance-metrics-used-in-clinical-trials"><i class="fa fa-check"></i><b>10.2.2</b> Performance Metrics Used in Clinical Trials:</a></li>
+<li class="chapter" data-level="10.2.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#remarks"><i class="fa fa-check"></i><b>10.2.3</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#case-study"><i class="fa fa-check"></i><b>10.3</b> Case Study</a></li>
+<li class="chapter" data-level="10.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-and-variable-descriptions-1"><i class="fa fa-check"></i><b>10.4</b> Data and Variable Descriptions</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#research-question"><i class="fa fa-check"></i><b>10.4.1</b> Research Question</a></li>
+<li class="chapter" data-level="10.4.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#exploratory-analysis"><i class="fa fa-check"></i><b>10.4.2</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="10.4.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-the-multiple-logistic-regression-model"><i class="fa fa-check"></i><b>10.4.3</b> Building the Multiple Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.4.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#final-model-1"><i class="fa fa-check"></i><b>10.4.4</b> Final Model</a></li>
+<li class="chapter" data-level="10.4.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#summary-and-conclusion"><i class="fa fa-check"></i><b>10.4.5</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#analysis-assignment-1"><i class="fa fa-check"></i><b>10.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Predictive Modeling with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-in-predictive-modeling"><i class="fa fa-check"></i><b>11.1</b> Cross-Validation in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#the-logic-of-the-three-way-split"><i class="fa fa-check"></i><b>11.1.1</b> The Logic of the Three-way Split</a></li>
+<li class="chapter" data-level="11.1.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.1.2</b> Cross-validation (CV)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#predictive-performance-measures"><i class="fa fa-check"></i><b>11.2</b> Predictive Performance Measures</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#error-based-measures"><i class="fa fa-check"></i><b>11.2.1</b> Error-based Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#measuring-global-performance---roc-curve"><i class="fa fa-check"></i><b>11.3</b> Measuring Global Performance - ROC Curve</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-curve"><i class="fa fa-check"></i><b>11.3.1</b> ROC Curve</a></li>
+<li class="chapter" data-level="11.3.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#area-under-the-curve-auc"><i class="fa fa-check"></i><b>11.3.2</b> Area Under The Curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#case-study---diabetes-prediction-with-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Case Study - Diabetes Prediction with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-and-variable-descriptions-2"><i class="fa fa-check"></i><b>11.4.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="11.4.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#research-question-1"><i class="fa fa-check"></i><b>11.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="11.4.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#exploratory-analysis-1"><i class="fa fa-check"></i><b>11.4.3</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="11.4.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#standizing-numerical-predictor-variables"><i class="fa fa-check"></i><b>11.4.4</b> Standizing Numerical Predictor Variables</a></li>
+<li class="chapter" data-level="11.4.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-split---training-and-testing-data"><i class="fa fa-check"></i><b>11.4.5</b> Data Split - Training and Testing Data</a></li>
+<li class="chapter" data-level="11.4.6" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#best-model-identification"><i class="fa fa-check"></i><b>11.4.6</b> Best Model Identification</a></li>
+<li class="chapter" data-level="11.4.7" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-analysis---global-performance"><i class="fa fa-check"></i><b>11.4.7</b> ROC Analysis - Global Performance</a></li>
+<li class="chapter" data-level="11.4.8" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#summary-and-conclusion-1"><i class="fa fa-check"></i><b>11.4.8</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#analysis-assignment-2"><i class="fa fa-check"></i><b>11.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html"><i class="fa fa-check"></i><b>12</b> Poison Regression Modeling</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#linear-regression-models"><i class="fa fa-check"></i><b>12.1</b> Linear Regression Models</a></li>
+<li class="chapter" data-level="12.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.2</b> Binary Logistic Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-models"><i class="fa fa-check"></i><b>12.3</b> Poisson Regression Models</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assumptions-of-the-poisson-regression-model"><i class="fa fa-check"></i><b>12.3.1</b> Assumptions of the Poisson Regression Model</a></li>
+<li class="chapter" data-level="12.3.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#structure-of-poisson-regression-model-for-counts"><i class="fa fa-check"></i><b>12.3.2</b> Structure of Poisson Regression Model for Counts</a></li>
+<li class="chapter" data-level="12.3.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-models-for-rates"><i class="fa fa-check"></i><b>12.3.3</b> Poisson Models for Rates</a></li>
+<li class="chapter" data-level="12.3.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#estimation-of-regression-coefficients-and-goodness-of-fit"><i class="fa fa-check"></i><b>12.3.4</b> Estimation of Regression Coefficients and Goodness-of-fit</a></li>
+<li class="chapter" data-level="12.3.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-set-layout"><i class="fa fa-check"></i><b>12.3.5</b> Data Set Layout</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i"><i class="fa fa-check"></i><b>12.4</b> Case Study: Modeling Lung Cancer Rates in Four Cities of Denmark - Part I</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-cancer-counts"><i class="fa fa-check"></i><b>12.4.1</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="12.4.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-rates"><i class="fa fa-check"></i><b>12.4.2</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="12.4.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#some-graphical-comparison"><i class="fa fa-check"></i><b>12.4.3</b> Some Graphical Comparison</a></li>
+<li class="chapter" data-level="12.4.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#discussions-and-conclusions"><i class="fa fa-check"></i><b>12.4.4</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#concluding-remarks-2"><i class="fa fa-check"></i><b>12.5</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="12.6" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#analysis-assignment-3"><i class="fa fa-check"></i><b>12.6</b> Analysis Assignment</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-description-2"><i class="fa fa-check"></i><b>12.6.1</b> Data Description</a></li>
+<li class="chapter" data-level="12.6.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-formats-and-loading"><i class="fa fa-check"></i><b>12.6.2</b> Data Formats and Loading</a></li>
+<li class="chapter" data-level="12.6.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assignment-instructions"><i class="fa fa-check"></i><b>12.6.3</b> Assignment Instructions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html"><i class="fa fa-check"></i><b>13</b> Dispersed Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#residuals-of-poisson-regression"><i class="fa fa-check"></i><b>13.1</b> Residuals of Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#pearson-residuals"><i class="fa fa-check"></i><b>13.1.1</b> Pearson Residuals</a></li>
+<li class="chapter" data-level="13.1.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#deviance-residuals"><i class="fa fa-check"></i><b>13.1.2</b> Deviance Residuals</a></li>
+<li class="chapter" data-level="13.1.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example"><i class="fa fa-check"></i><b>13.1.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.1.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>13.1.4</b> Goodness-of-fit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#dispersion-and-dispersed-poisson-regression-model"><i class="fa fa-check"></i><b>13.2</b> Dispersion and Dispersed Poisson Regression Model</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#definition-of-dispersion"><i class="fa fa-check"></i><b>13.2.1</b> Definition of Dispersion</a></li>
+<li class="chapter" data-level="13.2.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-regression-model"><i class="fa fa-check"></i><b>13.2.2</b> Quasi-Poisson Regression Model</a></li>
+<li class="chapter" data-level="13.2.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example-1"><i class="fa fa-check"></i><b>13.2.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.2.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#summary-and-concluding-remarks"><i class="fa fa-check"></i><b>13.2.4</b> Summary and Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-i-denmark-cities-lung-cancer-rates"><i class="fa fa-check"></i><b>13.3</b> Case Study I: Denmark Cities Lung Cancer Rates</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#introduction-1"><i class="fa fa-check"></i><b>13.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.3.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-cancer-counts-1"><i class="fa fa-check"></i><b>13.3.2</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="13.3.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-rates-1"><i class="fa fa-check"></i><b>13.3.3</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="13.3.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-rate-model"><i class="fa fa-check"></i><b>13.3.4</b> Quasi-Poisson Rate Model</a></li>
+<li class="chapter" data-level="13.3.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#final-working-model"><i class="fa fa-check"></i><b>13.3.5</b> Final Working Model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons"><i class="fa fa-check"></i><b>13.3.6</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.3.7" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#discussions-and-conclusions-1"><i class="fa fa-check"></i><b>13.3.7</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-ii---ph.d.-and-mentors-productivity"><i class="fa fa-check"></i><b>13.4</b> Case Study II - Ph.D. and Mentor’s Productivity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#variable-description"><i class="fa fa-check"></i><b>13.4.1</b> Variable Description</a></li>
+<li class="chapter" data-level="13.4.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#research-question-2"><i class="fa fa-check"></i><b>13.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="13.4.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#data-preparation-and-variable-processing"><i class="fa fa-check"></i><b>13.4.3</b> Data Preparation and Variable Processing</a></li>
+<li class="chapter" data-level="13.4.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poison-regression-modeling-1"><i class="fa fa-check"></i><b>13.4.4</b> Poison Regression Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#section"><i class="fa fa-check"></i><b>13.5</b> </a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons-1"><i class="fa fa-check"></i><b>13.5.1</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.5.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#conclusions"><i class="fa fa-check"></i><b>13.5.2</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#analysis-assignment-4"><i class="fa fa-check"></i><b>13.6</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html"><i class="fa fa-check"></i><b>14</b> Concepts of Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#types-of-time-series-data"><i class="fa fa-check"></i><b>14.1</b> Types of Time Series Data</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#uncorrelated-data-constant-process-model-random-time-series"><i class="fa fa-check"></i><b>14.1.1</b> Uncorrelated data, constant process model: random time series</a></li>
+<li class="chapter" data-level="14.1.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#autocorrelated-data"><i class="fa fa-check"></i><b>14.1.2</b> Autocorrelated data</a></li>
+<li class="chapter" data-level="14.1.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#trend-data"><i class="fa fa-check"></i><b>14.1.3</b> Trend Data</a></li>
+<li class="chapter" data-level="14.1.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-data"><i class="fa fa-check"></i><b>14.1.4</b> Seasonal Data</a></li>
+<li class="chapter" data-level="14.1.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#nonstationary-data"><i class="fa fa-check"></i><b>14.1.5</b> Nonstationary Data</a></li>
+<li class="chapter" data-level="14.1.6" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#atypical-event-outliers"><i class="fa fa-check"></i><b>14.1.6</b> Atypical Event (Outliers)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-technical-terms-and-baseline-forecasting-models"><i class="fa fa-check"></i><b>14.2</b> Some Technical Terms and Baseline Forecasting Models</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-definitions"><i class="fa fa-check"></i><b>14.2.1</b> Some Definitions</a></li>
+<li class="chapter" data-level="14.2.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#baseline-methods"><i class="fa fa-check"></i><b>14.2.2</b> Baseline Methods</a></li>
+<li class="chapter" data-level="14.2.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-naive-method"><i class="fa fa-check"></i><b>14.2.3</b> Seasonal Naive Method</a></li>
+<li class="chapter" data-level="14.2.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#drift-method"><i class="fa fa-check"></i><b>14.2.4</b> Drift Method</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#accuracy-measures-in-time-series-forecasting"><i class="fa fa-check"></i><b>14.3</b> Accuracy Measures in Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#training-and-testing-data"><i class="fa fa-check"></i><b>14.3.1</b> Training and Testing Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#forecasting-errors"><i class="fa fa-check"></i><b>14.3.2</b> Forecasting Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#case-study-1"><i class="fa fa-check"></i><b>14.4</b> Case Study</a></li>
+<li class="chapter" data-level="14.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#analysis-assignment-5"><i class="fa fa-check"></i><b>14.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html"><i class="fa fa-check"></i><b>15</b> Time Series Decomposition</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#classical-decompositions"><i class="fa fa-check"></i><b>15.1</b> Classical Decompositions</a></li>
+<li class="chapter" data-level="15.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#understanding-the-classical-decomposition-of-time-series"><i class="fa fa-check"></i><b>15.2</b> Understanding the Classical Decomposition of Time Series</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#detect-trend"><i class="fa fa-check"></i><b>15.2.1</b> Detect Trend</a></li>
+<li class="chapter" data-level="15.2.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-the-seasonality"><i class="fa fa-check"></i><b>15.2.2</b> Extracting the Seasonality</a></li>
+<li class="chapter" data-level="15.2.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-remainder-errors"><i class="fa fa-check"></i><b>15.2.3</b> Extracting Remainder Errors</a></li>
+<li class="chapter" data-level="15.2.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#reconstruct-the-original-series-compose-new-series"><i class="fa fa-check"></i><b>15.2.4</b> Reconstruct the Original Series / Compose New Series</a></li>
+<li class="chapter" data-level="15.2.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#decomposing-time-series-with-decompose"><i class="fa fa-check"></i><b>15.2.5</b> Decomposing Time Series with <strong>decompose()</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing"><i class="fa fa-check"></i><b>15.3</b> Forecasting with Decomposing</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-additive-models-with-decomposing"><i class="fa fa-check"></i><b>15.3.1</b> Forecasting Additive Models with Decomposing</a></li>
+<li class="chapter" data-level="15.3.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#concepts-of-seasonal-and-trend-decomposition-using-loess-stl"><i class="fa fa-check"></i><b>15.3.2</b> Concepts of Seasonal and Trend Decomposition Using Loess (STL)</a></li>
+<li class="chapter" data-level="15.3.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecast-with-stl-decomposing"><i class="fa fa-check"></i><b>15.3.3</b> Forecast with STL decomposing</a></li>
+<li class="chapter" data-level="15.3.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#length-of-time-series"><i class="fa fa-check"></i><b>15.3.4</b> Length of Time Series</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#case-study-2"><i class="fa fa-check"></i><b>15.4</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#data-description-and"><i class="fa fa-check"></i><b>15.4.1</b> Data description and</a></li>
+<li class="chapter" data-level="15.4.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#define-time-series-object"><i class="fa fa-check"></i><b>15.4.2</b> Define time series object</a></li>
+<li class="chapter" data-level="15.4.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing-1"><i class="fa fa-check"></i><b>15.4.3</b> Forecasting with Decomposing</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#analysis-assignment-6"><i class="fa fa-check"></i><b>15.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html"><i class="fa fa-check"></i><b>16</b> Exponential Smoothing Methods</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#ets-framework"><i class="fa fa-check"></i><b>16.1</b> ETS Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-methods-1"><i class="fa fa-check"></i><b>16.1.1</b> Exponential Smoothing Methods</a></li>
+<li class="chapter" data-level="16.1.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-models"><i class="fa fa-check"></i><b>16.1.2</b> Exponential Smoothing Models</a></li>
+<li class="chapter" data-level="16.1.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#estimation-smoothing-parameters-in-smoothing-models"><i class="fa fa-check"></i><b>16.1.3</b> Estimation Smoothing Parameters in Smoothing Models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>16.2</b> Simple Exponential Smoothing</a></li>
+<li class="chapter" data-level="16.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holts-smoothing-model-linear-additive-trend"><i class="fa fa-check"></i><b>16.3</b> Holt’s Smoothing Model: Linear (additive) Trend</a></li>
+<li class="chapter" data-level="16.4" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#damped-trend-methods"><i class="fa fa-check"></i><b>16.4</b> Damped Trend Methods</a></li>
+<li class="chapter" data-level="16.5" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holt-winters-model-for-trend-and-seasonal-data"><i class="fa fa-check"></i><b>16.5</b> Holt-Winters Model for Trend and Seasonal Data</a></li>
+<li class="chapter" data-level="16.6" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#case-study-3"><i class="fa fa-check"></i><b>16.6</b> Case study</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 321 E-pack: Advanced Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dispersed-poisson-regression" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Topic 13</span> Dispersed Poisson Regression<a href="dispersed-poisson-regression.html#dispersed-poisson-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In the last module, we introduced the basics of Poisson regression on counts and rates. Sometimes Poisson regression may not work well since the variance of the response may not be equal to the mean. In this module, we will look into the issue of potential <strong>dispersion</strong> and other relevant issues and find an alternative count and rate regression model.</p>
+<p>The general structure of the Poisson regression model is given by</p>
+<p><span class="math display">\[
+\log \mu(x) = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p
+\]</span></p>
+<p>There are several assumptions for the Poisson regression model. The most important one is that the mean and variance of the response variable are equal. The other assumption is the linear relationship between the explanatory variables and the log mean of the response. It is not straightforward to detect the potential violation of these assumptions. In the next section, we define some metrics based on <em>residuals</em> based on the hypothetical model and the observed data.</p>
+<p>The learning objectives of this module are (1) to develop measures to detect the violation of the assumptions of the Poisson regression, (2) to define a measure to estimate the dispersion, (3) to introduce the quasi-likelihood Poisson regression model to make robust inference of the regression coefficients.</p>
+<div id="residuals-of-poisson-regression" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Residuals of Poisson Regression<a href="dispersed-poisson-regression.html#residuals-of-poisson-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In linear regression, we can use the residual plots to check the potential violation of the model assumption since the residuals are normally distributed with zero mean and constant standard deviation if the model is appropriate. In Poisson regression, we can mimic the way of defining the <em>kind of residuals</em> as we did in linear regression. Under the large sample assumptions, these residuals are approximately normally distributed if the underlying hypothetical model is appropriate. Using this large sample property, we can define some metrics to detect the potential violation of the model assumptions.</p>
+<p>Recall that the residual of <span class="math inline">\(i\)</span>-th observation under a model defined by</p>
+<p><span class="math display">\[ e_i = y_i - \hat{\mu}_i.\]</span></p>
+<p>where <span class="math inline">\(\hat{\mu}_i\)</span> is the fitted value based on the hypothetical model <span class="math inline">\(\log(\mu) = \hat{\beta}_0 + \hat{\beta}_1x_1 + \cdots + \hat{\beta}_p x_p\)</span>. The regression coefficients can be estimated using least squares and likelihood methods.</p>
+<p>Next, I am going to use a portion of NYC cyclist data (you will use similar data for this week’s assignment). I will use this data set as an example to explain the concepts and models discussed in this module.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="dispersed-poisson-regression.html#cb178-1" tabindex="-1"></a>cyclist <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;dat/w10-NYCcyclistData.csv&quot;</span>)</span>
+<span id="cb178-2"><a href="dispersed-poisson-regression.html#cb178-2" tabindex="-1"></a>cyclist<span class="sc">$</span>log.Brooklynbridge <span class="ot">=</span> <span class="fu">log</span>(cyclist<span class="sc">$</span>BrooklynBridge)</span>
+<span id="cb178-3"><a href="dispersed-poisson-regression.html#cb178-3" tabindex="-1"></a>m0.loglinear <span class="ot">=</span> <span class="fu">lm</span>(log.Brooklynbridge <span class="sc">~</span> Day <span class="sc">+</span> HighTemp <span class="sc">+</span> LowTemp <span class="sc">+</span> Precipitation, </span>
+<span id="cb178-4"><a href="dispersed-poisson-regression.html#cb178-4" tabindex="-1"></a>                  <span class="at">data =</span> cyclist)</span>
+<span id="cb178-5"><a href="dispersed-poisson-regression.html#cb178-5" tabindex="-1"></a>m1.Poisson <span class="ot">=</span> <span class="fu">glm</span>(BrooklynBridge <span class="sc">~</span> Day <span class="sc">+</span> HighTemp <span class="sc">+</span> LowTemp <span class="sc">+</span> Precipitation, </span>
+<span id="cb178-6"><a href="dispersed-poisson-regression.html#cb178-6" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), <span class="at">offset =</span> <span class="fu">log</span>(Total),  <span class="at">data =</span> cyclist)</span></code></pre></div>
+<ul>
+<li><strong>Least Square Estimate (LSE) of</strong> <span class="math inline">\(\beta\)</span>’s</li>
+</ul>
+<p>In this method, we need to take the logarithm of the observed count as in the data table as shown in the following table.</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="12%" />
+<col width="12%" />
+<col width="6%" />
+<col width="12%" />
+<col width="18%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ID</th>
+<th align="left"><span class="math inline">\(x_1\)</span></th>
+<th align="left"><span class="math inline">\(x_2\)</span></th>
+<th align="left">…</th>
+<th align="left"><span class="math inline">\(x_k\)</span></th>
+<th align="left"><span class="math inline">\(y\)</span> (counts)</th>
+<th align="left">log-count [<span class="math inline">\(\log(y)\)</span>]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left"><span class="math inline">\(x_{11}\)</span></td>
+<td align="left"><span class="math inline">\(x_{21}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(x_{k1}\)</span></td>
+<td align="left"><span class="math inline">\(y_1\)</span></td>
+<td align="left"><span class="math inline">\(\log(y_1)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left"><span class="math inline">\(x_{12}\)</span></td>
+<td align="left"><span class="math inline">\(x_{22}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(x_{k2}\)</span></td>
+<td align="left"><span class="math inline">\(y_2\)</span></td>
+<td align="left"><span class="math inline">\(\log(y_2)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+<tr class="even">
+<td align="left">n</td>
+<td align="left"><span class="math inline">\(x_{1n}\)</span></td>
+<td align="left"><span class="math inline">\(x_{2n}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(x_{kn}\)</span></td>
+<td align="left"><span class="math inline">\(y_n\)</span></td>
+<td align="left"><span class="math inline">\(\log(y_n)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>We can use the log of the observed count and values of the explanatory variables to find the least square estimates (LSE) of the regression coefficients, denoted by <span class="math inline">\(\tilde{\beta}_0, \tilde{\beta}_1, \cdots, \tilde{\beta}_p\)</span>, of the Poisson regression model. Then the <span class="math inline">\(i\)</span>-th fitted value <span class="math inline">\(\hat{\mu}_i = \exp(\tilde{\beta}_0 + \tilde{\beta}_1 x_1 + \cdots + \tilde{\beta}_p x_p)\)</span>.</p>
+<ul>
+<li><strong>Maximum Likelihood Estimate (MLE) of</strong> <span class="math inline">\(\beta\)</span>’s</li>
+</ul>
+<p>Since the response variable is assumed to have a Poisson with its mean <span class="math inline">\(\mu_j = \exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})\)</span>. The kernel of the log-likelihood of observing the data set is defined in the following</p>
+<p><span class="math display">\[
+l(\beta_0, \beta_1, \cdots, \beta_p) \propto  \sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right]
+\]</span></p>
+<p>The MLE of the <span class="math inline">\(\beta\)</span>’s, denoted by <span class="math inline">\(\hat{\beta}_0, \hat{\beta}_1, \cdots, \hat{\beta}_p\)</span>, maximizes the above log-likelihood through solving the following <strong>score equations</strong>,</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccccc}
+\frac{\partial l(\beta_0, \beta_1, \cdots, \beta_p)}{\partial \alpha_0} &amp; = &amp; \frac{\partial}{\partial \alpha_0}\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right] &amp; = &amp; 0 \\
+\frac{\partial l(\beta_0, \beta_1, \cdots, \beta_p)}{\partial \alpha_1} &amp; = &amp; \frac{\partial}{\partial \alpha_1}\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right]&amp; = &amp; 0 \\
+\cdots &amp; \cdots &amp;\cdots &amp; \cdots &amp;\cdots\\
+\frac{\partial l(\beta_0, \beta_1, \cdots, \beta_p)}{\partial \alpha_{p}} &amp; = &amp; \frac{\partial}{\partial \alpha_p}\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right]&amp; = &amp; 0  \\
+\end{array}
+\right.
+\]</span></p>
+<p>With the MLE, we can find the fitted value by <span class="math inline">\(\hat{\mu}_i = \exp(\hat{\beta}_0 + \hat{\beta}_1 x_1 + \cdots + \hat{\beta}_p x_p)\)</span>.</p>
+<div id="pearson-residuals" class="section level3 hasAnchor" number="13.1.1">
+<h3><span class="header-section-number">13.1.1</span> Pearson Residuals<a href="dispersed-poisson-regression.html#pearson-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Pearson residual of <span class="math inline">\(i\)</span>-th observation is defined to be</p>
+<p><span class="math display">\[
+\text{Pearson.Residual}_i = \frac{y_i-\hat{\mu}_i}{\sqrt{\hat{\mu}_i}}
+\]</span></p>
+<p>Pearson residuals are the standardized value of the observed <span class="math inline">\(y_i\)</span> with the assumption that <span class="math inline">\(Y_i\)</span> is a Poisson normal random variable. Under a large sample assumption, we would expect that residuals are approximately normally distributed. We can use this property to assess the appropriateness of the Poisson regression model. Equivalently, the square of the Pearson residual is a chi-square distribution with one degree of freedom.</p>
+<p>Next, we extract the residuals (<span class="math inline">\(y_i-\hat{\mu}_i\)</span>) direct from the linear regression model and then divided by the square root of <span class="math inline">\(\hat{\mu}_i\)</span>, fitted values of <span class="math inline">\(y_i\)</span>, to find the Pearson residuals.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="dispersed-poisson-regression.html#cb179-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb179-2"><a href="dispersed-poisson-regression.html#cb179-2" tabindex="-1"></a>resid.loglin <span class="ot">=</span> m0.loglinear<span class="sc">$</span>residuals</span>
+<span id="cb179-3"><a href="dispersed-poisson-regression.html#cb179-3" tabindex="-1"></a>fitted.loglin <span class="ot">=</span> m0.loglinear<span class="sc">$</span>fitted.values</span>
+<span id="cb179-4"><a href="dispersed-poisson-regression.html#cb179-4" tabindex="-1"></a>pearson.resid <span class="ot">=</span> resid.loglin<span class="sc">/</span><span class="fu">sqrt</span>(fitted.loglin)</span>
+<span id="cb179-5"><a href="dispersed-poisson-regression.html#cb179-5" tabindex="-1"></a><span class="fu">qqnorm</span>(pearson.resid, <span class="at">main =</span> <span class="st">&quot;Normal Q-Q plot of Pearson </span><span class="sc">\n</span><span class="st">  Residuals of Poisson Regression&quot;</span>)</span>
+<span id="cb179-6"><a href="dispersed-poisson-regression.html#cb179-6" tabindex="-1"></a><span class="fu">qqline</span>(pearson.resid)</span>
+<span id="cb179-7"><a href="dispersed-poisson-regression.html#cb179-7" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb179-8"><a href="dispersed-poisson-regression.html#cb179-8" tabindex="-1"></a>seq.bound<span class="ot">=</span><span class="fu">seq</span>(<span class="fu">range</span>(pearson.resid)[<span class="dv">1</span>], <span class="fu">range</span>(pearson.resid)[<span class="dv">2</span>], <span class="at">length=</span><span class="dv">10</span>)</span>
+<span id="cb179-9"><a href="dispersed-poisson-regression.html#cb179-9" tabindex="-1"></a><span class="fu">hist</span>(pearson.resid, <span class="at">breaks =</span> seq.bound, </span>
+<span id="cb179-10"><a href="dispersed-poisson-regression.html#cb179-10" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Pearson Residuals of Poisson&quot;</span>)</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-150-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Both the Q-Q plot and histogram indicate that the distribution of Pearson residuals is skewed. There is a discrepancy between frequency distribution and normal distribution. Since the Pearson residuals are derived based on the least square algorithm, they don’t have good distributional properties to develop a test.</p>
+</div>
+<div id="deviance-residuals" class="section level3 hasAnchor" number="13.1.2">
+<h3><span class="header-section-number">13.1.2</span> Deviance Residuals<a href="dispersed-poisson-regression.html#deviance-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Deviance residuals of Poisson regression are defined based on the likelihood method in the following</p>
+<p><span class="math display">\[
+\text{Deviance.Residual}_i=\text{sign}(y_i - \hat{\mu}_i)\sqrt{2\left[y_i\log(y_i/\hat{\mu}_i) -(y_i-\hat{\mu}_i)\right]}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\text{sign}(x) = \begin{cases}
+           1    &amp; \text{if } x \geq 0 \\
+           - 1  &amp; \text{if } x &lt; 0   \\
+           0    &amp; \text{if } x =0
+          \end{cases}
+\]</span></p>
+<p>Since the deviance residuals based on Poisson regression are defined based on the likelihood, there are asymptotically normally distributed. We can use this asymptotic property of normal distribution to assess the appropriateness of the Poisson regression.</p>
+<p><br />
+</p>
+</div>
+<div id="numerical-example" class="section level3 hasAnchor" number="13.1.3">
+<h3><span class="header-section-number">13.1.3</span> Numerical Example<a href="dispersed-poisson-regression.html#numerical-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The residual deviance of Poisson (or other generalized linear models) is defined to be the sum of all deviance residuals: <span class="math inline">\(\text{deviance} =\sum_i(\text{deviance.residual}_i)^2\)</span>. In the output of <strong>glm()</strong> in R, the <strong>null deviance residual</strong> (corresponding to the model with no explanatory variable in it) and <strong>deviance residual</strong> (corresponding to the fitted model) are reported with the corresponding degrees of freedom.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="dispersed-poisson-regression.html#cb180-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img10/w10-glmPoisOutput.jpg&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-151"></span>
+<img src="img10/w10-glmPoisOutput.jpg" alt="R glm() output of Poisson regression model" width="70%" />
+<p class="caption">
+Figure 13.1: R glm() output of Poisson regression model
+</p>
+</div>
+<p>We can see from the Poisson regression output in R that only deviance residuals and the corresponding descriptive statistics are reported (the five-number-summary of deviance residuals, null deviance, and deviance with corresponding degrees of freedoms). This is because the inference of Poisson regression in <strong>glm()</strong> is based on the likelihood theory.</p>
+<p>We can also extract the deviance residuals from <strong>glm()</strong> object and make a Q-Q plot in the following</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="dispersed-poisson-regression.html#cb181-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb181-2"><a href="dispersed-poisson-regression.html#cb181-2" tabindex="-1"></a><span class="fu">qqnorm</span>(m1.Poisson<span class="sc">$</span>residuals, </span>
+<span id="cb181-3"><a href="dispersed-poisson-regression.html#cb181-3" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Normal Q-Q plot of Deviance </span><span class="sc">\n</span><span class="st">  Residuals of Poisson Regression&quot;</span>)</span>
+<span id="cb181-4"><a href="dispersed-poisson-regression.html#cb181-4" tabindex="-1"></a><span class="fu">qqline</span>(m1.Poisson<span class="sc">$</span>residuals)</span>
+<span id="cb181-5"><a href="dispersed-poisson-regression.html#cb181-5" tabindex="-1"></a>resid.m1 <span class="ot">=</span> m1.Poisson<span class="sc">$</span>residuals</span>
+<span id="cb181-6"><a href="dispersed-poisson-regression.html#cb181-6" tabindex="-1"></a>seq.bound<span class="ot">=</span><span class="fu">seq</span>(<span class="fu">range</span>(resid.m1)[<span class="dv">1</span>], <span class="fu">range</span>(resid.m1)[<span class="dv">2</span>], <span class="at">length=</span><span class="dv">9</span>)</span>
+<span id="cb181-7"><a href="dispersed-poisson-regression.html#cb181-7" tabindex="-1"></a><span class="fu">hist</span>(m1.Poisson<span class="sc">$</span>residuals, <span class="at">breaks =</span> seq.bound, </span>
+<span id="cb181-8"><a href="dispersed-poisson-regression.html#cb181-8" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Deviance Residuals of Poisson&quot;</span>)</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-152-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Both Q-Q plot and histogram indicate that the distribution of the deviance residuals is slightly different from a normal distribution. If the model is correctly specified, the sum of squared residuals <span class="math inline">\(\sum_i(\text{Deviance.Residual}_i)^2\)</span> is distributed as <span class="math inline">\(\chi^2_{n-p}\)</span>. The deviance and the degrees of freedom of the deviance are given in the output of the <strong>glm()</strong> (see the output given in the above figure).</p>
+<p>For example, we next extract the deviance and degrees of freedom from the output and perform a chi-square test.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="dispersed-poisson-regression.html#cb182-1" tabindex="-1"></a>deviance.resid <span class="ot">=</span> m1.Poisson<span class="sc">$</span>deviance</span>
+<span id="cb182-2"><a href="dispersed-poisson-regression.html#cb182-2" tabindex="-1"></a>deviance.df <span class="ot">=</span> m1.Poisson<span class="sc">$</span>df.residual</span>
+<span id="cb182-3"><a href="dispersed-poisson-regression.html#cb182-3" tabindex="-1"></a><span class="co"># p-value of chi-square test</span></span>
+<span id="cb182-4"><a href="dispersed-poisson-regression.html#cb182-4" tabindex="-1"></a>p.value <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(deviance.resid, deviance.df)</span>
+<span id="cb182-5"><a href="dispersed-poisson-regression.html#cb182-5" tabindex="-1"></a>pval <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">p.value =</span> p.value)</span>
+<span id="cb182-6"><a href="dispersed-poisson-regression.html#cb182-6" tabindex="-1"></a><span class="fu">kable</span>(pval, <span class="at">caption=</span><span class="st">&quot;The p-value of deviance chi-square test&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-153">Table 13.1: </span>The p-value of deviance chi-square test</caption>
+<thead>
+<tr class="header">
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>The p-value is almost equal to zero. The assumption of the Poisson regression model was violated.</p>
+</div>
+<div id="goodness-of-fit" class="section level3 hasAnchor" number="13.1.4">
+<h3><span class="header-section-number">13.1.4</span> Goodness-of-fit<a href="dispersed-poisson-regression.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The deviance has an asymptotic <span class="math inline">\(\chi^2_{n-p}\)</span> distribution if the model is correct. If the p-value calculated based on the deviance from <span class="math inline">\(\chi^2_{n-p}\)</span> is less than the significance level, we claim the model has a poor fit (also lack-of-fit, badness-of-fit). There could be different reasons that cause the poor fit. For example, (1) data issues such as outliers, (2) functional form of the explanatory variables (non-linear relationship between the log of the mean of the response), (3) missing some important explanatory variable in the data set, (4) dispersion issue, etc.</p>
+<p>The deviance residual can be used naturally to <strong>compare hierarchical models</strong> by defining the likelihood ratio chi-square tests.</p>
+<p>The dispersion issue will be detailed in the next section.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="dispersion-and-dispersed-poisson-regression-model" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Dispersion and Dispersed Poisson Regression Model<a href="dispersed-poisson-regression.html#dispersion-and-dispersed-poisson-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The issue of <strong>Over-dispersion</strong> in Poisson regression is common. It indicates that the variance is bigger than the mean.</p>
+<div id="definition-of-dispersion" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Definition of Dispersion<a href="dispersed-poisson-regression.html#definition-of-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To detect over-dispersion (i.e., the violation of the assumption in Poisson regression), we define the following dispersion parameter</p>
+<p><span class="math display">\[
+\hat{\phi} = \frac{\sum_i(\text{Pearson.Residual}_i)^2}{n-p} ,
+\]</span></p>
+<p>where <span class="math inline">\(p\)</span> is the number of regression coefficients. Note that <span class="math inline">\(\sum_i(\text{Pearson.Residual}_i)^2\)</span> has a <span class="math inline">\(\chi_{n-1}^2\)</span> if the Poisson assumption is correct. Since the expectation of a chi-square distribution is equal to the degrees of freedom, this means that the <strong>estimated dispersion parameter</strong>, <span class="math inline">\(\hat{\phi}\)</span>, should be around 1 if the Poisson assumption is correct. Therefore, the estimated dispersion parameter can be used to detect potential dispersion issues.</p>
+<ul>
+<li><strong>Impact of Dispersion</strong></li>
+</ul>
+<p>Over-dispersion means the assumptions of the Poisson model (or other models in the exponential family) are not met, therefore, the p-values in the output of <strong>glm()</strong> with the regular <em>log link</em> in the <em>poisson family</em> are not reliable. We should use p-values in the output to perform significant tests and use them for variable selection.</p>
+<p><br />
+</p>
+</div>
+<div id="quasi-poisson-regression-model" class="section level3 hasAnchor" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> Quasi-Poisson Regression Model<a href="dispersed-poisson-regression.html#quasi-poisson-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can make an adjustment to the Poisson variance by adding a dispersion parameter. In other words, while for Poisson data <span class="math inline">\(\bar{Y} = s^2_Y\)</span>, the quasi-Poisson allows for <span class="math inline">\(\bar{Y} = \phi \cdot s^2_Y\)</span>, and estimates the over-dispersion parameter <span class="math inline">\(\phi\)</span> (or under-dispersion, if <span class="math inline">\(\phi &lt; 1\)</span>). The estimated <span class="math inline">\(\phi\)</span> is given earlier.</p>
+<p>The parameters of the Poisson regression model are estimated based on the following <strong>adjusted score</strong> equations.</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccccc}
+\frac{\partial}{\partial \alpha_0} \frac{\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right]}{\phi} &amp; = &amp; 0 \\
+\frac{\partial}{\partial \alpha_1}\frac{\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right] }{\phi}&amp; = &amp; 0 \\
+\cdots &amp; \cdots &amp;\cdots \\
+\frac{\partial}{\partial \alpha_p}\frac{\sum_{j=1}^n \left[y_j(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj})-\exp(\beta_0 + \beta_1 x_{1j} + \cdots + \beta_p x_{pj}) \right] }{\phi}&amp; = &amp; 0  \\
+\end{array}
+\right.
+\]</span></p>
+<p>Note that the above <strong>score equations</strong> are <strong>not</strong> derived from the loglikelihood function of the regular Poisson regression model. Unlike the likelihood-based goodness of fit measures such as <em>deviance</em>, <em>AIC</em>, and <em>SBC</em> measures should not be used in inference.</p>
+<p>Apparently, the estimated regression coefficients are identical since the scale parameter <span class="math inline">\(\phi\)</span> will not impact the solution to the linear system. However, the variance <span class="math inline">\(\text{V}(\mathbf{Y}) = \phi \text{V}(\hat{\mu})\)</span>. Thus, we now have a parameter that allows the variance to be larger or smaller than the mean by a multiplicative factor <span class="math inline">\(\phi\)</span>. Hence, it will affect the inference of QMLE of the regression coefficients</p>
+<p><span class="math display">\[
+\hat{\mathbf{\beta}} \to \mathbf{N}[\mathbf{\beta},~ \phi(\mathbf{X}^T\mathbf{WX})^{-1}]
+\]</span>
+That means the standard errors of <span class="math inline">\(\hat{\beta}_i\)</span> (<span class="math inline">\(i = 0,1, 2, \cdots, k\)</span>) are different from the MLE in the regular Poisson regression. Because of this, the reported p-values are also different from those of the output of the regular Poisson regression model.</p>
+<p><br />
+</p>
+</div>
+<div id="numerical-example-1" class="section level3 hasAnchor" number="13.2.3">
+<h3><span class="header-section-number">13.2.3</span> Numerical Example<a href="dispersed-poisson-regression.html#numerical-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, we use <strong>glm()</strong> to fit the quasi-Poisson model and compare its output with that of the regular Poisson regression.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="dispersed-poisson-regression.html#cb183-1" tabindex="-1"></a>m2.quasi.pois <span class="ot">=</span> <span class="fu">glm</span>(BrooklynBridge <span class="sc">~</span> Day <span class="sc">+</span> HighTemp <span class="sc">+</span> LowTemp <span class="sc">+</span> Precipitation, </span>
+<span id="cb183-2"><a href="dispersed-poisson-regression.html#cb183-2" tabindex="-1"></a>                    <span class="at">family =</span> quasipoisson, <span class="at">offset =</span> <span class="fu">log</span>(Total),  <span class="at">data =</span> cyclist)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="dispersed-poisson-regression.html#cb184-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img10/w10-QuasiPoisOutput.jpg&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-155"></span>
+<img src="img10/w10-QuasiPoisOutput.jpg" alt="R glm() output of quasi-Poisson regression model" width="568" />
+<p class="caption">
+Figure 13.2: R glm() output of quasi-Poisson regression model
+</p>
+</div>
+<p>We can see from the output of the quasi-likelihood-based Poisson regression that the dispersion parameter is <span class="math inline">\(\hat{\phi} = 5.420292\)</span>. Since the dispersion parameter is significantly different from 1, the p-values in the output of the Poisson regression model are not reliable. The main effect is the substantially larger errors for the estimates (the point estimates do not change), and hence potentially changed the significance of explanatory variables.</p>
+<p>We can manually compute the corrected standard errors in the quasi-Poisson model by adjusting the standard error from the Poisson standard errors using relation <span class="math inline">\(SE_Q(\hat{\beta})=SE(\hat{\beta})\times \sqrt{\hat{\phi}}\)</span>. For example, considering the standard error of <span class="math inline">\(\hat{\beta}_1\)</span> (associated with dummy variable <strong>DayMonday</strong>), <span class="math inline">\(SE(\hat{\beta}_1) = 0.0134153\)</span>, in the output of the regular Poisson regression model. The corresponding corrected standard error in the quasi-Poisson model is given by <span class="math inline">\(\sqrt{5.420292}\times 0.0134153 = 0.03123286\)</span>, which is the same as the one reported in the quasi-Poisson model.</p>
+</div>
+<div id="summary-and-concluding-remarks" class="section level3 hasAnchor" number="13.2.4">
+<h3><span class="header-section-number">13.2.4</span> Summary and Concluding Remarks<a href="dispersed-poisson-regression.html#summary-and-concluding-remarks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have introduced regular Poisson and quasi-Poisson regression modes in this and previous notes. The two models use the same formulation, but different estimations are used. The regular Poisson model is based on the likelihood estimation, all statistics reported in the out are valid. However, the quasi-Poisson model is <strong>not</strong> based on the standard maximum likelihood estimation, and not all reported statistics can be used for inference.</p>
+<ul>
+<li>Regular Poisson Model
+<ol style="list-style-type: decimal">
+<li>Assume <span class="math inline">\(Y\)</span> to be a Poisson random variable.</li>
+<li>link function is <span class="math inline">\(\log(\cdot)\)</span> , the model is defined to be <span class="math inline">\(\log(\mu) =\beta_0 + \sum_{i=1}^k \beta_ix_i\)</span></li>
+<li>Score equation: first-order partial derivative of the log-likelihood function</li>
+<li>Parameter estimation - MLE via Fisher scoring algorithm</li>
+<li>Regression coefficient is log risk ratio.</li>
+<li>Pearson and Deviance residuals are defined for model diagnosis.</li>
+<li>All likelihood-based statistics such as <em>R-square, AIC, and SBC</em> are valid and can be used as usual.</li>
+</ol></li>
+<li>Quasi-Poisson Model:
+<ol style="list-style-type: decimal">
+<li>Assume <span class="math inline">\(Y\)</span> to be a Poisson random variable.</li>
+<li>link function is <span class="math inline">\(\log(\cdot)\)</span> , the model is defined to be <span class="math inline">\(\log(\mu) =\beta_0 + \sum_{i=1}^k \beta_ix_i\)</span></li>
+<li>Score equation: first order partial derivative of the scaled log-likelihood function (<em>quasi-likelihood</em>).</li>
+<li>Parameter estimation - MLE via Fisher scoring algorithm</li>
+<li>Regression coefficient is log risk ratio.</li>
+<li>Pearson and Deviance residuals are defined for model diagnosis.</li>
+<li>All likelihood based statistics such as <em>R-square, AIC, SBC</em> are <strong>theoretically invalid</strong>.</li>
+</ol></li>
+<li>Which Model Should Be Used?
+<ol style="list-style-type: decimal">
+<li>In predictive modeling, both models will yield the same results.</li>
+<li>In the association analysis, the regular Poisson model should be used when dispersion is not an issue (i.e., <span class="math inline">\(\phi\)</span> is close to 1.). However, the quasi-Poisson should be used when <span class="math inline">\(\phi\)</span> is significantly different from 1.</li>
+<li>When there is no dispersion, could we simply use the quasi-Poisson in the association analysis? The answer is No. The reason is that the additional approximation was used to adjust the estimation of the standard error and the approximation also add rounding errors to the result. From the computational perspective, it uses more system resources.</li>
+</ol></li>
+</ul>
+<p><br />
+</p>
+</div>
+</div>
+<div id="case-study-i-denmark-cities-lung-cancer-rates" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Case Study I: Denmark Cities Lung Cancer Rates<a href="dispersed-poisson-regression.html#case-study-i-denmark-cities-lung-cancer-rates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This is a complete analysis of the case study of Denmark Cities Ling Cancer rate we started in the previous module.</p>
+<div id="introduction-1" class="section level3 hasAnchor" number="13.3.1">
+<h3><span class="header-section-number">13.3.1</span> Introduction<a href="dispersed-poisson-regression.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The World Health Organisation (WHO) statistics suggest that Denmark has the highest cancer rates in the world, with about 326 people out of every 100,000 developing cancer each year. The country is known to have a good record of diagnosing cancer but also has high rates of smoking among women and high levels of alcohol consumption.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="dispersed-poisson-regression.html#cb185-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img10/DenmarkCitiesMap.png&quot;</span>)</span></code></pre></div>
+<p><img src="img10/DenmarkCitiesMap.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>In this case study, we use a data set that summarized the lung cancer incident counts (cases) per age group for four Danish cities from 1968 to 1971. The primary random response variable is lung cancer cases. The predictor variables are the age group and the total population size of the neighboring cities.</p>
+<p>The data set was built in the R library {ISwR}.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="dispersed-poisson-regression.html#cb186-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb186-2"><a href="dispersed-poisson-regression.html#cb186-2" tabindex="-1"></a><span class="fu">data</span>(eba1977)</span>
+<span id="cb186-3"><a href="dispersed-poisson-regression.html#cb186-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(eba1977), <span class="at">caption =</span> <span class="st">&quot;First few records in the data set&quot;</span>) </span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-157">Table 13.2: </span>First few records in the data set</caption>
+<thead>
+<tr class="header">
+<th align="left">city</th>
+<th align="left">age</th>
+<th align="right">pop</th>
+<th align="right">cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Fredericia</td>
+<td align="left">40-54</td>
+<td align="right">3059</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">Horsens</td>
+<td align="left">40-54</td>
+<td align="right">2879</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Kolding</td>
+<td align="left">40-54</td>
+<td align="right">3142</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Vejle</td>
+<td align="left">40-54</td>
+<td align="right">2520</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Fredericia</td>
+<td align="left">55-59</td>
+<td align="right">800</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">Horsens</td>
+<td align="left">55-59</td>
+<td align="right">1083</td>
+<td align="right">6</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="dispersed-poisson-regression.html#cb187-1" tabindex="-1"></a><span class="co"># check the values of the variables in the data set</span></span></code></pre></div>
+<p>Since it’s reasonable to assume that the expected count of lung cancer incidents is proportional to the population size, we would prefer to model the rate of incidents per capita. However, for the purpose of illustration, we will fit the Poisson regression model with both counts and rate of cancer rates.</p>
+</div>
+<div id="poisson-regression-on-cancer-counts-1" class="section level3 hasAnchor" number="13.3.2">
+<h3><span class="header-section-number">13.3.2</span> Poisson Regression on Cancer Counts<a href="dispersed-poisson-regression.html#poisson-regression-on-cancer-counts-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first build a Poisson frequency regression model and ignore the population size of each city in the data.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="dispersed-poisson-regression.html#cb188-1" tabindex="-1"></a>model.freq <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), <span class="at">data =</span> eba1977)</span>
+<span id="cb188-2"><a href="dispersed-poisson-regression.html#cb188-2" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb188-3"><a href="dispersed-poisson-regression.html#cb188-3" tabindex="-1"></a>pois.count.coef <span class="ot">=</span> <span class="fu">summary</span>(model.freq)<span class="sc">$</span>coef</span>
+<span id="cb188-4"><a href="dispersed-poisson-regression.html#cb188-4" tabindex="-1"></a><span class="fu">kable</span>(pois.count.coef, <span class="at">caption =</span> <span class="st">&quot;The Poisson regression model for the counts of lung </span></span>
+<span id="cb188-5"><a href="dispersed-poisson-regression.html#cb188-5" tabindex="-1"></a><span class="st">      cancer cases versus the geographical locations and the age group.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-158">Table 13.3: </span>The Poisson regression model for the counts of lung
+cancer cases versus the geographical locations and the age group.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.2437446</td>
+<td align="right">0.2036265</td>
+<td align="right">11.0189233</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">-0.0984401</td>
+<td align="right">0.1812909</td>
+<td align="right">-0.5429952</td>
+<td align="right">0.5871331</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.2270575</td>
+<td align="right">0.1877041</td>
+<td align="right">-1.2096561</td>
+<td align="right">0.2264109</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.2270575</td>
+<td align="right">0.1877041</td>
+<td align="right">-1.2096561</td>
+<td align="right">0.2264109</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">-0.0307717</td>
+<td align="right">0.2480988</td>
+<td align="right">-0.1240298</td>
+<td align="right">0.9012916</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">0.2646926</td>
+<td align="right">0.2314278</td>
+<td align="right">1.1437369</td>
+<td align="right">0.2527328</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">0.3101549</td>
+<td align="right">0.2291839</td>
+<td align="right">1.3533017</td>
+<td align="right">0.1759593</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">0.1923719</td>
+<td align="right">0.2351660</td>
+<td align="right">0.8180261</td>
+<td align="right">0.4133423</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">-0.0625204</td>
+<td align="right">0.2501222</td>
+<td align="right">-0.2499593</td>
+<td align="right">0.8026188</td>
+</tr>
+</tbody>
+</table>
+<p>The above inferential table about the regression coefficients indicates both city and age are insignificant. This means, if we look at cancer count across the age group and city, there is no statistical evidence to support the potential discrepancy across the age groups and cities. However, this does not imply that the model is meaningless from the practical perspective since statistical significance is not equivalent the clinical importance. Moreover, the sample size could impact the statistical significance of some of the variables.</p>
+<p>The other way to look at the model is the appropriateness model. The cancer counts are dependent on the population size. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.</p>
+<p>The other way to look at the model is goodness of the model. The cancer counts are dependent on the population size. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.</p>
+</div>
+<div id="poisson-regression-on-rates-1" class="section level3 hasAnchor" number="13.3.3">
+<h3><span class="header-section-number">13.3.3</span> Poisson Regression on Rates<a href="dispersed-poisson-regression.html#poisson-regression-on-rates-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following model assesses the potential relationship between cancer death rates and age. This is the primary interest of the model. We also want to adjust the relationship be the potential neighboring cities.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="dispersed-poisson-regression.html#cb189-1" tabindex="-1"></a>model.rates <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">offset =</span> <span class="fu">log</span>(pop), </span>
+<span id="cb189-2"><a href="dispersed-poisson-regression.html#cb189-2" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), <span class="at">data =</span> eba1977)</span>
+<span id="cb189-3"><a href="dispersed-poisson-regression.html#cb189-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(model.rates)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Poisson regression on the rate of the </span></span>
+<span id="cb189-4"><a href="dispersed-poisson-regression.html#cb189-4" tabindex="-1"></a><span class="st">      the cancer rate in the four Danish cities adjusted by age.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-159">Table 13.4: </span>Poisson regression on the rate of the
+the cancer rate in the four Danish cities adjusted by age.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-5.6320645</td>
+<td align="right">0.2002545</td>
+<td align="right">-28.124529</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">-0.3300600</td>
+<td align="right">0.1815033</td>
+<td align="right">-1.818479</td>
+<td align="right">0.0689909</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.3715462</td>
+<td align="right">0.1878063</td>
+<td align="right">-1.978348</td>
+<td align="right">0.0478895</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.2723177</td>
+<td align="right">0.1878534</td>
+<td align="right">-1.449629</td>
+<td align="right">0.1471620</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">1.1010140</td>
+<td align="right">0.2482858</td>
+<td align="right">4.434463</td>
+<td align="right">0.0000092</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">1.5186123</td>
+<td align="right">0.2316376</td>
+<td align="right">6.555985</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">1.7677062</td>
+<td align="right">0.2294395</td>
+<td align="right">7.704455</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">1.8568633</td>
+<td align="right">0.2353230</td>
+<td align="right">7.890701</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">1.4196534</td>
+<td align="right">0.2502707</td>
+<td align="right">5.672472</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The above table indicates that the log of cancer rate is not identical across the age groups and among the four cities. To be more specific, the log rates of Fredericia (baseline city) were higher than in the other three cities. The youngest age group (45-55) has the lowest log rate. The regression coefficients represent the change of log rate between the associate age group and the reference age group. The same interpretation applies to the change in log rate among the cities.</p>
+<p><br />
+</p>
+</div>
+<div id="quasi-poisson-rate-model" class="section level3 hasAnchor" number="13.3.4">
+<h3><span class="header-section-number">13.3.4</span> Quasi-Poisson Rate Model<a href="dispersed-poisson-regression.html#quasi-poisson-rate-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The above two Poison models assume that there is no dispersion issue in the model. The quasi-Poisson through <code>glm()</code> returns the dispersion coefficient.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="dispersed-poisson-regression.html#cb190-1" tabindex="-1"></a>quasimodel.rates <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">offset =</span> <span class="fu">log</span>(pop), </span>
+<span id="cb190-2"><a href="dispersed-poisson-regression.html#cb190-2" tabindex="-1"></a>                   <span class="at">family =</span> quasipoisson, <span class="at">data =</span> eba1977)</span>
+<span id="cb190-3"><a href="dispersed-poisson-regression.html#cb190-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(model.rates)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Quasi-Poisson regression on the rate of the cancer rate in the four Danish cities adjusted by age.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-160">Table 13.5: </span>Quasi-Poisson regression on the rate of the cancer rate in the four Danish cities adjusted by age.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-5.6320645</td>
+<td align="right">0.2002545</td>
+<td align="right">-28.124529</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">-0.3300600</td>
+<td align="right">0.1815033</td>
+<td align="right">-1.818479</td>
+<td align="right">0.0689909</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.3715462</td>
+<td align="right">0.1878063</td>
+<td align="right">-1.978348</td>
+<td align="right">0.0478895</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.2723177</td>
+<td align="right">0.1878534</td>
+<td align="right">-1.449629</td>
+<td align="right">0.1471620</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">1.1010140</td>
+<td align="right">0.2482858</td>
+<td align="right">4.434463</td>
+<td align="right">0.0000092</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">1.5186123</td>
+<td align="right">0.2316376</td>
+<td align="right">6.555985</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">1.7677062</td>
+<td align="right">0.2294395</td>
+<td align="right">7.704455</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">1.8568633</td>
+<td align="right">0.2353230</td>
+<td align="right">7.890701</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">1.4196534</td>
+<td align="right">0.2502707</td>
+<td align="right">5.672472</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The dispersion index can be extracted from the quasi-Poisson object with the following code</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="dispersed-poisson-regression.html#cb191-1" tabindex="-1"></a>ydif<span class="ot">=</span>eba1977<span class="sc">$</span>cases<span class="sc">-</span><span class="fu">exp</span>(model.rates<span class="sc">$</span>linear.predictors)  <span class="co"># diff between y and yhat</span></span>
+<span id="cb191-2"><a href="dispersed-poisson-regression.html#cb191-2" tabindex="-1"></a>prsd <span class="ot">=</span> ydif<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">exp</span>(model.rates<span class="sc">$</span>linear.predictors))   <span class="co"># Pearson residuals</span></span>
+<span id="cb191-3"><a href="dispersed-poisson-regression.html#cb191-3" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">sum</span>(prsd<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">15</span>          <span class="co"># Dispersion index: 24-9 = 15  </span></span>
+<span id="cb191-4"><a href="dispersed-poisson-regression.html#cb191-4" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">cbind</span>(<span class="at">Dispersion =</span> phi))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Dispersion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.504109</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+<div id="final-working-model" class="section level3 hasAnchor" number="13.3.5">
+<h3><span class="header-section-number">13.3.5</span> Final Working Model<a href="dispersed-poisson-regression.html#final-working-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The dispersion index is 1.56. It is slightly dispersed. We stay with the regular Poisson regression model.</p>
+<p>The intercept represents the <strong>baseline log-cancer rate</strong> ( of baseline <em>age group 44-55</em> in the baseline city <em>Fredericia</em>). The actual rate is <span class="math inline">\(\exp(-5.6321) \approx 0.36\%\)</span> which is close to the recently reported rate of the country by WHO. The slope <span class="math inline">\(-0.3301\)</span> is the difference of the log-rates between baseline city Fredericia and the city of Horsens at any given age group, to be more specific, <span class="math inline">\(\log(R_{\text{Horsen}}) - \log(R_{\text{Fredericia}}) = -0.3301\)</span> which is equivalent to</p>
+<p><span class="math display">\[
+\log \left( \frac{R_{\text{Horsen}}}{R_{\text{Fredericia}}} \right) = -0.3301 ~~~\Rightarrow~~~\frac{R_{\text{Horsen}}}{R_{\text{Fredericia}}} = e^{-0.3301} \approx 0.7188518.
+\]</span></p>
+<p>This means, with fixed age groups, the cancer rate in Horsens is about <span class="math inline">\(28\%\)</span> lower than that in Fredericia. Next, we look at the coefficient <span class="math inline">\(1.4197\)</span> associated with age group <span class="math inline">\(\text{75+}\)</span>. For any given city,</p>
+<p><span class="math display">\[
+\log \left(\frac{R_{\text{age75+}}}{R_{\text{age45-54}}} \right) = 1.4197~~~\Rightarrow~~~\frac{R_{\text{age75+}}}{R_{\text{age45-54}}} = e^{1.41971} \approx 4.135921.
+\]</span></p>
+<p>This implies that the cancer rate in the age group 75+ is 4.14 times that of the baseline age group of 45-54.</p>
+</div>
+<div id="some-visual-comparisons" class="section level3 hasAnchor" number="13.3.6">
+<h3><span class="header-section-number">13.3.6</span> Some Visual Comparisons<a href="dispersed-poisson-regression.html#some-visual-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The inferential tables of the Poisson regression models in the previous sections give numerical information about the potential discrepancy across the age group and among the cities. Next, we create a graph to visualize the relationship between cancer rate and age across cities.</p>
+<p>First of all, every city has a trend line that reflects the relationship between the cancer rate and age. We next find the rates of combinations of city and age group based on the following working rate model.
+<span class="math display">\[
+\text{log-rate} = -5.6321 -0.3301 \times \text{cityHorsens} -0.3715 \times \text{cityKolding} -0.2723 \times \text{cityVejle} + 1.1010 \times \text{age55-59} \\ + 1.5186 \times \text{age60-64} + 1.7677 \times  \text{age65-69} + 1.8569 \times \text{age70-74} + 1.4197 \times \text{age75+}
+\]</span></p>
+<p>Or equivalently, we can write the rate model as</p>
+<p><span class="math display">\[
+rate =\exp(-5.6321 -0.3301 \times \text{cityHorsens} -0.3715 \times \text{cityKolding} -0.2723 \times \text{cityVejle} + 1.1010 \times \text{age55-59}) \\ \times \exp( 1.5186 \times \text{age60-64} + 1.7677 \times  \text{age65-69} + 1.8569 \times \text{age70-74} + 1.4197 \times \text{age75+})
+\]</span></p>
+<p>To make the visual representation of the output, we tabulate cancer rates of the corresponding combinations of city and age group in the following calculation based on the regression equation with coefficients given in above table 3. Note that all variables in the model are indicator variables. Each of these indicator variables takes only two possible values: 0 and 1.</p>
+<p>For example, <span class="math inline">\(\exp(-5.632)\)</span> gives the cancer rate of the baseline city, Fredericia, and the baseline age group [45-54]. <span class="math inline">\(\exp(-5.632+1.101)\)</span> gives the cancer rate of baseline city, Fredericia, and age group [55-59]. Following the same pattern, we can find the cancer rate for each combination of the city and age group.</p>
+<p>The following table calculates the <strong>estimated</strong> cancer rates of cities Fredericia and Horsens across age groups. The rates for other cities can be similarly calculated.</p>
+<table>
+<colgroup>
+<col width="23%" />
+<col width="36%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Age</th>
+<th align="left">Fredericia’s Rate</th>
+<th align="left">Horsens’ Rates</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">[40 - 49]</td>
+<td align="left"><span class="math inline">\(\exp(-5.632)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">[55 - 59]</td>
+<td align="left"><span class="math inline">\(\exp(-5.632+1.101)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331+1.101)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">[60 - 64]</td>
+<td align="left"><span class="math inline">\(\exp(-5.632+1.52)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331+1.52)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">[65 - 69]</td>
+<td align="left"><span class="math inline">\(\exp(-5.632+1.77)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331+1.77)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">[70 - 74]</td>
+<td align="left"><span class="math inline">\(\exp(-5.632+1.86)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331+1.86)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">75+</td>
+<td align="left"><span class="math inline">\(\exp(-5.632+1.42)\)</span></td>
+<td align="left"><span class="math inline">\(\exp(-5.632-0.331+1.42)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>We use age as the horizontal axis and the estimated cancer rates (in the above table) as the vertical axis to make the trend lines for each of the four cities using the following code.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="dispersed-poisson-regression.html#cb192-1" tabindex="-1"></a><span class="co"># Fredericia</span></span>
+<span id="cb192-2"><a href="dispersed-poisson-regression.html#cb192-2" tabindex="-1"></a>Fredericia <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.101</span>),   </span>
+<span id="cb192-3"><a href="dispersed-poisson-regression.html#cb192-3" tabindex="-1"></a>               <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.77</span>),</span>
+<span id="cb192-4"><a href="dispersed-poisson-regression.html#cb192-4" tabindex="-1"></a>               <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.86</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.42</span>))</span>
+<span id="cb192-5"><a href="dispersed-poisson-regression.html#cb192-5" tabindex="-1"></a><span class="co"># Horsens</span></span>
+<span id="cb192-6"><a href="dispersed-poisson-regression.html#cb192-6" tabindex="-1"></a>Horsens <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.101</span>),   </span>
+<span id="cb192-7"><a href="dispersed-poisson-regression.html#cb192-7" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.77</span>),</span>
+<span id="cb192-8"><a href="dispersed-poisson-regression.html#cb192-8" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.86</span>),</span>
+<span id="cb192-9"><a href="dispersed-poisson-regression.html#cb192-9" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.42</span>))</span>
+<span id="cb192-10"><a href="dispersed-poisson-regression.html#cb192-10" tabindex="-1"></a><span class="co"># Kolding</span></span>
+<span id="cb192-11"><a href="dispersed-poisson-regression.html#cb192-11" tabindex="-1"></a>Kolding<span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.101</span>),   </span>
+<span id="cb192-12"><a href="dispersed-poisson-regression.html#cb192-12" tabindex="-1"></a>           <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.77</span>),</span>
+<span id="cb192-13"><a href="dispersed-poisson-regression.html#cb192-13" tabindex="-1"></a>           <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.86</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.42</span>))</span>
+<span id="cb192-14"><a href="dispersed-poisson-regression.html#cb192-14" tabindex="-1"></a><span class="co"># Vejle</span></span>
+<span id="cb192-15"><a href="dispersed-poisson-regression.html#cb192-15" tabindex="-1"></a>Vejle <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.101</span>),   </span>
+<span id="cb192-16"><a href="dispersed-poisson-regression.html#cb192-16" tabindex="-1"></a>          <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.77</span>),</span>
+<span id="cb192-17"><a href="dispersed-poisson-regression.html#cb192-17" tabindex="-1"></a>          <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.86</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.42</span>))</span>
+<span id="cb192-18"><a href="dispersed-poisson-regression.html#cb192-18" tabindex="-1"></a>minmax <span class="ot">=</span> <span class="fu">range</span>(<span class="fu">c</span>(Fredericia,Horsens,Kolding,Vejle))</span>
+<span id="cb192-19"><a href="dispersed-poisson-regression.html#cb192-19" tabindex="-1"></a><span class="do">####</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="dispersed-poisson-regression.html#cb193-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,Fredericia, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, </span>
+<span id="cb193-2"><a href="dispersed-poisson-regression.html#cb193-2" tabindex="-1"></a>               <span class="at">ylab=</span><span class="st">&quot;Cancer Rate&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">6</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.03</span>), <span class="at">axes=</span><span class="cn">FALSE</span> )</span>
+<span id="cb193-3"><a href="dispersed-poisson-regression.html#cb193-3" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;The Trend Line of Cancer Rates&quot;</span>)</span>
+<span id="cb193-4"><a href="dispersed-poisson-regression.html#cb193-4" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>)</span>
+<span id="cb193-5"><a href="dispersed-poisson-regression.html#cb193-5" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;[45-54]&quot;</span>,<span class="st">&quot;[55,59]&quot;</span>,<span class="st">&quot;[60,64]&quot;</span>,<span class="st">&quot;[65,69]&quot;</span>,<span class="st">&quot;[70,74]&quot;</span>,<span class="st">&quot;75+&quot;</span>), </span>
+<span id="cb193-6"><a href="dispersed-poisson-regression.html#cb193-6" tabindex="-1"></a>            <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb193-7"><a href="dispersed-poisson-regression.html#cb193-7" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,Fredericia, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb193-8"><a href="dispersed-poisson-regression.html#cb193-8" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb193-9"><a href="dispersed-poisson-regression.html#cb193-9" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Horsens, <span class="at">lty =</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb193-10"><a href="dispersed-poisson-regression.html#cb193-10" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Horsens, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb193-11"><a href="dispersed-poisson-regression.html#cb193-11" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb193-12"><a href="dispersed-poisson-regression.html#cb193-12" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Kolding, <span class="at">lty =</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb193-13"><a href="dispersed-poisson-regression.html#cb193-13" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Kolding, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb193-14"><a href="dispersed-poisson-regression.html#cb193-14" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb193-15"><a href="dispersed-poisson-regression.html#cb193-15" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Vejle, <span class="at">lty =</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;mediumvioletred&quot;</span>)</span>
+<span id="cb193-16"><a href="dispersed-poisson-regression.html#cb193-16" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Vejle, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">col=</span><span class="st">&quot;mediumvioletred&quot;</span>)</span>
+<span id="cb193-17"><a href="dispersed-poisson-regression.html#cb193-17" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb193-18"><a href="dispersed-poisson-regression.html#cb193-18" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Fredericia&quot;</span>,<span class="st">&quot;Horsens&quot;</span>, <span class="st">&quot;Kolding&quot;</span>, <span class="st">&quot;Vejle&quot;</span> ),</span>
+<span id="cb193-19"><a href="dispersed-poisson-regression.html#cb193-19" tabindex="-1"></a>                  <span class="at">pch=</span><span class="dv">19</span><span class="sc">:</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,  <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb193-20"><a href="dispersed-poisson-regression.html#cb193-20" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;mediumvioletred&quot;</span>))</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+</div>
+<div id="discussions-and-conclusions-1" class="section level3 hasAnchor" number="13.3.7">
+<h3><span class="header-section-number">13.3.7</span> Discussions and Conclusions<a href="dispersed-poisson-regression.html#discussions-and-conclusions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Several conclusions we can draw from the output of the regression models.</p>
+<p>The regression model based on the cancer count is not appropriate since the information on the population size is a key variable in the study of cancer distribution. Simply including the population size in the regression model will reduce the statistical significance of age. See the following output of the fitted Poisson regression model of count adjusted by population size.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="dispersed-poisson-regression.html#cb194-1" tabindex="-1"></a>model.freq.pop <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">log</span>(pop), <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), </span>
+<span id="cb194-2"><a href="dispersed-poisson-regression.html#cb194-2" tabindex="-1"></a>                      <span class="at">data =</span> eba1977)</span>
+<span id="cb194-3"><a href="dispersed-poisson-regression.html#cb194-3" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb194-4"><a href="dispersed-poisson-regression.html#cb194-4" tabindex="-1"></a>pois.count.coef.pop <span class="ot">=</span> <span class="fu">summary</span>(model.freq.pop)<span class="sc">$</span>coef</span>
+<span id="cb194-5"><a href="dispersed-poisson-regression.html#cb194-5" tabindex="-1"></a><span class="fu">kable</span>(pois.count.coef.pop, <span class="at">caption =</span> <span class="st">&quot;The Poisson regression model for </span></span>
+<span id="cb194-6"><a href="dispersed-poisson-regression.html#cb194-6" tabindex="-1"></a><span class="st">         the counts of lung cancer cases versus the geographical locations, </span></span>
+<span id="cb194-7"><a href="dispersed-poisson-regression.html#cb194-7" tabindex="-1"></a><span class="st">         population size, and age group.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-164">Table 13.6: </span>The Poisson regression model for
+the counts of lung cancer cases versus the geographical locations,
+population size, and age group.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">11.7495934</td>
+<td align="right">8.8151328</td>
+<td align="right">1.3328890</td>
+<td align="right">0.1825682</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">0.1832573</td>
+<td align="right">0.3192679</td>
+<td align="right">0.5739922</td>
+<td align="right">0.5659731</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.0483001</td>
+<td align="right">0.2519622</td>
+<td align="right">-0.1916957</td>
+<td align="right">0.8479806</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.1679335</td>
+<td align="right">0.1964757</td>
+<td align="right">-0.8547289</td>
+<td align="right">0.3927012</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">-1.3842350</td>
+<td align="right">1.2728775</td>
+<td align="right">-1.0874849</td>
+<td align="right">0.2768226</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">-1.2366489</td>
+<td align="right">1.4049520</td>
+<td align="right">-0.8802073</td>
+<td align="right">0.3787470</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">-1.4377681</td>
+<td align="right">1.6310051</td>
+<td align="right">-0.8815228</td>
+<td align="right">0.3780349</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">-1.8048920</td>
+<td align="right">1.8607922</td>
+<td align="right">-0.9699589</td>
+<td align="right">0.3320670</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">-1.8383162</td>
+<td align="right">1.6587773</td>
+<td align="right">-1.1082357</td>
+<td align="right">0.2677600</td>
+</tr>
+<tr class="even">
+<td align="left">log(pop)</td>
+<td align="right">-1.2095837</td>
+<td align="right">1.1227191</td>
+<td align="right">-1.0773698</td>
+<td align="right">0.2813151</td>
+</tr>
+</tbody>
+</table>
+<p>We can see from the above output the adding population size to the model</p>
+<p>The cancer rate in Fredericia is significantly higher than in the other three cities. It seems that there is no significant difference between Horsens, Kolding, and Vejle. The reason why Fredericia has a higher cancer rate needs further investigation with additional information.</p>
+<p>There is a curve linear relationship between age and the cancer rate. The cancer rate increases as age increase. However, the rate starts decreasing after 75. This pattern is consistent with the clinical studies since lung cancer patients were mostly diagnosed between 65-70. It is rare to see lung cancer patients aged under 45.</p>
+<p>The last statistical observation is that there is no interaction effect between the age groups and the geographic locations. The rate curves are “parallel”.</p>
+<p>This is only a small data set with limited information. All conclusions in this report are only based on the given data set.</p>
+</div>
+</div>
+<div id="case-study-ii---ph.d.-and-mentors-productivity" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Case Study II - Ph.D. and Mentor’s Productivity<a href="dispersed-poisson-regression.html#case-study-ii---ph.d.-and-mentors-productivity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this case study, we use data from Long (1990) on the number of publications produced by Ph.D. biochemists to illustrate the application of Poisson models. The variables in the data set are listed below.</p>
+<div id="variable-description" class="section level3 hasAnchor" number="13.4.1">
+<h3><span class="header-section-number">13.4.1</span> Variable Description<a href="dispersed-poisson-regression.html#variable-description" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>articles: integer. articles in the last three years of Ph.D.</li>
+<li>gender: factor. coded one for females.</li>
+<li>married: factor. coded one if married.</li>
+<li>kids: integer. the number of children under age six.</li>
+<li>prestige: numeric.the prestige of Ph.D. program</li>
+<li>mentor: integer. articles by the mentor in last three years</li>
+</ul>
+</div>
+<div id="research-question-2" class="section level3 hasAnchor" number="13.4.2">
+<h3><span class="header-section-number">13.4.2</span> Research Question<a href="dispersed-poisson-regression.html#research-question-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We want to assess how factors affect the number of articles published in the last three years in the Ph.D. programs.</p>
+<p><br />
+</p>
+</div>
+<div id="data-preparation-and-variable-processing" class="section level3 hasAnchor" number="13.4.3">
+<h3><span class="header-section-number">13.4.3</span> Data Preparation and Variable Processing<a href="dispersed-poisson-regression.html#data-preparation-and-variable-processing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Variable <strong>kids</strong> is a discrete variable. We create a frequency table of <strong>kids</strong> and found that 16 of 915 Ph.D. students had 3 kids. After additional exploratory analysis. We decide to dichotomize <strong>kids</strong> and redefine a new variable under the name <strong>newkids</strong>.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="dispersed-poisson-regression.html#cb195-1" tabindex="-1"></a>phd<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">&quot;img10/w10-ph-data.txt&quot;</span>,<span class="at">skip=</span><span class="dv">10</span>, <span class="at">header=</span><span class="cn">TRUE</span> )[,<span class="sc">-</span><span class="dv">1</span>] <span class="co"># drop the ID variable</span></span>
+<span id="cb195-2"><a href="dispersed-poisson-regression.html#cb195-2" tabindex="-1"></a>id<span class="fl">.3</span> <span class="ot">=</span> <span class="fu">which</span>(phd<span class="sc">$</span>kids <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb195-3"><a href="dispersed-poisson-regression.html#cb195-3" tabindex="-1"></a>newkids <span class="ot">=</span> phd<span class="sc">$</span>kids</span>
+<span id="cb195-4"><a href="dispersed-poisson-regression.html#cb195-4" tabindex="-1"></a>newkids[id<span class="fl">.3</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb195-5"><a href="dispersed-poisson-regression.html#cb195-5" tabindex="-1"></a>phd<span class="sc">$</span>newkids <span class="ot">=</span> newkids</span></code></pre></div>
+</div>
+<div id="poison-regression-modeling-1" class="section level3 hasAnchor" number="13.4.4">
+<h3><span class="header-section-number">13.4.4</span> Poison Regression Modeling<a href="dispersed-poisson-regression.html#poison-regression-modeling-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We build both the regular Poisson and Quasi-Poisson regression models and extract the dispersion parameter to decide which model should be used as working model.</p>
+</div>
+</div>
+<div id="section" class="section level2" number="13.5">
+<h2><span class="header-section-number">13.5</span> </h2>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="dispersed-poisson-regression.html#cb196-1" tabindex="-1"></a><span class="do">## phd=read.table(&quot;w10-ph-data.txt&quot;,skip=10, header=TRUE )[,-1] # drop the ID variable</span></span>
+<span id="cb196-2"><a href="dispersed-poisson-regression.html#cb196-2" tabindex="-1"></a><span class="do">## Regular Poison Model</span></span>
+<span id="cb196-3"><a href="dispersed-poisson-regression.html#cb196-3" tabindex="-1"></a>pois.model <span class="ot">=</span> <span class="fu">glm</span>(article <span class="sc">~</span> gender <span class="sc">+</span> married <span class="sc">+</span> <span class="fu">factor</span>(newkids) <span class="sc">+</span> prestige <span class="sc">+</span> mentor, </span>
+<span id="cb196-4"><a href="dispersed-poisson-regression.html#cb196-4" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>), <span class="at">data =</span>phd)  </span>
+<span id="cb196-5"><a href="dispersed-poisson-regression.html#cb196-5" tabindex="-1"></a><span class="do">## Quasi Poisson or dispersed Poisson model</span></span>
+<span id="cb196-6"><a href="dispersed-poisson-regression.html#cb196-6" tabindex="-1"></a>quasi.model <span class="ot">=</span> <span class="fu">glm</span>(article <span class="sc">~</span> gender <span class="sc">+</span> married <span class="sc">+</span> <span class="fu">factor</span>(newkids) <span class="sc">+</span> prestige <span class="sc">+</span> mentor, </span>
+<span id="cb196-7"><a href="dispersed-poisson-regression.html#cb196-7" tabindex="-1"></a>                  <span class="at">family =</span> quasipoisson, <span class="at">data =</span>phd)</span>
+<span id="cb196-8"><a href="dispersed-poisson-regression.html#cb196-8" tabindex="-1"></a><span class="do">## Extracting dispersion parameter</span></span>
+<span id="cb196-9"><a href="dispersed-poisson-regression.html#cb196-9" tabindex="-1"></a>SE.q <span class="ot">=</span> <span class="fu">summary</span>(quasi.model)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb196-10"><a href="dispersed-poisson-regression.html#cb196-10" tabindex="-1"></a>SE <span class="ot">=</span> <span class="fu">summary</span>(pois.model)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb196-11"><a href="dispersed-poisson-regression.html#cb196-11" tabindex="-1"></a>dispersion <span class="ot">=</span> (SE.q<span class="sc">/</span>SE)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb196-12"><a href="dispersed-poisson-regression.html#cb196-12" tabindex="-1"></a>disp <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">dispersion =</span> dispersion)</span>
+<span id="cb196-13"><a href="dispersed-poisson-regression.html#cb196-13" tabindex="-1"></a><span class="fu">kable</span>(disp, <span class="at">caption=</span><span class="st">&quot;Dispersion parameter&quot;</span>, <span class="at">align =</span> <span class="st">&#39;c&#39;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-166">Table 13.7: </span>Dispersion parameter</caption>
+<thead>
+<tr class="header">
+<th align="center">dispersion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1.841565</td>
+</tr>
+</tbody>
+</table>
+<p>The dispersion parameter 1.829006 indicates that the Poisson model is inappropriate. We need to correct the dispersion issue. The quasi-likelihood-based Poisson model is one option.</p>
+<p>Next, we summarize the inferential statistics about the regression coefficients in the following table</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="dispersed-poisson-regression.html#cb197-1" tabindex="-1"></a>SE.quasi.pois <span class="ot">=</span> <span class="fu">summary</span>(quasi.model)<span class="sc">$</span>coef</span>
+<span id="cb197-2"><a href="dispersed-poisson-regression.html#cb197-2" tabindex="-1"></a><span class="fu">kable</span>(SE.quasi.pois, <span class="at">caption =</span> <span class="st">&quot;Summary statistics of quasi-poisson regression model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-167">Table 13.8: </span>Summary statistics of quasi-poisson regression model</caption>
+<colgroup>
+<col width="24%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.4579404</td>
+<td align="right">0.1290407</td>
+<td align="right">3.5488055</td>
+<td align="right">0.0004068</td>
+</tr>
+<tr class="even">
+<td align="left">genderWomen</td>
+<td align="right">-0.2179247</td>
+<td align="right">0.0742536</td>
+<td align="right">-2.9348721</td>
+<td align="right">0.0034208</td>
+</tr>
+<tr class="odd">
+<td align="left">marriedSingle</td>
+<td align="right">-0.1516973</td>
+<td align="right">0.0855315</td>
+<td align="right">-1.7735846</td>
+<td align="right">0.0764666</td>
+</tr>
+<tr class="even">
+<td align="left">factor(newkids)1</td>
+<td align="right">-0.2495633</td>
+<td align="right">0.0859576</td>
+<td align="right">-2.9033304</td>
+<td align="right">0.0037815</td>
+</tr>
+<tr class="odd">
+<td align="left">prestige</td>
+<td align="right">0.0102754</td>
+<td align="right">0.0359069</td>
+<td align="right">0.2861675</td>
+<td align="right">0.7748150</td>
+</tr>
+<tr class="even">
+<td align="left">mentor</td>
+<td align="right">0.0258173</td>
+<td align="right">0.0027397</td>
+<td align="right">9.4233384</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>In the above quasi-Poisson regression, variable prestige is insignificant (p-value = 0.72). The p-value for testing the significance of the variable married is 0.079. We refit the quasi-Poisson model by dropping <strong>prestige</strong> and <strong>married</strong>.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="dispersed-poisson-regression.html#cb198-1" tabindex="-1"></a>quasi.model<span class="fl">.02</span> <span class="ot">=</span> <span class="fu">glm</span>(article <span class="sc">~</span> gender <span class="sc">+</span> <span class="fu">factor</span>(newkids) <span class="sc">+</span> mentor, </span>
+<span id="cb198-2"><a href="dispersed-poisson-regression.html#cb198-2" tabindex="-1"></a>                     <span class="at">family =</span> quasipoisson, <span class="at">data =</span>phd)</span>
+<span id="cb198-3"><a href="dispersed-poisson-regression.html#cb198-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(quasi.model<span class="fl">.02</span>)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Inferential statistics of </span></span>
+<span id="cb198-4"><a href="dispersed-poisson-regression.html#cb198-4" tabindex="-1"></a><span class="st">the Poisson regression coefficients  in the final working model.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-168">Table 13.9: </span>Inferential statistics of
+the Poisson regression coefficients in the final working model.</caption>
+<colgroup>
+<col width="25%" />
+<col width="16%" />
+<col width="16%" />
+<col width="14%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.4238445</td>
+<td align="right">0.0645972</td>
+<td align="right">6.561345</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">genderWomen</td>
+<td align="right">-0.2332786</td>
+<td align="right">0.0738848</td>
+<td align="right">-3.157329</td>
+<td align="right">0.0016446</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(newkids)1</td>
+<td align="right">-0.1796153</td>
+<td align="right">0.0767849</td>
+<td align="right">-2.339200</td>
+<td align="right">0.0195404</td>
+</tr>
+<tr class="even">
+<td align="left">mentor</td>
+<td align="right">0.0257762</td>
+<td align="right">0.0026586</td>
+<td align="right">9.695432</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The above model will be used as the final model. The interpretation of the regression coefficient of the Poisson model is not as straightforward as that in the linear regression models since the response variable in the model is at a log-scale.</p>
+<p>For example, the coefficient associated with gender is -0.233. This is the estimated Poisson regression coefficient comparing females to males, given the other variables are held constant in the model. The difference in the logs of expected publications is expected to be 0.2332786 units lower for females compared to males while holding the other variables constant in the model. This is still not easy to understand for the general audience.</p>
+<div id="some-visual-comparisons-1" class="section level3 hasAnchor" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> Some Visual Comparisons<a href="dispersed-poisson-regression.html#some-visual-comparisons-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, we make a visualization to show how the explanatory variables in the final working model affect the <strong>actual</strong> number of publications of doctoral students.</p>
+<p>To this end, we classify all Ph.D. students in the following four groups defined by <strong>gender</strong> and <strong>status</strong> of having at least one child:</p>
+<p><strong>phd.m0</strong> = male and had no child</p>
+<p><strong>phd.m1</strong> = male and had at least one child</p>
+<p><strong>phd.f0</strong> = female and had no child</p>
+<p><strong>phd.f1</strong> = female and had at least one child</p>
+<p>Next, We exponentiate the log-count of publications of Ph.D. students to the actual number of publications and then make graphs to show the relationship between doctoral students and their mentors in terms of the number of publications in each of the groups defined above.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="dispersed-poisson-regression.html#cb199-1" tabindex="-1"></a>mentors <span class="ot">=</span>  <span class="fu">range</span>(phd<span class="sc">$</span>mentor)[<span class="dv">1</span>]<span class="sc">:</span><span class="fu">range</span>(phd<span class="sc">$</span>mentor)[<span class="dv">2</span>]</span>
+<span id="cb199-2"><a href="dispersed-poisson-regression.html#cb199-2" tabindex="-1"></a>phd.m0 <span class="ot">=</span> <span class="fl">0.42384447</span> <span class="sc">+</span> <span class="fl">0.02577624</span><span class="sc">*</span>mentors</span>
+<span id="cb199-3"><a href="dispersed-poisson-regression.html#cb199-3" tabindex="-1"></a>phd.m1 <span class="ot">=</span> <span class="fl">0.42384447</span> <span class="sc">-</span> <span class="fl">0.17961531</span> <span class="sc">+</span> <span class="fl">0.02577624</span><span class="sc">*</span>mentors</span>
+<span id="cb199-4"><a href="dispersed-poisson-regression.html#cb199-4" tabindex="-1"></a>phd.f0 <span class="ot">=</span> <span class="fl">0.42384447</span> <span class="sc">-</span><span class="fl">0.23327860</span> <span class="sc">+</span> <span class="fl">0.02577624</span><span class="sc">*</span>mentors</span>
+<span id="cb199-5"><a href="dispersed-poisson-regression.html#cb199-5" tabindex="-1"></a>phd.f1 <span class="ot">=</span> <span class="fl">0.42384447</span> <span class="sc">-</span><span class="fl">0.23327860</span> <span class="sc">-</span><span class="fl">0.17961531</span> <span class="sc">+</span> <span class="fl">0.02577624</span><span class="sc">*</span>mentors</span>
+<span id="cb199-6"><a href="dispersed-poisson-regression.html#cb199-6" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb199-7"><a href="dispersed-poisson-regression.html#cb199-7" tabindex="-1"></a><span class="fu">plot</span>(mentors, <span class="fu">exp</span>(phd.m0), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>),</span>
+<span id="cb199-8"><a href="dispersed-poisson-regression.html#cb199-8" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb199-9"><a href="dispersed-poisson-regression.html#cb199-9" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb199-10"><a href="dispersed-poisson-regression.html#cb199-10" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">1</span>,</span>
+<span id="cb199-11"><a href="dispersed-poisson-regression.html#cb199-11" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;PhD&#39;s Publications&quot;</span>,</span>
+<span id="cb199-12"><a href="dispersed-poisson-regression.html#cb199-12" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Mentor&#39;s publications&quot;</span>,</span>
+<span id="cb199-13"><a href="dispersed-poisson-regression.html#cb199-13" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Factors That Impact Student&#39;s Publications&quot;</span>)</span>
+<span id="cb199-14"><a href="dispersed-poisson-regression.html#cb199-14" tabindex="-1"></a><span class="fu">lines</span>(mentors, <span class="fu">exp</span>(phd.m1), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb199-15"><a href="dispersed-poisson-regression.html#cb199-15" tabindex="-1"></a><span class="fu">lines</span>(mentors, <span class="fu">exp</span>(phd.f0), <span class="at">col =</span> <span class="st">&quot;darkorchid&quot;</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb199-16"><a href="dispersed-poisson-regression.html#cb199-16" tabindex="-1"></a><span class="fu">lines</span>(mentors, <span class="fu">exp</span>(phd.f1), <span class="at">col =</span> <span class="st">&quot;firebrick&quot;</span>, <span class="at">lty =</span> <span class="dv">4</span>)</span>
+<span id="cb199-17"><a href="dispersed-poisson-regression.html#cb199-17" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;male with no child&quot;</span>, <span class="st">&quot;male with at least one child&quot;</span>, </span>
+<span id="cb199-18"><a href="dispersed-poisson-regression.html#cb199-18" tabindex="-1"></a>                    <span class="st">&quot;female with no child&quot;</span>, <span class="st">&quot;female with at least one child&quot;</span>), </span>
+<span id="cb199-19"><a href="dispersed-poisson-regression.html#cb199-19" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkorchid&quot;</span>, <span class="st">&quot;firebrick&quot;</span>),  <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-169-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>We can see the relationship between the number of publications of doctoral students and other factors.</p>
+<ol style="list-style-type: decimal">
+<li><p>the number of publications of doctoral students is positively associated with their mentor publication.</p></li>
+<li><p>Male doctoral students with no kid published more articles than those who had at least one kid. Female doctoral students also have the same pattern.</p></li>
+<li><p>Overall, male doctoral students published more than female students.</p></li>
+</ol>
+</div>
+<div id="conclusions" class="section level3 hasAnchor" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> Conclusions<a href="dispersed-poisson-regression.html#conclusions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Poisson regression model is used for modeling counts/rates-based data sets. If the model is appropriate, its results are explainable and comparable and backed by statistical theory.</p>
+<p>If Poisson regression is not appropriate, we can consider other models depending on the situation. The complex alternatives to the Poisson regression model that can be considered are negative binomial regression, zero-inflated regression models, random-forest-based regression models, and neural-network-based regression models. The last two models are “black-box” models because of the lack of interpretability.</p>
+</div>
+</div>
+<div id="analysis-assignment-4" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Analysis Assignment<a href="dispersed-poisson-regression.html#analysis-assignment-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This week’s assignment is to revise your analysis in Week #9 by adding a new section to include a quasi-Poisson model to the report. In this new analysis, we modify the predictor variables in the following ways.</p>
+<ol style="list-style-type: decimal">
+<li><p>Instead of using two variables <strong>HightTemp</strong> and <strong>LowTemp</strong> in the model, we will use the new variable <strong>AvgTemp = (HighTemp + LowTemp)/2</strong>.</p></li>
+<li><p>Discretize <strong>Precipitation</strong> using the following definition: if <strong>Precipitation</strong> = 0, then NewPrecip = 0; if <strong>Precipitation</strong> &gt; 0, then NewPrecip = 1.</p></li>
+</ol>
+<p>The dispersed Poisson regression model will have three predictor variables: <strong>Day</strong>, <strong>AvgTemp</strong>, and <strong>NewPrecip</strong>.</p>
+<p>Here are the steps for building Poisson (quasi-Poisson) model (similar to the two case studies):</p>
+<ol style="list-style-type: decimal">
+<li><p>Fit a quasi-Poisson regression model on the counts of cyclists who entered and left the Bridge in your data set.</p></li>
+<li><p>Report the value of the estimated dispersion parameter and based on the value determine whether the regular Poisson model or the quasi-Poisson should be used as the final model. The two models have the same estimated coefficients by different p-values.</p></li>
+<li><p>Make a visualization to show the relationship between the number of cyclists who entered and left the bridge and the related predictor variables.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="poison-regression-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="concepts-of-time-series-forecasting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA321EB/edit/master/12-DispersedCountReg.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA321EB.pdf", "STA321EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

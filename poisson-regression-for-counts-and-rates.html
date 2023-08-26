@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 12 Poisson Regression for Counts and Rates | STA 321 E-pack: Advanced Statistics</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 12 Poisson Regression for Counts and Rates | STA 321 E-pack: Advanced Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 12 Poisson Regression for Counts and Rates | STA 321 E-pack: Advanced Statistics" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="predictive-modeling-with-logistic-regression.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 321 E-Pack: Advanced Statistics</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-this-e-pack"><i class="fa fa-check"></i><b>1.1</b> Why This E-Pack?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#components-statistical-reports"><i class="fa fa-check"></i><b>1.2</b> Components Statistical Reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a.-introduction"><i class="fa fa-check"></i>A. Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#b.-materials"><i class="fa fa-check"></i>B. Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c.-methodology"><i class="fa fa-check"></i>C. Methodology</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#d.-results-and-conclusions"><i class="fa fa-check"></i>D. Results and Conclusions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#e.-general-discussion"><i class="fa fa-check"></i>E. General Discussion</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#f.-references-if-any"><i class="fa fa-check"></i>F. References (if any)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#g.-appendices-if-any"><i class="fa fa-check"></i>G. Appendices (if any)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#basics-of-rstudio"><i class="fa fa-check"></i><b>1.3</b> Basics of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#rstudio-gui"><i class="fa fa-check"></i><b>1.3.1</b> RStudio GUI</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#rmarkdown"><i class="fa fa-check"></i><b>1.3.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#collaborative-platforms"><i class="fa fa-check"></i><b>1.4</b> Collaborative Platforms</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#rpubs"><i class="fa fa-check"></i><b>1.4.1</b> RPubs</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#github-repository"><i class="fa fa-check"></i><b>1.4.2</b> GitHub Repository</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.5</b> Github</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#what-is-github"><i class="fa fa-check"></i><b>1.5.1</b> What is Github?</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#getting-started-with-github"><i class="fa fa-check"></i><b>1.5.2</b> Getting Started with GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html"><i class="fa fa-check"></i><b>2</b> Data Input and Output in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#built-in-data"><i class="fa fa-check"></i><b>2.1</b> Built-in Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#loading-external-data-sets"><i class="fa fa-check"></i><b>2.2</b> Loading External Data Sets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#preparing-r-workspace"><i class="fa fa-check"></i><b>2.2.1</b> Preparing R Workspace</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#setting-up-working-directory"><i class="fa fa-check"></i><b>2.2.2</b> Setting-up Working Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-common-files-into-r"><i class="fa fa-check"></i><b>2.3</b> Read Common Files into R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-txt-files-with-read.table"><i class="fa fa-check"></i><b>2.3.1</b> Read TXT files with read.table()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#data-values-separated-by-special-symbol"><i class="fa fa-check"></i><b>2.4</b> Data Values Separated By Special Symbol</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#importing-a-csv-into-r"><i class="fa fa-check"></i><b>2.4.1</b> Importing a CSV into R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-spss-and-other-data-sets-into-r"><i class="fa fa-check"></i><b>2.5</b> Import SAS, SPSS, and Other Data Sets into R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-spss-files-into-r"><i class="fa fa-check"></i><b>2.5.1</b> Import SPSS Files into R</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#mport-stata-files-into-r"><i class="fa fa-check"></i><b>2.5.2</b> mport Stata Files into R</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-systat-files-into-r"><i class="fa fa-check"></i><b>2.5.3</b> Import Systat Files into R</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-files-into-r"><i class="fa fa-check"></i><b>2.5.4</b> Import SAS Files into R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html"><i class="fa fa-check"></i><b>3</b> Base R Graphical Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#r-graphic-devices"><i class="fa fa-check"></i><b>3.1</b> R Graphic Devices</a></li>
+<li class="chapter" data-level="3.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#plotting-with-base-graphics-plot"><i class="fa fa-check"></i><b>3.2</b> Plotting with Base Graphics: <code>plot()</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#outer-and-inner-margins"><i class="fa fa-check"></i><b>3.2.1</b> Outer and Inner Margins</a></li>
+<li class="chapter" data-level="3.2.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#simple-multi-panel-plots"><i class="fa fa-check"></i><b>3.2.2</b> Simple multi-panel Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#making-our-own-colors"><i class="fa fa-check"></i><b>3.3</b> Making Our Own Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html"><i class="fa fa-check"></i><b>4</b> Effective Data Preparation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#data-set-description"><i class="fa fa-check"></i><b>4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="4.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#base-r-commands-for-data-management"><i class="fa fa-check"></i><b>4.2</b> Base R Commands for Data Management</a></li>
+<li class="chapter" data-level="4.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#working-with-scientific-notations"><i class="fa fa-check"></i><b>4.3</b> Working with Scientific Notations</a></li>
+<li class="chapter" data-level="4.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-ifelse-function"><i class="fa fa-check"></i><b>4.4</b> The <strong>ifelse()</strong> Function</a></li>
+<li class="chapter" data-level="4.5" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-cut-function"><i class="fa fa-check"></i><b>4.5</b> The <strong>cut()</strong> Function</a></li>
+<li class="chapter" data-level="4.6" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#with-and-within-functions"><i class="fa fa-check"></i><b>4.6</b> <strong>with()</strong> and <strong>within()</strong> Functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-with-function"><i class="fa fa-check"></i><b>4.6.1</b> The <strong>with()</strong> Function</a></li>
+<li class="chapter" data-level="4.6.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-within-function"><i class="fa fa-check"></i><b>4.6.2</b> The <strong>within()</strong> Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-merge-function---table-joins"><i class="fa fa-check"></i><b>4.7</b> The <strong>merge()</strong> Function - Table Joins</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#inner-join"><i class="fa fa-check"></i><b>4.7.1</b> Inner Join</a></li>
+<li class="chapter" data-level="4.7.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#left-join"><i class="fa fa-check"></i><b>4.7.2</b> Left Join</a></li>
+<li class="chapter" data-level="4.7.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#right-join"><i class="fa fa-check"></i><b>4.7.3</b> Right Join</a></li>
+<li class="chapter" data-level="4.7.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#full-outer-join"><i class="fa fa-check"></i><b>4.7.4</b> Full (outer) Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-data-frame"><i class="fa fa-check"></i><b>4.8</b> Subsetting Data Frame</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-columns"><i class="fa fa-check"></i><b>4.8.1</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="4.8.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-rows"><i class="fa fa-check"></i><b>4.8.2</b> Subsetting by Rows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Bootstrap Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#random-sample-from-population"><i class="fa fa-check"></i><b>5.0.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="5.0.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>5.0.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="5.0.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>5.0.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+<li class="chapter" data-level="5.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-intervals-1"><i class="fa fa-check"></i><b>5.1</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>5.2</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>5.2.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="5.2.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>5.2.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problem-set"><i class="fa fa-check"></i><b>5.3</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#data-set-description-1"><i class="fa fa-check"></i><b>5.3.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="5.3.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problems"><i class="fa fa-check"></i><b>5.3.2</b> Problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html"><i class="fa fa-check"></i><b>6</b> Bootstrapping SLR</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-and-practical-questions"><i class="fa fa-check"></i><b>6.1</b> Data Set and Practical Questions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-description"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#practical-question"><i class="fa fa-check"></i><b>6.1.2</b> Practical Question</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>6.1.3</b> Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#simple-linear-regression-review"><i class="fa fa-check"></i><b>6.2</b> Simple Linear Regression: Review</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#structure-and-assumptions-of-simple-linear-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Structure and Assumptions of Simple Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#fitting-slr-to-data"><i class="fa fa-check"></i><b>6.3</b> Fitting SLR to Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#parametric-slr"><i class="fa fa-check"></i><b>6.3.1</b> Parametric SLR</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-regression"><i class="fa fa-check"></i><b>6.3.2</b> Bootstrap Regression</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#concluding-remarks"><i class="fa fa-check"></i><b>6.3.3</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="6.3.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-residual-method"><i class="fa fa-check"></i><b>6.3.4</b> Bootstrap Residual Method</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-selection-for-project-one"><i class="fa fa-check"></i><b>6.4</b> Data Set Selection for Project One</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-requirements"><i class="fa fa-check"></i><b>6.4.1</b> Data Set Requirements</a></li>
+<li class="chapter" data-level="6.4.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#web-sites-with-data-sets"><i class="fa fa-check"></i><b>6.4.2</b> Web Sites with Data Sets</a></li>
+<li class="chapter" data-level="6.4.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#analysis-and-writing-components"><i class="fa fa-check"></i><b>6.4.3</b> Analysis and Writing Components</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html"><i class="fa fa-check"></i><b>7</b> Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>7.1</b> The structure of MLR</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#assumptions-based-on-the-above-special-form."><i class="fa fa-check"></i><b>7.1.1</b> Assumptions based on the above special form.</a></li>
+<li class="chapter" data-level="7.1.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#potential-violations"><i class="fa fa-check"></i><b>7.1.2</b> Potential Violations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#variable-types"><i class="fa fa-check"></i><b>7.1.3</b> Variable types</a></li>
+<li class="chapter" data-level="7.1.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#dummy-and-discrete-numerical-explanatory-variables"><i class="fa fa-check"></i><b>7.1.4</b> Dummy and discrete numerical explanatory variables</a></li>
+<li class="chapter" data-level="7.1.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#interpretation-of-regression-coefficients-1"><i class="fa fa-check"></i><b>7.1.5</b> Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#model-building"><i class="fa fa-check"></i><b>7.2</b> Model building</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-structure-sample-size-and-preparation-for-mlr"><i class="fa fa-check"></i><b>7.2.1</b> Data structure, sample size, and preparation for MLR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#candidate-models-and-residual-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Candidate models and residual diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#significant-test-goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>7.2.3</b> Significant test, goodness-of-fit, and Variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#case-study--factors-that-impact-the-house-sale-prices"><i class="fa fa-check"></i><b>7.3</b> Case Study -Factors That Impact the House Sale Prices</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-description-1"><i class="fa fa-check"></i><b>7.3.1</b> Data Description</a></li>
+<li class="chapter" data-level="7.3.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#practical-question-1"><i class="fa fa-check"></i><b>7.3.2</b> Practical Question</a></li>
+<li class="chapter" data-level="7.3.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>7.3.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#fitting-mlr-to-data"><i class="fa fa-check"></i><b>7.3.4</b> Fitting MLR to Data</a></li>
+<li class="chapter" data-level="7.3.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#summary-of-the-model"><i class="fa fa-check"></i><b>7.3.5</b> Summary of the model</a></li>
+<li class="chapter" data-level="7.3.6" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#discussions"><i class="fa fa-check"></i><b>7.3.6</b> Discussions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#written-assignment"><i class="fa fa-check"></i><b>7.4</b> Written Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html"><i class="fa fa-check"></i><b>8</b> Bootstrapping MLR Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#parametric-linear-regression-model"><i class="fa fa-check"></i><b>8.1</b> Parametric Linear Regression Model</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-cases-boot.c"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Cases (BOOT.C)</a></li>
+<li class="chapter" data-level="8.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-residuals-boot.r"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Residuals (BOOT.R)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#fitted-model"><i class="fa fa-check"></i><b>8.3.1</b> Fitted Model</a></li>
+<li class="chapter" data-level="8.3.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#residual-bootstrap-samples"><i class="fa fa-check"></i><b>8.3.2</b> Residual Bootstrap Samples</a></li>
+<li class="chapter" data-level="8.3.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#implementation-of-residual-bootstrap-regression"><i class="fa fa-check"></i><b>8.3.3</b> Implementation of Residual Bootstrap Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#combining-all-inferential-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Combining All Inferential Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#modeling-assignment"><i class="fa fa-check"></i><b>8.4</b> Modeling Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html"><i class="fa fa-check"></i><b>9</b> Simple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#simple-binary-logistic-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Binary Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#the-model-structure"><i class="fa fa-check"></i><b>9.1.1</b> The Model Structure</a></li>
+<li class="chapter" data-level="9.1.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#interpretation-of-regression-coefficients-2"><i class="fa fa-check"></i><b>9.1.2</b> Interpretation of Regression Coefficients</a></li>
+<li class="chapter" data-level="9.1.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#use-of-simple-logistic-regression-model"><i class="fa fa-check"></i><b>9.1.3</b> Use of Simple Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#parameter-estimation"><i class="fa fa-check"></i><b>9.1.4</b> Parameter Estimation</a></li>
+<li class="chapter" data-level="9.1.5" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>9.1.5</b> Model Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="9.1.6" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.1.6</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#a-case-study"><i class="fa fa-check"></i><b>9.2</b> A Case Study</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#data-and-variable-descriptions"><i class="fa fa-check"></i><b>9.2.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#clinical-question"><i class="fa fa-check"></i><b>9.2.2</b> Clinical Question</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#building-the-simple-logistic-regression"><i class="fa fa-check"></i><b>9.2.3</b> Building the Simple Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#conclusion"><i class="fa fa-check"></i><b>9.3</b> Conclusion</a></li>
+<li class="chapter" data-level="9.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#analysis-assignment"><i class="fa fa-check"></i><b>9.4</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html"><i class="fa fa-check"></i><b>10</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model-1"><i class="fa fa-check"></i><b>10.1</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-requirements-sources-layout-and-cleansing"><i class="fa fa-check"></i><b>10.1.1</b> Data Requirements: Sources, Layout, and Cleansing</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#issues-of-predictor-variables-and-variable-inspection-transformation"><i class="fa fa-check"></i><b>10.1.2</b> Issues of Predictor Variables and Variable Inspection-Transformation</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#estimation-and-interpretation-of-regression-coefficients"><i class="fa fa-check"></i><b>10.1.3</b> Estimation and Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-blocks-for-predictive-performance"><i class="fa fa-check"></i><b>10.2</b> Building Blocks for Predictive Performance</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#understanding-the-performance-of-medical-diagnostics"><i class="fa fa-check"></i><b>10.2.1</b> Understanding the Performance of Medical Diagnostics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#performance-metrics-used-in-clinical-trials"><i class="fa fa-check"></i><b>10.2.2</b> Performance Metrics Used in Clinical Trials:</a></li>
+<li class="chapter" data-level="10.2.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#remarks"><i class="fa fa-check"></i><b>10.2.3</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#case-study"><i class="fa fa-check"></i><b>10.3</b> Case Study</a></li>
+<li class="chapter" data-level="10.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-and-variable-descriptions-1"><i class="fa fa-check"></i><b>10.4</b> Data and Variable Descriptions</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#research-question"><i class="fa fa-check"></i><b>10.4.1</b> Research Question</a></li>
+<li class="chapter" data-level="10.4.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#exploratory-analysis"><i class="fa fa-check"></i><b>10.4.2</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="10.4.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-the-multiple-logistic-regression-model"><i class="fa fa-check"></i><b>10.4.3</b> Building the Multiple Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.4.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#final-model-1"><i class="fa fa-check"></i><b>10.4.4</b> Final Model</a></li>
+<li class="chapter" data-level="10.4.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#summary-and-conclusion"><i class="fa fa-check"></i><b>10.4.5</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#analysis-assignment-1"><i class="fa fa-check"></i><b>10.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Predictive Modeling with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-in-predictive-modeling"><i class="fa fa-check"></i><b>11.1</b> Cross-Validation in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#the-logic-of-the-three-way-split"><i class="fa fa-check"></i><b>11.1.1</b> The Logic of the Three-way Split</a></li>
+<li class="chapter" data-level="11.1.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.1.2</b> Cross-validation (CV)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#predictive-performance-measures"><i class="fa fa-check"></i><b>11.2</b> Predictive Performance Measures</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#error-based-measures"><i class="fa fa-check"></i><b>11.2.1</b> Error-based Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#measuring-global-performance---roc-curve"><i class="fa fa-check"></i><b>11.3</b> Measuring Global Performance - ROC Curve</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-curve"><i class="fa fa-check"></i><b>11.3.1</b> ROC Curve</a></li>
+<li class="chapter" data-level="11.3.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#area-under-the-curve-auc"><i class="fa fa-check"></i><b>11.3.2</b> Area Under The Curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#case-study---diabetes-prediction-with-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Case Study - Diabetes Prediction with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-and-variable-descriptions-2"><i class="fa fa-check"></i><b>11.4.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="11.4.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#research-question-1"><i class="fa fa-check"></i><b>11.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="11.4.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#exploratory-analysis-1"><i class="fa fa-check"></i><b>11.4.3</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="11.4.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#standizing-numerical-predictor-variables"><i class="fa fa-check"></i><b>11.4.4</b> Standizing Numerical Predictor Variables</a></li>
+<li class="chapter" data-level="11.4.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-split---training-and-testing-data"><i class="fa fa-check"></i><b>11.4.5</b> Data Split - Training and Testing Data</a></li>
+<li class="chapter" data-level="11.4.6" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#best-model-identification"><i class="fa fa-check"></i><b>11.4.6</b> Best Model Identification</a></li>
+<li class="chapter" data-level="11.4.7" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-analysis---global-performance"><i class="fa fa-check"></i><b>11.4.7</b> ROC Analysis - Global Performance</a></li>
+<li class="chapter" data-level="11.4.8" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#summary-and-conclusion-1"><i class="fa fa-check"></i><b>11.4.8</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#analysis-assignment-2"><i class="fa fa-check"></i><b>11.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html"><i class="fa fa-check"></i><b>12</b> Poisson Regression for Counts and Rates</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#linear-regression-models"><i class="fa fa-check"></i><b>12.1</b> Linear Regression Models</a></li>
+<li class="chapter" data-level="12.2" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.2</b> Binary Logistic Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#poisson-regression-models"><i class="fa fa-check"></i><b>12.3</b> Poisson Regression Models</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#assumptions-of-the-poisson-regression-model"><i class="fa fa-check"></i><b>12.3.1</b> Assumptions of the Poisson Regression Model</a></li>
+<li class="chapter" data-level="12.3.2" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#structure-of-poisson-regression-model-for-counts"><i class="fa fa-check"></i><b>12.3.2</b> Structure of Poisson Regression Model for Counts</a></li>
+<li class="chapter" data-level="12.3.3" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#poisson-models-for-rates"><i class="fa fa-check"></i><b>12.3.3</b> Poisson Models for Rates</a></li>
+<li class="chapter" data-level="12.3.4" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#estimation-of-regression-coefficients-and-goodness-of-fit"><i class="fa fa-check"></i><b>12.3.4</b> Estimation of Regression Coefficients and Goodness-of-fit</a></li>
+<li class="chapter" data-level="12.3.5" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#data-set-layout"><i class="fa fa-check"></i><b>12.3.5</b> Data Set Layout</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i"><i class="fa fa-check"></i><b>12.4</b> Case Study: Modeling Lung Cancer Rates in Four Cities of Denmark - Part I</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#poisson-regression-on-cancer-counts"><i class="fa fa-check"></i><b>12.4.1</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="12.4.2" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#poisson-regression-on-rates"><i class="fa fa-check"></i><b>12.4.2</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="12.4.3" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#some-graphical-comparison"><i class="fa fa-check"></i><b>12.4.3</b> Some Graphical Comparison</a></li>
+<li class="chapter" data-level="12.4.4" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#discussions-and-conclusions"><i class="fa fa-check"></i><b>12.4.4</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#concluding-remarks-2"><i class="fa fa-check"></i><b>12.5</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="12.6" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#analysis-assignment-3"><i class="fa fa-check"></i><b>12.6</b> Analysis Assignment</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#data-description-2"><i class="fa fa-check"></i><b>12.6.1</b> Data Description</a></li>
+<li class="chapter" data-level="12.6.2" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#data-formats-and-loading"><i class="fa fa-check"></i><b>12.6.2</b> Data Formats and Loading</a></li>
+<li class="chapter" data-level="12.6.3" data-path="poisson-regression-for-counts-and-rates.html"><a href="poisson-regression-for-counts-and-rates.html#assignment-instructions"><i class="fa fa-check"></i><b>12.6.3</b> Assignment Instructions</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 321 E-pack: Advanced Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="poisson-regression-for-counts-and-rates" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Topic 12</span> Poisson Regression for Counts and Rates<a href="poisson-regression-for-counts-and-rates.html#poisson-regression-for-counts-and-rates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have studied the normal-based linear and binary logistic regression models dependent on the types of random response variables.</p>
+<div id="linear-regression-models" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Linear Regression Models<a href="poisson-regression-for-counts-and-rates.html#linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The primary regression models are normal linear models. The basic distributional assumption is that the residuals follow a normal distribution with mean zero and constant variance. The explanatory variables (also called predictor variables) are assumed to be uncorrelated with the response variable. Of course, the functional form of the explanatory variables must be correctly specified. Furthermore, the predictor variables are assumed to be non-random. This means that the response variable is a normal random variable - a special continuous random variable.</p>
+<p>The regression coefficients are estimated by the least square method - also the least square estimation (LSE). When making inferences about the LSE, we still assume the residuals are normally distributed in order to construct confidence intervals of the regression coefficients and test the significance of the regression coefficient as well.</p>
+<p>However, many continuous variables in the real world are not normally distributed, for example, a system’s lifetime in reliability engineering, toxic concentrations in underground water, survival times of cancer patients who received surgery, the waiting time of a customer at a service desk, etc. These random variables are not normal.</p>
+</div>
+<div id="binary-logistic-regression-model" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Binary Logistic Regression Model<a href="poisson-regression-for-counts-and-rates.html#binary-logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Contrary to the linear regression model that requires the response variable to be a continuous normal random variable, in the logistic regression model, the response variable is assumed to be a Bernoulli random variable that takes on only two distinct values such as “diseased” vs “disease-free”, “success” vs “failure”, etc.</p>
+<p>The actual regression function in the logistic regression is the probability of “success” not the value of the response variable “success”. The model was constructed with a special structure. The estimation of the regression coefficients is based on the likelihood theory.</p>
+<p>The interpretation of the logistic regression model is also different from that of the linear regression model due to the special structure of the logistic regression. The regression coefficients measure how the corresponding explanatory variable impacts the log odds of success.</p>
+<p>The resulting logistic regression model can be used for association analysis and prediction as well. The use of predictive modeling is one of the most important classification algorithms in data science. This module will focus on the discrete response variable which represents the number of occurrences of some event. Here are some examples.</p>
+<ul>
+<li>The number of sunspots over the years.</li>
+<li>the number of positive COVID-19 cases in a period of time.</li>
+<li>the number of the COVID-19 death counts.</li>
+<li>the number of people walking into an Emergency Room per hour.</li>
+</ul>
+</div>
+<div id="poisson-regression-models" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Poisson Regression Models<a href="poisson-regression-for-counts-and-rates.html#poisson-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Poisson regression model assumes the random response variable to be a frequency count or a rate of a specific event such as COVID-19 positivity rates, COVID-19 death mortality, etc. As in the linear and logistic regression models, we also assume that predictor variables are non-random.</p>
+<p>The family of logistic regression models assumes that the response variable follows a binomial distribution while Poisson regression models assume that the response variable has a Poisson distribution.</p>
+<div id="assumptions-of-the-poisson-regression-model" class="section level3 hasAnchor" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Assumptions of the Poisson Regression Model<a href="poisson-regression-for-counts-and-rates.html#assumptions-of-the-poisson-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The basic assumptions of Poisson regression are</p>
+<ul>
+<li><p><strong>Poisson Response</strong>: The response variable is a count per unit of time or space, described by a Poisson distribution.</p></li>
+<li><p><strong>Independence</strong>: The observations must be independent of one another.</p></li>
+<li><p><strong>Mean is equal to variance</strong>: By definition, the mean of a Poisson random variable must be equal to its variance.</p></li>
+<li><p><strong>Linearity</strong>: The log of the mean rate, <span class="math inline">\(\log( \lambda)\)</span>, must be a linear function of <span class="math inline">\(x\)</span>.</p></li>
+</ul>
+</div>
+<div id="structure-of-poisson-regression-model-for-counts" class="section level3 hasAnchor" number="12.3.2">
+<h3><span class="header-section-number">12.3.2</span> Structure of Poisson Regression Model for Counts<a href="poisson-regression-for-counts-and-rates.html#structure-of-poisson-regression-model-for-counts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(Y\)</span> be the response variable that takes on frequency counts as values and <span class="math inline">\(X\)</span> be the set of predictor variables such as demographics and social determinants. Further, let <span class="math inline">\(\mu=E[Y]\)</span> be the mean of the response variable. The Poisson regression model is defined in the following analytic expression.</p>
+<p><span class="math display">\[
+\log(\mu) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p,
+\]</span> where <span class="math inline">\(\beta_0, \beta_1, \cdots, \beta_p\)</span> are coefficients of the Poisson regression model. The interpretation of the regression coefficient <span class="math inline">\(\beta_i\)</span> is as follows</p>
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span> = the baseline logarithm of the mean of <span class="math inline">\(Y\)</span>, <span class="math inline">\(\log(\mu)\)</span>, when all predictor variables <span class="math inline">\(x_i = 0\)</span>, for <span class="math inline">\(i = 1, 2, \cdots, p\)</span>. As usual, we are not interested in the inference of the intercept parameter.</p></li>
+<li><p><span class="math inline">\(\beta_i\)</span> = is the change of the log mean due to one unit increases in <span class="math inline">\(x_i\)</span> with all other <span class="math inline">\(x_j\)</span> being fixed, for <span class="math inline">\(j\ne i\)</span>.</p></li>
+</ul>
+<p>To be more specific, let <span class="math inline">\(\mu(x_i) = E[Y|(\cdots,x_i,\cdots)]\)</span> be the mean counts with variables <span class="math inline">\(\cdots, x_{i-1}, x_{i+1}, \cdots\)</span> being fixed except for <span class="math inline">\(x_i\)</span>. To look at how <span class="math inline">\(x_i\)</span> impacts the value of <span class="math inline">\(E[Y]\)</span>, we increase <span class="math inline">\(x_i\)</span> by one unit and fix all other predictor variables.</p>
+<p><span class="math display">\[
+\log \mu(x_i) =  \beta_0 + \cdots + \beta_{i-1} x_{i-1}+ \beta_{i} x_{i} + \beta_{i+1} x_{i+1} + \cdots + \beta_p x_p
+\]</span></p>
+<p>After increasing <span class="math inline">\(x_i\)</span> by one unit, the corresponding log mean is given by</p>
+<p><span class="math display">\[
+\log \mu(x_i+1), = \beta_0 + \cdots + \beta_{i-1} x_{i-1}+ \beta_{i} (x_{i}+1) + \beta_{i+1} x_{i+1} + \cdots + \beta_p x_p
+\]</span> Therefore,</p>
+<p><span class="math display">\[
+\beta_i = \log\mu(x_i+1)  - \log\mu(x_i)
+\]</span></p>
+<ul>
+<li><p>If <span class="math inline">\(\beta_i = 0\)</span>, then <span class="math inline">\(\log\mu(x_i+1) = \log\mu(x_i)\)</span>. This implies that <span class="math inline">\(x_i\)</span> does not impact the mean of <span class="math inline">\(Y\)</span>, equivalently, <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_i\)</span> are not associated with each other.</p></li>
+<li><p>If <span class="math inline">\(\beta_i &gt; 0\)</span>, then <span class="math inline">\(\log\mu(x_i+1) &gt; \log\mu(x_i)\)</span>. This implies that <span class="math inline">\(\mu(x_i+1) &gt; \mu(x_i)\)</span>, equivalently, <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_i\)</span> are positively associated with each other.</p></li>
+<li><p>Similarly, if <span class="math inline">\(\beta_i &lt; 0\)</span>, then <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_i\)</span> are negatively associated with each other.</p></li>
+</ul>
+<p>Because the Poisson distribution is usually used to model rare events such as diseases and anomalies and the regression coefficients <span class="math inline">\(\beta_i\)</span> can be expressed as <span class="math inline">\(\beta_i = \log (\mu(x_i+1)/\mu(x_i))\)</span>, <span class="math inline">\(\beta_i\)</span> is called <strong>relative risk</strong>, sometimes also called <strong>risk ratio</strong> or <strong>log risk ratio</strong>.</p>
+</div>
+<div id="poisson-models-for-rates" class="section level3 hasAnchor" number="12.3.3">
+<h3><span class="header-section-number">12.3.3</span> Poisson Models for Rates<a href="poisson-regression-for-counts-and-rates.html#poisson-models-for-rates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Poisson log-linear regression model for the expected rate of the occurrence of the event is defined by</p>
+<p><span class="math display">\[
+\log(\mu/t) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p
+\]</span> This can be re-expressed as</p>
+<p><span class="math display">\[
+\log(\mu)=\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p+\log(t)
+\]</span></p>
+<p>The term <span class="math inline">\(\log(t)\)</span> is referred to as an offset. It is an adjustment term and a group of observations may have the same offset, or each individual may have a different value of t. <span class="math inline">\(\log(t)\)</span> is an observation and it will change the value of estimated counts:</p>
+<p><span class="math display">\[
+\mu=\exp[\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p+log(t)]\\
+= t\exp(\beta_0)\exp(\beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p)
+\]</span> This means that the mean count is proportional to t.</p>
+<p>Note that the interpretation of parameter estimates <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1, \beta_2, \cdots, \beta_p\)</span> will stay the same as for the model of counts; you just need to multiply the expected counts by t.</p>
+</div>
+<div id="estimation-of-regression-coefficients-and-goodness-of-fit" class="section level3 hasAnchor" number="12.3.4">
+<h3><span class="header-section-number">12.3.4</span> Estimation of Regression Coefficients and Goodness-of-fit<a href="poisson-regression-for-counts-and-rates.html#estimation-of-regression-coefficients-and-goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike linear regression in which we have assumptions about the residuals. The estimated residuals can be used to test the assumptions about the distribution. In GLM, the goodness-of-fit is much more complex than the normal-based regression modeling. But we can mimic residuals in the linear regression modeling to define a similar quantity called <strong>deviance residual</strong> based on the likelihood of the model. We will give this definition in the next module.</p>
+<p>The estimation of the regression coefficients is based on the maximum likelihood estimation (MLE) which requires numerical solutions. In the Poisson distribution, the mean and variance are equal (<span class="math inline">\(E[Y] = var[Y]\)</span>). Failing to meet this assumption results in the issue of <strong>dispersion</strong>, a common violation of the Poisson regression. We will discuss this issue and the relevant remedies in the next module.</p>
+<p>We will not go into detail about how to estimate the regression coefficients and perform model diagnostics in this module. Instead, we will focus on data analysis, in particular, the interpretation of regression coefficients.</p>
+</div>
+<div id="data-set-layout" class="section level3 hasAnchor" number="12.3.5">
+<h3><span class="header-section-number">12.3.5</span> Data Set Layout<a href="poisson-regression-for-counts-and-rates.html#data-set-layout" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data set required for the Poisson regression model in R should have the following layout.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID(optional)</th>
+<th><span class="math inline">\(x_1\)</span></th>
+<th><span class="math inline">\(x_2\)</span></th>
+<th>…</th>
+<th><span class="math inline">\(x_k\)</span></th>
+<th><span class="math inline">\(y\)</span> (counts)</th>
+<th>total (counts, optional)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(x_{11}\)</span></td>
+<td><span class="math inline">\(x_{21}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(x_{k1}\)</span></td>
+<td><span class="math inline">\(y_1\)</span></td>
+<td><span class="math inline">\(t_1\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(x_{12}\)</span></td>
+<td><span class="math inline">\(x_{22}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(x_{k2}\)</span></td>
+<td><span class="math inline">\(y_2\)</span></td>
+<td><span class="math inline">\(t_2\)</span></td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>n</td>
+<td><span class="math inline">\(x_{1n}\)</span></td>
+<td><span class="math inline">\(x_{2n}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(x_{kn}\)</span></td>
+<td><span class="math inline">\(y_n\)</span></td>
+<td><span class="math inline">\(t_n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>As usual, if there are categorical variables (with numerical coding), we need to introduce dummy variables to capture the unequal effects on the response across the categories of the variables.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Case Study: Modeling Lung Cancer Rates in Four Cities of Denmark - Part I<a href="poisson-regression-for-counts-and-rates.html#case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The World Health Organisation (WHO) statistics suggests that Denmark has the highest cancer rates in the world, with about 326 people out of every 100,000 developing cancer each year. The country is known to have a good record of diagnosing cancer, but also has high rates of smoking among women and high levels of alcohol consumption.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="poisson-regression-for-counts-and-rates.html#cb1-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img09/DenmarkCitiesMap.png&quot;</span>)</span></code></pre></div>
+<p><img src="img09/DenmarkCitiesMap.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>In this case study, we use a data set that summarized the lung cancer incident counts (cases) per age group for four Danish cities from 1968 to 1971. The primary random response variable is lung cancer cases. The predictor variables are the age group and the total population size of the neighboring cities.</p>
+<p>The data set was built in the R library {ISwR}.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="poisson-regression-for-counts-and-rates.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-2"><a href="poisson-regression-for-counts-and-rates.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(ISwR)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ISwR&#39; was built under R version 4.2.3</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="poisson-regression-for-counts-and-rates.html#cb4-1" tabindex="-1"></a><span class="fu">data</span>(eba1977)</span>
+<span id="cb4-2"><a href="poisson-regression-for-counts-and-rates.html#cb4-2" tabindex="-1"></a><span class="co">#kable(head(eba1977), caption = &quot;First few records in the data set&quot;) </span></span>
+<span id="cb4-3"><a href="poisson-regression-for-counts-and-rates.html#cb4-3" tabindex="-1"></a><span class="co"># check the values of the variables in the data set</span></span></code></pre></div>
+<p>Since it’s reasonable to assume that the expected count of lung cancer incidents is proportional to the population size, we would prefer to model the rate of incidents per capita. However, for the purposed of illustration, we will fit the Poisson regression model with both counts and rate of cancer rates.</p>
+<div id="poisson-regression-on-cancer-counts" class="section level3 hasAnchor" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> Poisson Regression on Cancer Counts<a href="poisson-regression-for-counts-and-rates.html#poisson-regression-on-cancer-counts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first build a Poisson frequency regression model and ignore the population size of each city in the data.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="poisson-regression-for-counts-and-rates.html#cb5-1" tabindex="-1"></a>model.freq <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), <span class="at">data =</span> eba1977)</span>
+<span id="cb5-2"><a href="poisson-regression-for-counts-and-rates.html#cb5-2" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb5-3"><a href="poisson-regression-for-counts-and-rates.html#cb5-3" tabindex="-1"></a>pois.count.coef <span class="ot">=</span> <span class="fu">summary</span>(model.freq)<span class="sc">$</span>coef</span>
+<span id="cb5-4"><a href="poisson-regression-for-counts-and-rates.html#cb5-4" tabindex="-1"></a><span class="fu">kable</span>(pois.count.coef, <span class="at">caption =</span> <span class="st">&quot;The Poisson regression model for the counts of lung </span></span>
+<span id="cb5-5"><a href="poisson-regression-for-counts-and-rates.html#cb5-5" tabindex="-1"></a><span class="st">      cancer cases versus the geographical locations and the age group.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 12.1: </span>The Poisson regression model for the counts of lung
+cancer cases versus the geographical locations and the age group.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.2437446</td>
+<td align="right">0.2036265</td>
+<td align="right">11.0189233</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">-0.0984401</td>
+<td align="right">0.1812909</td>
+<td align="right">-0.5429952</td>
+<td align="right">0.5871331</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.2270575</td>
+<td align="right">0.1877041</td>
+<td align="right">-1.2096561</td>
+<td align="right">0.2264109</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.2270575</td>
+<td align="right">0.1877041</td>
+<td align="right">-1.2096561</td>
+<td align="right">0.2264109</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">-0.0307717</td>
+<td align="right">0.2480988</td>
+<td align="right">-0.1240298</td>
+<td align="right">0.9012916</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">0.2646926</td>
+<td align="right">0.2314278</td>
+<td align="right">1.1437369</td>
+<td align="right">0.2527328</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">0.3101549</td>
+<td align="right">0.2291839</td>
+<td align="right">1.3533017</td>
+<td align="right">0.1759593</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">0.1923719</td>
+<td align="right">0.2351660</td>
+<td align="right">0.8180261</td>
+<td align="right">0.4133423</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">-0.0625204</td>
+<td align="right">0.2501222</td>
+<td align="right">-0.2499593</td>
+<td align="right">0.8026188</td>
+</tr>
+</tbody>
+</table>
+<p>The above inferential table about the regression coefficients indicates both city and age are insignificant. This means, if we look at cancer count across the age group and city, there is no statistical evidence to support the potential discrepancy across the age groups and cities. However, this does not imply that the model is meaningless from the practical perspective since statistical significance is not equivalent the clinical importance. Moreover, the sample size could impact the statistical significance of some of the variables.</p>
+<p>The other way to look at the model is the appropriateness model. The cancer counts are dependent on the population size. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.</p>
+<p>The other way to look at the model is goodness of the model. The cancer counts are dependent on the population size. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.</p>
+</div>
+<div id="poisson-regression-on-rates" class="section level3 hasAnchor" number="12.4.2">
+<h3><span class="header-section-number">12.4.2</span> Poisson Regression on Rates<a href="poisson-regression-for-counts-and-rates.html#poisson-regression-on-rates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following model assesses the potential relationship between cancer death rates and age. This is the primary interest of the model. We also want to adjust the relationship be the potential neighboring cities.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="poisson-regression-for-counts-and-rates.html#cb6-1" tabindex="-1"></a>model.rates <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">offset =</span> <span class="fu">log</span>(pop), </span>
+<span id="cb6-2"><a href="poisson-regression-for-counts-and-rates.html#cb6-2" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), <span class="at">data =</span> eba1977)</span>
+<span id="cb6-3"><a href="poisson-regression-for-counts-and-rates.html#cb6-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(model.rates)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Poisson regression on the rate of the </span></span>
+<span id="cb6-4"><a href="poisson-regression-for-counts-and-rates.html#cb6-4" tabindex="-1"></a><span class="st">      the cancer rate in the four Danish cities adjusted by age.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 12.2: </span>Poisson regression on the rate of the
+the cancer rate in the four Danish cities adjusted by age.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-5.6320645</td>
+<td align="right">0.2002545</td>
+<td align="right">-28.124529</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">-0.3300600</td>
+<td align="right">0.1815033</td>
+<td align="right">-1.818479</td>
+<td align="right">0.0689909</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.3715462</td>
+<td align="right">0.1878063</td>
+<td align="right">-1.978348</td>
+<td align="right">0.0478895</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.2723177</td>
+<td align="right">0.1878534</td>
+<td align="right">-1.449629</td>
+<td align="right">0.1471620</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">1.1010140</td>
+<td align="right">0.2482858</td>
+<td align="right">4.434463</td>
+<td align="right">0.0000092</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">1.5186123</td>
+<td align="right">0.2316376</td>
+<td align="right">6.555985</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">1.7677062</td>
+<td align="right">0.2294395</td>
+<td align="right">7.704455</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">1.8568633</td>
+<td align="right">0.2353230</td>
+<td align="right">7.890701</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">1.4196534</td>
+<td align="right">0.2502707</td>
+<td align="right">5.672472</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The above table indicates that the log of cancer rate is not identical across the age groups and among the four cities. To be more specific, the log rates of Fredericia (baseline city) were higher than in the other three cities. The youngest age group (45-55) has the lowest log rate. The regression coefficients represent the change of log rate between the associate age group and the reference age group. The same interpretation applies to the change in log rate among the cities.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="poisson-regression-for-counts-and-rates.html#cb7-1" tabindex="-1"></a>model.rates <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age, <span class="at">offset =</span> <span class="fu">log</span>(pop), </span>
+<span id="cb7-2"><a href="poisson-regression-for-counts-and-rates.html#cb7-2" tabindex="-1"></a>                   <span class="at">family =</span> quasipoisson, <span class="at">data =</span> eba1977)</span>
+<span id="cb7-3"><a href="poisson-regression-for-counts-and-rates.html#cb7-3" tabindex="-1"></a><span class="fu">summary</span>(model.rates)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = cases ~ city + age, family = quasipoisson, data = eba1977, 
+##     offset = log(pop))
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.63573  -0.67296  -0.03436   0.37258   1.85267  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -5.6321     0.2456 -22.932 4.31e-13 ***
+## cityHorsens  -0.3301     0.2226  -1.483  0.15884    
+## cityKolding  -0.3715     0.2303  -1.613  0.12756    
+## cityVejle    -0.2723     0.2304  -1.182  0.25561    
+## age55-59      1.1010     0.3045   3.616  0.00254 ** 
+## age60-64      1.5186     0.2841   5.346 8.17e-05 ***
+## age65-69      1.7677     0.2814   6.282 1.47e-05 ***
+## age70-74      1.8569     0.2886   6.434 1.13e-05 ***
+## age75+        1.4197     0.3069   4.625  0.00033 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 1.504109)
+## 
+##     Null deviance: 129.908  on 23  degrees of freedom
+## Residual deviance:  23.447  on 15  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="poisson-regression-for-counts-and-rates.html#cb9-1" tabindex="-1"></a><span class="co">#kable(summary(model.rates)$coef, caption = &quot;Poisson regression on the rate of the </span></span>
+<span id="cb9-2"><a href="poisson-regression-for-counts-and-rates.html#cb9-2" tabindex="-1"></a><span class="co">#      the cancer rate in the four Danish cities adjusted by age.&quot;)</span></span></code></pre></div>
+<p>The intercept represents the <strong>baseline log-cancer rate</strong> ( of baseline <em>age group 44-55</em> in the baseline city <em>Fredericia</em>). The actual rate is <span class="math inline">\(\exp(-5.6321) \approx 0.36\%\)</span> which is close the recently reported rate of the country by WHO. The intercept <span class="math inline">\(-0.3301\)</span> is the difference of the log-rates between baseline city Fredericia and the city of Horsens at any given age group, to be more specific, <span class="math inline">\(\log(R_{\text{Horsen}}) - \log(R_{\text{Fredericia}}) = -0.3301\)</span> which is equivalent to
+<span class="math display">\[
+\log \left( \frac{R_{\text{Horsen}}}{R_{\text{Fredericia}}} \right) = -0.3301 ~~~\Rightarrow~~~\frac{R_{\text{Horsen}}}{R_{\text{Fredericia}}} = e^{-0.3301} \approx 0.7188518.
+\]</span>
+This means, with fixed age groups, the cancer rate in Horsens is about <span class="math inline">\(28\%\)</span> lower than that in Fredericia. Next, we look at the coefficient <span class="math inline">\(1.4197\)</span> associated with age group <span class="math inline">\(\text{75+}\)</span>. For any given city,</p>
+<p><span class="math display">\[
+\log \left(\frac{R_{\text{age75+}}}{R_{\text{age45-54}}} \right) = 1.4197~~~\Rightarrow~~~\frac{R_{\text{age75+}}}{R_{\text{age45-54}}} = e^{1.41971} \approx 4.135921.
+\]</span></p>
+<p>This implies that the cancer rate in age group 75+ is 4.14 times that of the baseline age group of 45-54.</p>
+</div>
+<div id="some-graphical-comparison" class="section level3 hasAnchor" number="12.4.3">
+<h3><span class="header-section-number">12.4.3</span> Some Graphical Comparison<a href="poisson-regression-for-counts-and-rates.html#some-graphical-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The inferential tables of the Poisson regression models in the previous sections give numerical information about the potential discrepancy across the age group and among the cities. But it is not intuitive. Next, we create a graphic to visualize the relationship between cancer rate and age across cities.</p>
+<p>First of all, every city has a trend line that reflects the relationship between the cancer rate and the age. We next find the rates of combinations of city and age-group based on the following working rate model.
+<span class="math display">\[
+\text{log-rate} = -5.6321 -0.3301 \times \text{cityHorsens} -0.3715 \times \text{cityKolding} -0.2723 \times \text{cityVejle} + 1.1010 \times \text{age55-59} \\ + 1.5186 \times \text{age60-64} + 1.7677 \times  \text{age65-69} + 1.8569 \times \text{age70-74} + 1.4197 \times \text{age75+}
+\]</span>
+Or equivalently, we can write rate model as
+<span class="math display">\[
+rate =\exp(-5.6321 -0.3301 \times \text{cityHorsens} -0.3715 \times \text{cityKolding} -0.2723 \times \text{cityVejle} + 1.1010 \times \text{age55-59}) \\ \times \exp( 1.5186 \times \text{age60-64} + 1.7677 \times  \text{age65-69} + 1.8569 \times \text{age70-74} + 1.4197 \times \text{age75+})
+\]</span></p>
+<p>Next, we made a table cancer rates of combinations of city and age group.</p>
+<p>The following calculation is based on the regression equation with coefficients given in above table 3. Note that all variables in the model are indicator variables. Each of these indicator variables takes only two possible values: 0 and 1.</p>
+<p>For example, <span class="math inline">\(\exp(-5.632)\)</span> gives the cancer rate of the baseline city, Fredericia, and the baseline age group [45-54]. <span class="math inline">\(\exp(-5.632+1.101)\)</span> gives the cancer rate of baseline city, Fredericia, and age group [55-59]. Following the same pattern, you can find the cancer rate for each combination of the city and age group.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="poisson-regression-for-counts-and-rates.html#cb10-1" tabindex="-1"></a><span class="co"># Fredericia</span></span>
+<span id="cb10-2"><a href="poisson-regression-for-counts-and-rates.html#cb10-2" tabindex="-1"></a>Fredericia <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.101</span>),   </span>
+<span id="cb10-3"><a href="poisson-regression-for-counts-and-rates.html#cb10-3" tabindex="-1"></a>               <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.77</span>),</span>
+<span id="cb10-4"><a href="poisson-regression-for-counts-and-rates.html#cb10-4" tabindex="-1"></a>               <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.86</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632+1.42</span>))</span>
+<span id="cb10-5"><a href="poisson-regression-for-counts-and-rates.html#cb10-5" tabindex="-1"></a><span class="co"># Horsens</span></span>
+<span id="cb10-6"><a href="poisson-regression-for-counts-and-rates.html#cb10-6" tabindex="-1"></a>Horsens <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.101</span>),   </span>
+<span id="cb10-7"><a href="poisson-regression-for-counts-and-rates.html#cb10-7" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.77</span>),</span>
+<span id="cb10-8"><a href="poisson-regression-for-counts-and-rates.html#cb10-8" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.86</span>),</span>
+<span id="cb10-9"><a href="poisson-regression-for-counts-and-rates.html#cb10-9" tabindex="-1"></a>            <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.331+1.42</span>))</span>
+<span id="cb10-10"><a href="poisson-regression-for-counts-and-rates.html#cb10-10" tabindex="-1"></a><span class="co"># Kolding</span></span>
+<span id="cb10-11"><a href="poisson-regression-for-counts-and-rates.html#cb10-11" tabindex="-1"></a>Kolding<span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.101</span>),   </span>
+<span id="cb10-12"><a href="poisson-regression-for-counts-and-rates.html#cb10-12" tabindex="-1"></a>           <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.77</span>),</span>
+<span id="cb10-13"><a href="poisson-regression-for-counts-and-rates.html#cb10-13" tabindex="-1"></a>           <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.86</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.372+1.42</span>))</span>
+<span id="cb10-14"><a href="poisson-regression-for-counts-and-rates.html#cb10-14" tabindex="-1"></a><span class="co"># Vejle</span></span>
+<span id="cb10-15"><a href="poisson-regression-for-counts-and-rates.html#cb10-15" tabindex="-1"></a>Vejle <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.101</span>),   </span>
+<span id="cb10-16"><a href="poisson-regression-for-counts-and-rates.html#cb10-16" tabindex="-1"></a>          <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.52</span>),<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.77</span>),</span>
+<span id="cb10-17"><a href="poisson-regression-for-counts-and-rates.html#cb10-17" tabindex="-1"></a>          <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.86</span>), <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">5.632-0.272+1.42</span>))</span>
+<span id="cb10-18"><a href="poisson-regression-for-counts-and-rates.html#cb10-18" tabindex="-1"></a>minmax <span class="ot">=</span> <span class="fu">range</span>(<span class="fu">c</span>(Fredericia,Horsens,Kolding,Vejle))</span>
+<span id="cb10-19"><a href="poisson-regression-for-counts-and-rates.html#cb10-19" tabindex="-1"></a><span class="do">####</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="poisson-regression-for-counts-and-rates.html#cb11-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,Fredericia, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty =</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, </span>
+<span id="cb11-2"><a href="poisson-regression-for-counts-and-rates.html#cb11-2" tabindex="-1"></a>               <span class="at">ylab=</span><span class="st">&quot;Cancer Rate&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">6</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.03</span>), <span class="at">axes=</span><span class="cn">FALSE</span> )</span>
+<span id="cb11-3"><a href="poisson-regression-for-counts-and-rates.html#cb11-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>)</span>
+<span id="cb11-4"><a href="poisson-regression-for-counts-and-rates.html#cb11-4" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;[45-54]&quot;</span>,<span class="st">&quot;[55,59]&quot;</span>,<span class="st">&quot;[60,64]&quot;</span>,<span class="st">&quot;[65,69]&quot;</span>,<span class="st">&quot;[70,74]&quot;</span>,<span class="st">&quot;75+&quot;</span>), </span>
+<span id="cb11-5"><a href="poisson-regression-for-counts-and-rates.html#cb11-5" tabindex="-1"></a>            <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb11-6"><a href="poisson-regression-for-counts-and-rates.html#cb11-6" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,Fredericia, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb11-7"><a href="poisson-regression-for-counts-and-rates.html#cb11-7" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb11-8"><a href="poisson-regression-for-counts-and-rates.html#cb11-8" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Horsens, <span class="at">lty =</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb11-9"><a href="poisson-regression-for-counts-and-rates.html#cb11-9" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Horsens, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb11-10"><a href="poisson-regression-for-counts-and-rates.html#cb11-10" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb11-11"><a href="poisson-regression-for-counts-and-rates.html#cb11-11" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Kolding, <span class="at">lty =</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb11-12"><a href="poisson-regression-for-counts-and-rates.html#cb11-12" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Kolding, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb11-13"><a href="poisson-regression-for-counts-and-rates.html#cb11-13" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb11-14"><a href="poisson-regression-for-counts-and-rates.html#cb11-14" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Vejle, <span class="at">lty =</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;mediumvioletred&quot;</span>)</span>
+<span id="cb11-15"><a href="poisson-regression-for-counts-and-rates.html#cb11-15" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, Vejle, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">col=</span><span class="st">&quot;mediumvioletred&quot;</span>)</span>
+<span id="cb11-16"><a href="poisson-regression-for-counts-and-rates.html#cb11-16" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb11-17"><a href="poisson-regression-for-counts-and-rates.html#cb11-17" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Fredericia&quot;</span>,<span class="st">&quot;Horsens&quot;</span>, <span class="st">&quot;Kolding&quot;</span>, <span class="st">&quot;Vejle&quot;</span> ),</span>
+<span id="cb11-18"><a href="poisson-regression-for-counts-and-rates.html#cb11-18" tabindex="-1"></a>                  <span class="at">pch=</span><span class="dv">19</span><span class="sc">:</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,  <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb11-19"><a href="poisson-regression-for-counts-and-rates.html#cb11-19" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;mediumvioletred&quot;</span>))</span></code></pre></div>
+<p><img src="STA321EB_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="discussions-and-conclusions" class="section level3 hasAnchor" number="12.4.4">
+<h3><span class="header-section-number">12.4.4</span> Discussions and Conclusions<a href="poisson-regression-for-counts-and-rates.html#discussions-and-conclusions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Several conclusions we can draw from the output of the regression models.</p>
+<p>The regression model based on the cancer count is not appropriate since the information on the population size is a key variable in study the cancer distribution. Simply including the population size in the regression model will relduce the significance of age. See the following output of the fitted Poisson regression model of count adjusted by population size.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="poisson-regression-for-counts-and-rates.html#cb12-1" tabindex="-1"></a>model.freq.pop <span class="ot">&lt;-</span> <span class="fu">glm</span>(cases <span class="sc">~</span> city <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">log</span>(pop), <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>), </span>
+<span id="cb12-2"><a href="poisson-regression-for-counts-and-rates.html#cb12-2" tabindex="-1"></a>                      <span class="at">data =</span> eba1977)</span>
+<span id="cb12-3"><a href="poisson-regression-for-counts-and-rates.html#cb12-3" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb12-4"><a href="poisson-regression-for-counts-and-rates.html#cb12-4" tabindex="-1"></a>pois.count.coef.pop <span class="ot">=</span> <span class="fu">summary</span>(model.freq.pop)<span class="sc">$</span>coef</span>
+<span id="cb12-5"><a href="poisson-regression-for-counts-and-rates.html#cb12-5" tabindex="-1"></a><span class="fu">kable</span>(pois.count.coef.pop, <span class="at">caption =</span> <span class="st">&quot;The Poisson regression model for </span></span>
+<span id="cb12-6"><a href="poisson-regression-for-counts-and-rates.html#cb12-6" tabindex="-1"></a><span class="st">         the counts of lung cancer cases versus the geographical locations, </span></span>
+<span id="cb12-7"><a href="poisson-regression-for-counts-and-rates.html#cb12-7" tabindex="-1"></a><span class="st">         population size, and age group.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-8">Table 12.3: </span>The Poisson regression model for
+the counts of lung cancer cases versus the geographical locations,
+population size, and age group.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">11.7495934</td>
+<td align="right">8.8151328</td>
+<td align="right">1.3328890</td>
+<td align="right">0.1825682</td>
+</tr>
+<tr class="even">
+<td align="left">cityHorsens</td>
+<td align="right">0.1832573</td>
+<td align="right">0.3192679</td>
+<td align="right">0.5739922</td>
+<td align="right">0.5659731</td>
+</tr>
+<tr class="odd">
+<td align="left">cityKolding</td>
+<td align="right">-0.0483001</td>
+<td align="right">0.2519622</td>
+<td align="right">-0.1916957</td>
+<td align="right">0.8479806</td>
+</tr>
+<tr class="even">
+<td align="left">cityVejle</td>
+<td align="right">-0.1679335</td>
+<td align="right">0.1964757</td>
+<td align="right">-0.8547289</td>
+<td align="right">0.3927012</td>
+</tr>
+<tr class="odd">
+<td align="left">age55-59</td>
+<td align="right">-1.3842350</td>
+<td align="right">1.2728775</td>
+<td align="right">-1.0874849</td>
+<td align="right">0.2768226</td>
+</tr>
+<tr class="even">
+<td align="left">age60-64</td>
+<td align="right">-1.2366489</td>
+<td align="right">1.4049520</td>
+<td align="right">-0.8802073</td>
+<td align="right">0.3787470</td>
+</tr>
+<tr class="odd">
+<td align="left">age65-69</td>
+<td align="right">-1.4377681</td>
+<td align="right">1.6310051</td>
+<td align="right">-0.8815228</td>
+<td align="right">0.3780349</td>
+</tr>
+<tr class="even">
+<td align="left">age70-74</td>
+<td align="right">-1.8048920</td>
+<td align="right">1.8607922</td>
+<td align="right">-0.9699589</td>
+<td align="right">0.3320670</td>
+</tr>
+<tr class="odd">
+<td align="left">age75+</td>
+<td align="right">-1.8383162</td>
+<td align="right">1.6587773</td>
+<td align="right">-1.1082357</td>
+<td align="right">0.2677600</td>
+</tr>
+<tr class="even">
+<td align="left">log(pop)</td>
+<td align="right">-1.2095837</td>
+<td align="right">1.1227191</td>
+<td align="right">-1.0773698</td>
+<td align="right">0.2813151</td>
+</tr>
+</tbody>
+</table>
+<p>We can see from the above output the adding population size to the model</p>
+<p>The cancer rate in Fredericia is significantly higher than in the other three cities. It seems that there is no significant difference between Horsens, Kolding, and Vejle. The reason why Fredericia has a higher cancer rate needs further investigation with additional information.</p>
+<p>There is a curve linear relationship between age and the cancer rate. The cancer rate increases as age increase. However, the rate starts decreasing after 75. This pattern is consistent with the clinical studies since lung cancer patients were mostly diagnosed between 65-70. It is rare to see lung cancer patients aged under 45.</p>
+<p>The last statistical observation is that there is no interaction effect between the age groups and the geographic locations. The rate curves are “parallel”.</p>
+<p>This is only a small data set with limited information. All conclusions in this report are only based on the given data set.</p>
+</div>
+</div>
+<div id="concluding-remarks-2" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Concluding Remarks<a href="poisson-regression-for-counts-and-rates.html#concluding-remarks-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This note briefly outlines the regular Poisson regression model for fitting frequency data. The Poisson regression model has a simple structure and is easy to interpret but has a relatively strong assumption - variance is equal to the mean.</p>
+<p>If this assumption is violated, we can use negative binomial regression as an alternative. The other potential issue is the data has excess zeros, then we can consider zero-inflated Poisson or zero-inflated negative binomial regression models.</p>
+<p>For this week’s assignment, you will model the daily counts (and proportion) of cyclists who entered and left the four bridges in New York City. The data set will be provided in the document of the assignment instruction.</p>
+</div>
+<div id="analysis-assignment-3" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> Analysis Assignment<a href="poisson-regression-for-counts-and-rates.html#analysis-assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-description-2" class="section level3 hasAnchor" number="12.6.1">
+<h3><span class="header-section-number">12.6.1</span> Data Description<a href="poisson-regression-for-counts-and-rates.html#data-description-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The daily total of bike counts was conducted monthly on the Brooklyn Bridge, Manhattan Bridge, Williamsburg Bridge, and Queensboro Bridge. To keep count of cyclists entering and leaving Queens, Manhattan, and Brooklyn via the East River Bridges. The Traffic Information Management System (TIMS) collects the count data. Each record represents the total number of cyclists per 24 hours at Brooklyn Bridge, Manhattan Bridge, Williamsburg Bridge, and Queensboro Bridge.</p>
+</div>
+<div id="data-formats-and-loading" class="section level3 hasAnchor" number="12.6.2">
+<h3><span class="header-section-number">12.6.2</span> Data Formats and Loading<a href="poisson-regression-for-counts-and-rates.html#data-formats-and-loading" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To save you time in finding a data set for Poisson regression, I created several subsets that contain the relevant information you need for this week’s assignment. The data was saved in Excel format with multiple tabs. Please find the tab with your last name and then copy-and-paste your data file to a new Excel sheet and save it as a CSV format file or simply copy-and-paste to Notepad to create a TXT format file so you can read the file to R. You can also read the Excel file directly to R using appropriate R functions in relevant R libraries.</p>
+<p>Here is the link to the Excel data set:<a href="w09-AssignDataSet.xlsx">NYC cyclist data set (AssignDataSet.xlsx)</a>.</p>
+</div>
+<div id="assignment-instructions" class="section level3 hasAnchor" number="12.6.3">
+<h3><span class="header-section-number">12.6.3</span> Assignment Instructions<a href="poisson-regression-for-counts-and-rates.html#assignment-instructions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Your analysis and report should be similar to section 3 of my class note. PLEASE TELL STORIES BEHIND ALL R OUTPUTS (tables and figures) YOU GENERATED IN THE ANALYSIS. You can earn half of the credit if you only generate relevant outputs correctly but with no good storytelling. <em>The model diagnostic is not required in this assignment but will be required in the next assignment</em>.</p>
+<p>The following components must be included in your analysis report.</p>
+<ul>
+<li>Your description of the data and the variables
+<ul>
+<li>data collection</li>
+<li>variable names and definitions. Keep in mind that the variable <strong>Date</strong> is the observation ID.</li>
+</ul></li>
+<li>What is the research/practical question?
+<ul>
+<li>Explicit definition of the questions</li>
+<li>what is the response variable that captures the information to address the research/practical questions</li>
+</ul></li>
+<li>What statistical model will be used in the analysis
+<ul>
+<li>Assumptions and conditions - give a brief description of the models</li>
+<li>Build a Poison regression model on the counts only.
+<ul>
+<li>Use the p-values to perform variable selection - keep only significant variables in the final model</li>
+<li>Interpret the regression coefficients of the Poison regression model</li>
+<li>Explain/describe the steps of your analysis, motivation, and findings.</li>
+</ul></li>
+<li>Build a Poison regression on the proportions (rates) of cyclists entering and leaving the bridge in your data.
+<ul>
+<li>Use the p-values to select the significant variables</li>
+<li>Interpret the regression coefficients of the Poison rate model</li>
+<li>Explain/describe the steps of your analysis, motivation, and findings.</li>
+</ul></li>
+</ul></li>
+<li>Summarize the findings of the above two models.</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="predictive-modeling-with-logistic-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA321EB/edit/master/11-poisReg.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA321EB.pdf", "STA321EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

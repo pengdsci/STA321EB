@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 4 Effective Data Preparation | STA 321 E-pack: Advanced Statistics</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 4 Effective Data Preparation | STA 321 E-pack: Advanced Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 4 Effective Data Preparation | STA 321 E-pack: Advanced Statistics" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="base-r-graphical-functions.html"/>
+<link rel="next" href="bootstrap-confidence-intervals.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 321 E-Pack: Advanced Statistics</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-this-e-pack"><i class="fa fa-check"></i><b>1.1</b> Why This E-Pack?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#components-statistical-reports"><i class="fa fa-check"></i><b>1.2</b> Components Statistical Reports</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a.-introduction"><i class="fa fa-check"></i>A. Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#b.-materials"><i class="fa fa-check"></i>B. Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c.-methodology"><i class="fa fa-check"></i>C. Methodology</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#d.-results-and-conclusions"><i class="fa fa-check"></i>D. Results and Conclusions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#e.-general-discussion"><i class="fa fa-check"></i>E. General Discussion</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#f.-references-if-any"><i class="fa fa-check"></i>F. References (if any)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#g.-appendices-if-any"><i class="fa fa-check"></i>G. Appendices (if any)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#basics-of-rstudio"><i class="fa fa-check"></i><b>1.3</b> Basics of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#rstudio-gui"><i class="fa fa-check"></i><b>1.3.1</b> RStudio GUI</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#rmarkdown"><i class="fa fa-check"></i><b>1.3.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#collaborative-platforms"><i class="fa fa-check"></i><b>1.4</b> Collaborative Platforms</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#rpubs"><i class="fa fa-check"></i><b>1.4.1</b> RPubs</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#github-repository"><i class="fa fa-check"></i><b>1.4.2</b> GitHub Repository</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.5</b> Github</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#what-is-github"><i class="fa fa-check"></i><b>1.5.1</b> What is Github?</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#getting-started-with-github"><i class="fa fa-check"></i><b>1.5.2</b> Getting Started with GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html"><i class="fa fa-check"></i><b>2</b> Data Input and Output in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#built-in-data"><i class="fa fa-check"></i><b>2.1</b> Built-in Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#loading-external-data-sets"><i class="fa fa-check"></i><b>2.2</b> Loading External Data Sets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#preparing-r-workspace"><i class="fa fa-check"></i><b>2.2.1</b> Preparing R Workspace</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#setting-up-working-directory"><i class="fa fa-check"></i><b>2.2.2</b> Setting-up Working Directory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-common-files-into-r"><i class="fa fa-check"></i><b>2.3</b> Read Common Files into R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#read-txt-files-with-read.table"><i class="fa fa-check"></i><b>2.3.1</b> Read TXT files with read.table()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#data-values-separated-by-special-symbol"><i class="fa fa-check"></i><b>2.4</b> Data Values Separated By Special Symbol</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#importing-a-csv-into-r"><i class="fa fa-check"></i><b>2.4.1</b> Importing a CSV into R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-spss-and-other-data-sets-into-r"><i class="fa fa-check"></i><b>2.5</b> Import SAS, SPSS, and Other Data Sets into R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-spss-files-into-r"><i class="fa fa-check"></i><b>2.5.1</b> Import SPSS Files into R</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#mport-stata-files-into-r"><i class="fa fa-check"></i><b>2.5.2</b> mport Stata Files into R</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-systat-files-into-r"><i class="fa fa-check"></i><b>2.5.3</b> Import Systat Files into R</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data-input-and-output-in-r.html"><a href="data-input-and-output-in-r.html#import-sas-files-into-r"><i class="fa fa-check"></i><b>2.5.4</b> Import SAS Files into R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html"><i class="fa fa-check"></i><b>3</b> Base R Graphical Functions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#r-graphic-devices"><i class="fa fa-check"></i><b>3.1</b> R Graphic Devices</a></li>
+<li class="chapter" data-level="3.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#plotting-with-base-graphics-plot"><i class="fa fa-check"></i><b>3.2</b> Plotting with Base Graphics: <code>plot()</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#outer-and-inner-margins"><i class="fa fa-check"></i><b>3.2.1</b> Outer and Inner Margins</a></li>
+<li class="chapter" data-level="3.2.2" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#simple-multi-panel-plots"><i class="fa fa-check"></i><b>3.2.2</b> Simple multi-panel Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="base-r-graphical-functions.html"><a href="base-r-graphical-functions.html#making-our-own-colors"><i class="fa fa-check"></i><b>3.3</b> Making Our Own Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html"><i class="fa fa-check"></i><b>4</b> Effective Data Preparation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#data-set-description"><i class="fa fa-check"></i><b>4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="4.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#base-r-commands-for-data-management"><i class="fa fa-check"></i><b>4.2</b> Base R Commands for Data Management</a></li>
+<li class="chapter" data-level="4.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#working-with-scientific-notations"><i class="fa fa-check"></i><b>4.3</b> Working with Scientific Notations</a></li>
+<li class="chapter" data-level="4.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-ifelse-function"><i class="fa fa-check"></i><b>4.4</b> The <strong>ifelse()</strong> Function</a></li>
+<li class="chapter" data-level="4.5" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-cut-function"><i class="fa fa-check"></i><b>4.5</b> The <strong>cut()</strong> Function</a></li>
+<li class="chapter" data-level="4.6" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#with-and-within-functions"><i class="fa fa-check"></i><b>4.6</b> <strong>with()</strong> and <strong>within()</strong> Functions</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-with-function"><i class="fa fa-check"></i><b>4.6.1</b> The <strong>with()</strong> Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#the-merge-function---table-joins"><i class="fa fa-check"></i><b>4.7</b> The <strong>merge()</strong> Function - Table Joins</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#inner-join"><i class="fa fa-check"></i><b>4.7.1</b> Inner Join</a></li>
+<li class="chapter" data-level="4.7.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#left-join"><i class="fa fa-check"></i><b>4.7.2</b> Left Join</a></li>
+<li class="chapter" data-level="4.7.3" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#right-join"><i class="fa fa-check"></i><b>4.7.3</b> Right Join</a></li>
+<li class="chapter" data-level="4.7.4" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#full-outer-join"><i class="fa fa-check"></i><b>4.7.4</b> Full (outer) Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-data-frame"><i class="fa fa-check"></i><b>4.8</b> Subsetting Data Frame</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-columns"><i class="fa fa-check"></i><b>4.8.1</b> Subsetting by Columns</a></li>
+<li class="chapter" data-level="4.8.2" data-path="effective-data-preparation.html"><a href="effective-data-preparation.html#subsetting-by-rows"><i class="fa fa-check"></i><b>4.8.2</b> Subsetting by Rows</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html"><i class="fa fa-check"></i><b>5</b> Bootstrap Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>5.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#random-sample-from-population"><i class="fa fa-check"></i><b>5.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="5.1.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>5.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="5.1.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>5.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-intervals-1"><i class="fa fa-check"></i><b>5.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="5.3" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>5.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>5.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>5.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problem-set"><i class="fa fa-check"></i><b>5.4</b> Problem Set</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#data-set-description-1"><i class="fa fa-check"></i><b>5.4.1</b> Data Set Description</a></li>
+<li class="chapter" data-level="5.4.2" data-path="bootstrap-confidence-intervals.html"><a href="bootstrap-confidence-intervals.html#problems"><i class="fa fa-check"></i><b>5.4.2</b> Problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html"><i class="fa fa-check"></i><b>6</b> Bootstrapping SLR</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-and-practical-questions"><i class="fa fa-check"></i><b>6.1</b> Data Set and Practical Questions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-description"><i class="fa fa-check"></i><b>6.1.1</b> Data Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#practical-question"><i class="fa fa-check"></i><b>6.1.2</b> Practical Question</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>6.1.3</b> Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#simple-linear-regression-review"><i class="fa fa-check"></i><b>6.2</b> Simple Linear Regression: Review</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#structure-and-assumptions-of-simple-linear-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Structure and Assumptions of Simple Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#fitting-slr-to-data"><i class="fa fa-check"></i><b>6.3</b> Fitting SLR to Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#parametric-slr"><i class="fa fa-check"></i><b>6.3.1</b> Parametric SLR</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-regression"><i class="fa fa-check"></i><b>6.3.2</b> Bootstrap Regression</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#concluding-remarks"><i class="fa fa-check"></i><b>6.3.3</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="6.3.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#bootstrap-residual-method"><i class="fa fa-check"></i><b>6.3.4</b> Bootstrap Residual Method</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-selection-for-project-one"><i class="fa fa-check"></i><b>6.4</b> Data Set Selection for Project One</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#data-set-requirements"><i class="fa fa-check"></i><b>6.4.1</b> Data Set Requirements</a></li>
+<li class="chapter" data-level="6.4.2" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#web-sites-with-data-sets"><i class="fa fa-check"></i><b>6.4.2</b> Web Sites with Data Sets</a></li>
+<li class="chapter" data-level="6.4.3" data-path="bootstrapping-slr.html"><a href="bootstrapping-slr.html#analysis-and-writing-components"><i class="fa fa-check"></i><b>6.4.3</b> Analysis and Writing Components</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html"><i class="fa fa-check"></i><b>7</b> Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>7.1</b> The structure of MLR</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#assumptions-based-on-the-above-special-form."><i class="fa fa-check"></i><b>7.1.1</b> Assumptions based on the above special form.</a></li>
+<li class="chapter" data-level="7.1.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#potential-violations"><i class="fa fa-check"></i><b>7.1.2</b> Potential Violations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#variable-types"><i class="fa fa-check"></i><b>7.1.3</b> Variable types</a></li>
+<li class="chapter" data-level="7.1.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#dummy-and-discrete-numerical-explanatory-variables"><i class="fa fa-check"></i><b>7.1.4</b> Dummy and discrete numerical explanatory variables</a></li>
+<li class="chapter" data-level="7.1.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#interpretation-of-regression-coefficients-1"><i class="fa fa-check"></i><b>7.1.5</b> Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#model-building"><i class="fa fa-check"></i><b>7.2</b> Model building</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-structure-sample-size-and-preparation-for-mlr"><i class="fa fa-check"></i><b>7.2.1</b> Data structure, sample size, and preparation for MLR</a></li>
+<li class="chapter" data-level="7.2.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#candidate-models-and-residual-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Candidate models and residual diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#significant-test-goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>7.2.3</b> Significant test, goodness-of-fit, and Variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#case-study--factors-that-impact-the-house-sale-prices"><i class="fa fa-check"></i><b>7.3</b> Case Study -Factors That Impact the House Sale Prices</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#data-description-1"><i class="fa fa-check"></i><b>7.3.1</b> Data Description</a></li>
+<li class="chapter" data-level="7.3.2" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#practical-question-1"><i class="fa fa-check"></i><b>7.3.2</b> Practical Question</a></li>
+<li class="chapter" data-level="7.3.3" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>7.3.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="7.3.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#fitting-mlr-to-data"><i class="fa fa-check"></i><b>7.3.4</b> Fitting MLR to Data</a></li>
+<li class="chapter" data-level="7.3.5" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#summary-of-the-model"><i class="fa fa-check"></i><b>7.3.5</b> Summary of the model</a></li>
+<li class="chapter" data-level="7.3.6" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#discussions"><i class="fa fa-check"></i><b>7.3.6</b> Discussions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="multiple-linear-regression-model.html"><a href="multiple-linear-regression-model.html#written-assignment"><i class="fa fa-check"></i><b>7.4</b> Written Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html"><i class="fa fa-check"></i><b>8</b> Bootstrapping MLR Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#parametric-linear-regression-model"><i class="fa fa-check"></i><b>8.1</b> Parametric Linear Regression Model</a></li>
+<li class="chapter" data-level="8.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-cases-boot.c"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Cases (BOOT.C)</a></li>
+<li class="chapter" data-level="8.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#bootstrap-residuals-boot.r"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Residuals (BOOT.R)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#fitted-model"><i class="fa fa-check"></i><b>8.3.1</b> Fitted Model</a></li>
+<li class="chapter" data-level="8.3.2" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#residual-bootstrap-samples"><i class="fa fa-check"></i><b>8.3.2</b> Residual Bootstrap Samples</a></li>
+<li class="chapter" data-level="8.3.3" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#implementation-of-residual-bootstrap-regression"><i class="fa fa-check"></i><b>8.3.3</b> Implementation of Residual Bootstrap Regression</a></li>
+<li class="chapter" data-level="8.3.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#combining-all-inferential-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Combining All Inferential Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="bootstrapping-mlr-model.html"><a href="bootstrapping-mlr-model.html#modeling-assignment"><i class="fa fa-check"></i><b>8.4</b> Modeling Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html"><i class="fa fa-check"></i><b>9</b> Simple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#simple-binary-logistic-regression"><i class="fa fa-check"></i><b>9.1</b> Simple Binary Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#the-model-structure"><i class="fa fa-check"></i><b>9.1.1</b> The Model Structure</a></li>
+<li class="chapter" data-level="9.1.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#interpretation-of-regression-coefficients-2"><i class="fa fa-check"></i><b>9.1.2</b> Interpretation of Regression Coefficients</a></li>
+<li class="chapter" data-level="9.1.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#use-of-simple-logistic-regression-model"><i class="fa fa-check"></i><b>9.1.3</b> Use of Simple Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#parameter-estimation"><i class="fa fa-check"></i><b>9.1.4</b> Parameter Estimation</a></li>
+<li class="chapter" data-level="9.1.5" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>9.1.5</b> Model Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="9.1.6" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.1.6</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#a-case-study"><i class="fa fa-check"></i><b>9.2</b> A Case Study</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#data-and-variable-descriptions"><i class="fa fa-check"></i><b>9.2.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="9.2.2" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#clinical-question"><i class="fa fa-check"></i><b>9.2.2</b> Clinical Question</a></li>
+<li class="chapter" data-level="9.2.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#building-the-simple-logistic-regression"><i class="fa fa-check"></i><b>9.2.3</b> Building the Simple Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#conclusion"><i class="fa fa-check"></i><b>9.3</b> Conclusion</a></li>
+<li class="chapter" data-level="9.4" data-path="simple-logistic-regression-model.html"><a href="simple-logistic-regression-model.html#analysis-assignment"><i class="fa fa-check"></i><b>9.4</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html"><i class="fa fa-check"></i><b>10</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#multiple-logistic-regression-model-1"><i class="fa fa-check"></i><b>10.1</b> Multiple Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-requirements-sources-layout-and-cleansing"><i class="fa fa-check"></i><b>10.1.1</b> Data Requirements: Sources, Layout, and Cleansing</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#issues-of-predictor-variables-and-variable-inspection-transformation"><i class="fa fa-check"></i><b>10.1.2</b> Issues of Predictor Variables and Variable Inspection-Transformation</a></li>
+<li class="chapter" data-level="10.1.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#estimation-and-interpretation-of-regression-coefficients"><i class="fa fa-check"></i><b>10.1.3</b> Estimation and Interpretation of Regression Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-blocks-for-predictive-performance"><i class="fa fa-check"></i><b>10.2</b> Building Blocks for Predictive Performance</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#understanding-the-performance-of-medical-diagnostics"><i class="fa fa-check"></i><b>10.2.1</b> Understanding the Performance of Medical Diagnostics</a></li>
+<li class="chapter" data-level="10.2.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#performance-metrics-used-in-clinical-trials"><i class="fa fa-check"></i><b>10.2.2</b> Performance Metrics Used in Clinical Trials:</a></li>
+<li class="chapter" data-level="10.2.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#remarks"><i class="fa fa-check"></i><b>10.2.3</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#case-study"><i class="fa fa-check"></i><b>10.3</b> Case Study</a></li>
+<li class="chapter" data-level="10.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#data-and-variable-descriptions-1"><i class="fa fa-check"></i><b>10.4</b> Data and Variable Descriptions</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#research-question"><i class="fa fa-check"></i><b>10.4.1</b> Research Question</a></li>
+<li class="chapter" data-level="10.4.2" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#exploratory-analysis"><i class="fa fa-check"></i><b>10.4.2</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="10.4.3" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#building-the-multiple-logistic-regression-model"><i class="fa fa-check"></i><b>10.4.3</b> Building the Multiple Logistic Regression Model</a></li>
+<li class="chapter" data-level="10.4.4" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#final-model-1"><i class="fa fa-check"></i><b>10.4.4</b> Final Model</a></li>
+<li class="chapter" data-level="10.4.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#summary-and-conclusion"><i class="fa fa-check"></i><b>10.4.5</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="multiple-logistic-regression-model.html"><a href="multiple-logistic-regression-model.html#analysis-assignment-1"><i class="fa fa-check"></i><b>10.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Predictive Modeling with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-in-predictive-modeling"><i class="fa fa-check"></i><b>11.1</b> Cross-Validation in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#the-logic-of-the-three-way-split"><i class="fa fa-check"></i><b>11.1.1</b> The Logic of the Three-way Split</a></li>
+<li class="chapter" data-level="11.1.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.1.2</b> Cross-validation (CV)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#predictive-performance-measures"><i class="fa fa-check"></i><b>11.2</b> Predictive Performance Measures</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#error-based-measures"><i class="fa fa-check"></i><b>11.2.1</b> Error-based Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#measuring-global-performance---roc-curve"><i class="fa fa-check"></i><b>11.3</b> Measuring Global Performance - ROC Curve</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-curve"><i class="fa fa-check"></i><b>11.3.1</b> ROC Curve</a></li>
+<li class="chapter" data-level="11.3.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#area-under-the-curve-auc"><i class="fa fa-check"></i><b>11.3.2</b> Area Under The Curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#case-study---diabetes-prediction-with-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Case Study - Diabetes Prediction with Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-and-variable-descriptions-2"><i class="fa fa-check"></i><b>11.4.1</b> Data and Variable Descriptions</a></li>
+<li class="chapter" data-level="11.4.2" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#research-question-1"><i class="fa fa-check"></i><b>11.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="11.4.3" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#exploratory-analysis-1"><i class="fa fa-check"></i><b>11.4.3</b> Exploratory Analysis</a></li>
+<li class="chapter" data-level="11.4.4" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#standizing-numerical-predictor-variables"><i class="fa fa-check"></i><b>11.4.4</b> Standizing Numerical Predictor Variables</a></li>
+<li class="chapter" data-level="11.4.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#data-split---training-and-testing-data"><i class="fa fa-check"></i><b>11.4.5</b> Data Split - Training and Testing Data</a></li>
+<li class="chapter" data-level="11.4.6" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#best-model-identification"><i class="fa fa-check"></i><b>11.4.6</b> Best Model Identification</a></li>
+<li class="chapter" data-level="11.4.7" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#roc-analysis---global-performance"><i class="fa fa-check"></i><b>11.4.7</b> ROC Analysis - Global Performance</a></li>
+<li class="chapter" data-level="11.4.8" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#summary-and-conclusion-1"><i class="fa fa-check"></i><b>11.4.8</b> Summary and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="predictive-modeling-with-logistic-regression.html"><a href="predictive-modeling-with-logistic-regression.html#analysis-assignment-2"><i class="fa fa-check"></i><b>11.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html"><i class="fa fa-check"></i><b>12</b> Poison Regression Modeling</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#linear-regression-models"><i class="fa fa-check"></i><b>12.1</b> Linear Regression Models</a></li>
+<li class="chapter" data-level="12.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.2</b> Binary Logistic Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-models"><i class="fa fa-check"></i><b>12.3</b> Poisson Regression Models</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assumptions-of-the-poisson-regression-model"><i class="fa fa-check"></i><b>12.3.1</b> Assumptions of the Poisson Regression Model</a></li>
+<li class="chapter" data-level="12.3.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#structure-of-poisson-regression-model-for-counts"><i class="fa fa-check"></i><b>12.3.2</b> Structure of Poisson Regression Model for Counts</a></li>
+<li class="chapter" data-level="12.3.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-models-for-rates"><i class="fa fa-check"></i><b>12.3.3</b> Poisson Models for Rates</a></li>
+<li class="chapter" data-level="12.3.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#estimation-of-regression-coefficients-and-goodness-of-fit"><i class="fa fa-check"></i><b>12.3.4</b> Estimation of Regression Coefficients and Goodness-of-fit</a></li>
+<li class="chapter" data-level="12.3.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-set-layout"><i class="fa fa-check"></i><b>12.3.5</b> Data Set Layout</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#case-study-modeling-lung-cancer-rates-in-four-cities-of-denmark---part-i"><i class="fa fa-check"></i><b>12.4</b> Case Study: Modeling Lung Cancer Rates in Four Cities of Denmark - Part I</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-cancer-counts"><i class="fa fa-check"></i><b>12.4.1</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="12.4.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#poisson-regression-on-rates"><i class="fa fa-check"></i><b>12.4.2</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="12.4.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#some-graphical-comparison"><i class="fa fa-check"></i><b>12.4.3</b> Some Graphical Comparison</a></li>
+<li class="chapter" data-level="12.4.4" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#discussions-and-conclusions"><i class="fa fa-check"></i><b>12.4.4</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#concluding-remarks-2"><i class="fa fa-check"></i><b>12.5</b> Concluding Remarks</a></li>
+<li class="chapter" data-level="12.6" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#analysis-assignment-3"><i class="fa fa-check"></i><b>12.6</b> Analysis Assignment</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-description-2"><i class="fa fa-check"></i><b>12.6.1</b> Data Description</a></li>
+<li class="chapter" data-level="12.6.2" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#data-formats-and-loading"><i class="fa fa-check"></i><b>12.6.2</b> Data Formats and Loading</a></li>
+<li class="chapter" data-level="12.6.3" data-path="poison-regression-modeling.html"><a href="poison-regression-modeling.html#assignment-instructions"><i class="fa fa-check"></i><b>12.6.3</b> Assignment Instructions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html"><i class="fa fa-check"></i><b>13</b> Dispersed Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#residuals-of-poisson-regression"><i class="fa fa-check"></i><b>13.1</b> Residuals of Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#pearson-residuals"><i class="fa fa-check"></i><b>13.1.1</b> Pearson Residuals</a></li>
+<li class="chapter" data-level="13.1.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#deviance-residuals"><i class="fa fa-check"></i><b>13.1.2</b> Deviance Residuals</a></li>
+<li class="chapter" data-level="13.1.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example"><i class="fa fa-check"></i><b>13.1.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.1.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>13.1.4</b> Goodness-of-fit</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#dispersion-and-dispersed-poisson-regression-model"><i class="fa fa-check"></i><b>13.2</b> Dispersion and Dispersed Poisson Regression Model</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#definition-of-dispersion"><i class="fa fa-check"></i><b>13.2.1</b> Definition of Dispersion</a></li>
+<li class="chapter" data-level="13.2.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-regression-model"><i class="fa fa-check"></i><b>13.2.2</b> Quasi-Poisson Regression Model</a></li>
+<li class="chapter" data-level="13.2.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#numerical-example-1"><i class="fa fa-check"></i><b>13.2.3</b> Numerical Example</a></li>
+<li class="chapter" data-level="13.2.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#summary-and-concluding-remarks"><i class="fa fa-check"></i><b>13.2.4</b> Summary and Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-i-denmark-cities-lung-cancer-rates"><i class="fa fa-check"></i><b>13.3</b> Case Study I: Denmark Cities Lung Cancer Rates</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#introduction-1"><i class="fa fa-check"></i><b>13.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.3.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-cancer-counts-1"><i class="fa fa-check"></i><b>13.3.2</b> Poisson Regression on Cancer Counts</a></li>
+<li class="chapter" data-level="13.3.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poisson-regression-on-rates-1"><i class="fa fa-check"></i><b>13.3.3</b> Poisson Regression on Rates</a></li>
+<li class="chapter" data-level="13.3.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#quasi-poisson-rate-model"><i class="fa fa-check"></i><b>13.3.4</b> Quasi-Poisson Rate Model</a></li>
+<li class="chapter" data-level="13.3.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#final-working-model"><i class="fa fa-check"></i><b>13.3.5</b> Final Working Model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons"><i class="fa fa-check"></i><b>13.3.6</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.3.7" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#discussions-and-conclusions-1"><i class="fa fa-check"></i><b>13.3.7</b> Discussions and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#case-study-ii---ph.d.-and-mentors-productivity"><i class="fa fa-check"></i><b>13.4</b> Case Study II - Ph.D. and Mentor’s Productivity</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#variable-description"><i class="fa fa-check"></i><b>13.4.1</b> Variable Description</a></li>
+<li class="chapter" data-level="13.4.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#research-question-2"><i class="fa fa-check"></i><b>13.4.2</b> Research Question</a></li>
+<li class="chapter" data-level="13.4.3" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#data-preparation-and-variable-processing"><i class="fa fa-check"></i><b>13.4.3</b> Data Preparation and Variable Processing</a></li>
+<li class="chapter" data-level="13.4.4" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#poison-regression-modeling-1"><i class="fa fa-check"></i><b>13.4.4</b> Poison Regression Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#section"><i class="fa fa-check"></i><b>13.5</b> </a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#some-visual-comparisons-1"><i class="fa fa-check"></i><b>13.5.1</b> Some Visual Comparisons</a></li>
+<li class="chapter" data-level="13.5.2" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#conclusions"><i class="fa fa-check"></i><b>13.5.2</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="dispersed-poisson-regression.html"><a href="dispersed-poisson-regression.html#analysis-assignment-4"><i class="fa fa-check"></i><b>13.6</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html"><i class="fa fa-check"></i><b>14</b> Concepts of Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#types-of-time-series-data"><i class="fa fa-check"></i><b>14.1</b> Types of Time Series Data</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#uncorrelated-data-constant-process-model-random-time-series"><i class="fa fa-check"></i><b>14.1.1</b> Uncorrelated data, constant process model: random time series</a></li>
+<li class="chapter" data-level="14.1.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#autocorrelated-data"><i class="fa fa-check"></i><b>14.1.2</b> Autocorrelated data</a></li>
+<li class="chapter" data-level="14.1.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#trend-data"><i class="fa fa-check"></i><b>14.1.3</b> Trend Data</a></li>
+<li class="chapter" data-level="14.1.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-data"><i class="fa fa-check"></i><b>14.1.4</b> Seasonal Data</a></li>
+<li class="chapter" data-level="14.1.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#nonstationary-data"><i class="fa fa-check"></i><b>14.1.5</b> Nonstationary Data</a></li>
+<li class="chapter" data-level="14.1.6" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#atypical-event-outliers"><i class="fa fa-check"></i><b>14.1.6</b> Atypical Event (Outliers)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-technical-terms-and-baseline-forecasting-models"><i class="fa fa-check"></i><b>14.2</b> Some Technical Terms and Baseline Forecasting Models</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#some-definitions"><i class="fa fa-check"></i><b>14.2.1</b> Some Definitions</a></li>
+<li class="chapter" data-level="14.2.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#baseline-methods"><i class="fa fa-check"></i><b>14.2.2</b> Baseline Methods</a></li>
+<li class="chapter" data-level="14.2.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#seasonal-naive-method"><i class="fa fa-check"></i><b>14.2.3</b> Seasonal Naive Method</a></li>
+<li class="chapter" data-level="14.2.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#drift-method"><i class="fa fa-check"></i><b>14.2.4</b> Drift Method</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#accuracy-measures-in-time-series-forecasting"><i class="fa fa-check"></i><b>14.3</b> Accuracy Measures in Time Series Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#training-and-testing-data"><i class="fa fa-check"></i><b>14.3.1</b> Training and Testing Data</a></li>
+<li class="chapter" data-level="14.3.2" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#forecasting-errors"><i class="fa fa-check"></i><b>14.3.2</b> Forecasting Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#case-study-1"><i class="fa fa-check"></i><b>14.4</b> Case Study</a></li>
+<li class="chapter" data-level="14.5" data-path="concepts-of-time-series-forecasting.html"><a href="concepts-of-time-series-forecasting.html#analysis-assignment-5"><i class="fa fa-check"></i><b>14.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html"><i class="fa fa-check"></i><b>15</b> Time Series Decomposition</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#classical-decompositions"><i class="fa fa-check"></i><b>15.1</b> Classical Decompositions</a></li>
+<li class="chapter" data-level="15.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#understanding-the-classical-decomposition-of-time-series"><i class="fa fa-check"></i><b>15.2</b> Understanding the Classical Decomposition of Time Series</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#detect-trend"><i class="fa fa-check"></i><b>15.2.1</b> Detect Trend</a></li>
+<li class="chapter" data-level="15.2.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-the-seasonality"><i class="fa fa-check"></i><b>15.2.2</b> Extracting the Seasonality</a></li>
+<li class="chapter" data-level="15.2.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#extracting-remainder-errors"><i class="fa fa-check"></i><b>15.2.3</b> Extracting Remainder Errors</a></li>
+<li class="chapter" data-level="15.2.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#reconstruct-the-original-series-compose-new-series"><i class="fa fa-check"></i><b>15.2.4</b> Reconstruct the Original Series / Compose New Series</a></li>
+<li class="chapter" data-level="15.2.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#decomposing-time-series-with-decompose"><i class="fa fa-check"></i><b>15.2.5</b> Decomposing Time Series with <strong>decompose()</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing"><i class="fa fa-check"></i><b>15.3</b> Forecasting with Decomposing</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-additive-models-with-decomposing"><i class="fa fa-check"></i><b>15.3.1</b> Forecasting Additive Models with Decomposing</a></li>
+<li class="chapter" data-level="15.3.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#concepts-of-seasonal-and-trend-decomposition-using-loess-stl"><i class="fa fa-check"></i><b>15.3.2</b> Concepts of Seasonal and Trend Decomposition Using Loess (STL)</a></li>
+<li class="chapter" data-level="15.3.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecast-with-stl-decomposing"><i class="fa fa-check"></i><b>15.3.3</b> Forecast with STL decomposing</a></li>
+<li class="chapter" data-level="15.3.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#length-of-time-series"><i class="fa fa-check"></i><b>15.3.4</b> Length of Time Series</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#case-study-2"><i class="fa fa-check"></i><b>15.4</b> Case Study</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#data-description-and"><i class="fa fa-check"></i><b>15.4.1</b> Data description and</a></li>
+<li class="chapter" data-level="15.4.2" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#define-time-series-object"><i class="fa fa-check"></i><b>15.4.2</b> Define time series object</a></li>
+<li class="chapter" data-level="15.4.3" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#forecasting-with-decomposing-1"><i class="fa fa-check"></i><b>15.4.3</b> Forecasting with Decomposing</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="time-series-decomposition.html"><a href="time-series-decomposition.html#analysis-assignment-6"><i class="fa fa-check"></i><b>15.5</b> Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html"><i class="fa fa-check"></i><b>16</b> Exponential Smoothing Methods</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#ets-framework"><i class="fa fa-check"></i><b>16.1</b> ETS Framework</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-methods-1"><i class="fa fa-check"></i><b>16.1.1</b> Exponential Smoothing Methods</a></li>
+<li class="chapter" data-level="16.1.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#exponential-smoothing-models"><i class="fa fa-check"></i><b>16.1.2</b> Exponential Smoothing Models</a></li>
+<li class="chapter" data-level="16.1.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#estimation-smoothing-parameters-in-smoothing-models"><i class="fa fa-check"></i><b>16.1.3</b> Estimation Smoothing Parameters in Smoothing Models</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#simple-exponential-smoothing"><i class="fa fa-check"></i><b>16.2</b> Simple Exponential Smoothing</a></li>
+<li class="chapter" data-level="16.3" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holts-smoothing-model-linear-additive-trend"><i class="fa fa-check"></i><b>16.3</b> Holt’s Smoothing Model: Linear (additive) Trend</a></li>
+<li class="chapter" data-level="16.4" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#damped-trend-methods"><i class="fa fa-check"></i><b>16.4</b> Damped Trend Methods</a></li>
+<li class="chapter" data-level="16.5" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#holt-winters-model-for-trend-and-seasonal-data"><i class="fa fa-check"></i><b>16.5</b> Holt-Winters Model for Trend and Seasonal Data</a></li>
+<li class="chapter" data-level="16.6" data-path="exponential-smoothing-methods.html"><a href="exponential-smoothing-methods.html#case-study-3"><i class="fa fa-check"></i><b>16.6</b> Case study</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA 321 E-pack: Advanced Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="effective-data-preparation" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Topic 4</span> Effective Data Preparation<a href="effective-data-preparation.html#effective-data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this note, we use a health registry data set as an example to illustrate the use of some of the base R commands in creating an analytic data set analysis and modeling.</p>
+<div id="data-set-description" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data Set Description<a href="effective-data-preparation.html#data-set-description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Current Population Survey (CPS, <a href="http://www.bls.census.gov/cps/overmain.htm" class="uri">http://www.bls.census.gov/cps/overmain.htm</a>) is a monthly survey of about 50,000 households conducted by the Bureau of the Census for the Bureau of Labor Statistics. The survey has been conducted for more than 50 years. The CPS is the primary source of information on the labor force characteristics of the U.S. population. The sample is scientifically selected to represent the civilian noninstitutional population. Respondents are interviewed to obtain information about the employment status of each member of the household 15 years of age and older. However, published data focus on those ages 16 and over. The sample provides estimates for the nation as a whole and serves as part of model-based estimates for individual states and other geographic areas.</p>
+<p>Estimates obtained from the CPS include</p>
+<ul>
+<li>employment,</li>
+<li>unemployment,</li>
+<li>earnings,</li>
+<li>hours of work, and</li>
+<li>other indicators.</li>
+</ul>
+<p>They are available by a variety of demographic characteristics including
+* age,
+* sex,
+* race,
+* marital status, and
+* educational attainment.</p>
+<p>They are also available by</p>
+<ul>
+<li>occupation,</li>
+<li>industry, and</li>
+<li>class of worker.</li>
+</ul>
+<p>Supplemental questions to produce estimates on a variety of topics including</p>
+<ul>
+<li>School enrollment,</li>
+<li>income,<br />
+</li>
+<li>previous work experience,</li>
+<li>health,</li>
+<li>employee benefits, and</li>
+<li>work schedules</li>
+</ul>
+<p>are also often added to the regular CPS questionnaire.</p>
+<p>CPS data are used by government policymakers and legislators as important indicators of our nation’s economic situation and for planning and evaluating many government programs. They are also used by the press, students, academics, and the general public.</p>
+<p>In this note, we use a very small portion of the sample (<a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww04/cps_00003.csv" class="uri">https://raw.githubusercontent.com/pengdsci/sta321/main/ww04/cps_00003.csv</a>) for illustrative purposes. The definitions of some of the variables can be found at (<a href="https://www.bls.gov/cps/definitions.htm" class="uri">https://www.bls.gov/cps/definitions.htm</a>). <strong>We will not use this data to perform any meaningful analysis.</strong></p>
+<p>The first few columns are what could be called administrative. They’re unique identifiers for the different observations, the timing of the survey they’ve taken, and a bit of other information. So for now we don’t need to pay much attention to MONTH, HWTFINL, CPSID, PERNUM, WTFINL, or CPSIDP. We will drop these variables.</p>
+<p>The next few columns are concerned with the different geographies we have for the observations. This data is for individuals, but we also know the individual region (REGION), state (STATEFIP and STATECENSUS), and metropolitan area (METRO and METAREA). We can define a separate data set to store this geoinformation.</p>
+</div>
+<div id="base-r-commands-for-data-management" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Base R Commands for Data Management<a href="effective-data-preparation.html#base-r-commands-for-data-management" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This note introduces several most commonly used R functions in data management.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="effective-data-preparation.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb46-2"><a href="effective-data-preparation.html#cb46-2" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/sta321/main/ww04/cps_00003.csv&quot;</span>)</span>
+<span id="cb46-3"><a href="effective-data-preparation.html#cb46-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat))</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="3%" />
+<col width="4%" />
+<col width="3%" />
+<col width="5%" />
+<col width="7%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="4%" />
+<col width="7%" />
+<col width="4%" />
+<col width="4%" />
+<col width="5%" />
+<col width="7%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">YEAR</th>
+<th align="right">SERIAL</th>
+<th align="right">MONTH</th>
+<th align="right">HWTFINL</th>
+<th align="right">CPSID</th>
+<th align="right">REGION</th>
+<th align="right">STATEFIP</th>
+<th align="right">METRO</th>
+<th align="right">METAREA</th>
+<th align="right">STATECENSUS</th>
+<th align="right">FAMINC</th>
+<th align="right">PERNUM</th>
+<th align="right">WTFINL</th>
+<th align="right">CPSIDP</th>
+<th align="right">AGE</th>
+<th align="right">SEX</th>
+<th align="right">RACE</th>
+<th align="right">EMPSTAT</th>
+<th align="right">LABFORCE</th>
+<th align="right">EDUC</th>
+<th align="right">VOTED</th>
+<th align="right">VOREG</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">1703.832</td>
+<td align="right">2.01708e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3440</td>
+<td align="right">63</td>
+<td align="right">830</td>
+<td align="right">1</td>
+<td align="right">1703.832</td>
+<td align="right">2.01708e+13</td>
+<td align="right">26</td>
+<td align="right">2</td>
+<td align="right">100</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">111</td>
+<td align="right">98</td>
+<td align="right">98</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">1703.832</td>
+<td align="right">2.01708e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3440</td>
+<td align="right">63</td>
+<td align="right">830</td>
+<td align="right">2</td>
+<td align="right">1845.094</td>
+<td align="right">2.01708e+13</td>
+<td align="right">26</td>
+<td align="right">1</td>
+<td align="right">100</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">123</td>
+<td align="right">98</td>
+<td align="right">98</td>
+</tr>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">1957.313</td>
+<td align="right">2.01809e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">100</td>
+<td align="right">1</td>
+<td align="right">1957.313</td>
+<td align="right">2.01809e+13</td>
+<td align="right">48</td>
+<td align="right">2</td>
+<td align="right">200</td>
+<td align="right">21</td>
+<td align="right">2</td>
+<td align="right">73</td>
+<td align="right">2</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.784</td>
+<td align="right">2.01710e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">1</td>
+<td align="right">1687.784</td>
+<td align="right">2.01710e+13</td>
+<td align="right">53</td>
+<td align="right">2</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">81</td>
+<td align="right">2</td>
+<td align="right">99</td>
+</tr>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.784</td>
+<td align="right">2.01710e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">2</td>
+<td align="right">2780.421</td>
+<td align="right">2.01710e+13</td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">50</td>
+<td align="right">99</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.784</td>
+<td align="right">2.01710e+13</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">3</td>
+<td align="right">2780.421</td>
+<td align="right">2.01710e+13</td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">50</td>
+<td align="right">99</td>
+<td align="right">99</td>
+</tr>
+</tbody>
+</table>
+<p>The unique identifiers <strong>CPSID</strong> and <strong>CPSIDP</strong> are in the form of scientific notation, we need to convert them to a normal string version of the ID.</p>
+</div>
+<div id="working-with-scientific-notations" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Working with Scientific Notations<a href="effective-data-preparation.html#working-with-scientific-notations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two global options we can use to print out the actual ID. See the self-explained options in the following code.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="effective-data-preparation.html#cb47-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">15</span>, <span class="at">scipen=</span><span class="dv">999</span>)</span>
+<span id="cb47-2"><a href="effective-data-preparation.html#cb47-2" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/sta321/main/ww04/cps_00003.csv&quot;</span>)</span>
+<span id="cb47-3"><a href="effective-data-preparation.html#cb47-3" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat))</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="2%" />
+<col width="4%" />
+<col width="3%" />
+<col width="5%" />
+<col width="8%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="4%" />
+<col width="7%" />
+<col width="4%" />
+<col width="4%" />
+<col width="5%" />
+<col width="8%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="4%" />
+<col width="5%" />
+<col width="2%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">YEAR</th>
+<th align="right">SERIAL</th>
+<th align="right">MONTH</th>
+<th align="right">HWTFINL</th>
+<th align="right">CPSID</th>
+<th align="right">REGION</th>
+<th align="right">STATEFIP</th>
+<th align="right">METRO</th>
+<th align="right">METAREA</th>
+<th align="right">STATECENSUS</th>
+<th align="right">FAMINC</th>
+<th align="right">PERNUM</th>
+<th align="right">WTFINL</th>
+<th align="right">CPSIDP</th>
+<th align="right">AGE</th>
+<th align="right">SEX</th>
+<th align="right">RACE</th>
+<th align="right">EMPSTAT</th>
+<th align="right">LABFORCE</th>
+<th align="right">EDUC</th>
+<th align="right">VOTED</th>
+<th align="right">VOREG</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">1703.8321</td>
+<td align="right">20170800000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3440</td>
+<td align="right">63</td>
+<td align="right">830</td>
+<td align="right">1</td>
+<td align="right">1703.8321</td>
+<td align="right">20170800000000</td>
+<td align="right">26</td>
+<td align="right">2</td>
+<td align="right">100</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">111</td>
+<td align="right">98</td>
+<td align="right">98</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="right">1703.8321</td>
+<td align="right">20170800000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3440</td>
+<td align="right">63</td>
+<td align="right">830</td>
+<td align="right">2</td>
+<td align="right">1845.0939</td>
+<td align="right">20170800000000</td>
+<td align="right">26</td>
+<td align="right">1</td>
+<td align="right">100</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">123</td>
+<td align="right">98</td>
+<td align="right">98</td>
+</tr>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">1957.3134</td>
+<td align="right">20180900000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">100</td>
+<td align="right">1</td>
+<td align="right">1957.3134</td>
+<td align="right">20180900000000</td>
+<td align="right">48</td>
+<td align="right">2</td>
+<td align="right">200</td>
+<td align="right">21</td>
+<td align="right">2</td>
+<td align="right">73</td>
+<td align="right">2</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.7836</td>
+<td align="right">20171000000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">1</td>
+<td align="right">1687.7836</td>
+<td align="right">20171000000000</td>
+<td align="right">53</td>
+<td align="right">2</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">81</td>
+<td align="right">2</td>
+<td align="right">99</td>
+</tr>
+<tr class="odd">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.7836</td>
+<td align="right">20171000000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">2</td>
+<td align="right">2780.4215</td>
+<td align="right">20171000000000</td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">50</td>
+<td align="right">99</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="right">2018</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">1687.7836</td>
+<td align="right">20171000000000</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">5240</td>
+<td align="right">63</td>
+<td align="right">820</td>
+<td align="right">3</td>
+<td align="right">2780.4215</td>
+<td align="right">20171000000000</td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">200</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">50</td>
+<td align="right">99</td>
+<td align="right">99</td>
+</tr>
+</tbody>
+</table>
+<p>A new R function <strong>pander()</strong> in the <code>pander{}</code> library was used in the above code to produce an R markdown table. We add more features to the output table (check the help document for more information and examples).</p>
+<p>If the ID variable was truncated before saving to CSV format, then the truncated digits will not be recovered.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="effective-data-preparation.html#cb48-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">7</span>)  <span class="co"># change the default number digits</span></span></code></pre></div>
+<p><br />
+</p>
+</div>
+<div id="the-ifelse-function" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> The <strong>ifelse()</strong> Function<a href="effective-data-preparation.html#the-ifelse-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>ifelse</strong> statement is also called a vectorized conditional statement. It is commonly used in defining new variables.</p>
+<p><img src="img03/r-ifelse-function-syntax.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>For example, we can define a categorical variable, denoted by <strong>groupAge</strong>, based on the <strong>AGE</strong> variable in the original data frame. If
+<code>AGE &gt; 50, then groupAge = "(50, 150)"</code> otherwise <code>groupAge = "[16, 50]"</code> The following code defines this new variable.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="effective-data-preparation.html#cb49-1" tabindex="-1"></a>dat<span class="sc">$</span>groupAge <span class="ot">=</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>AGE <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="st">&quot;(50, 150)&quot;</span>, <span class="st">&quot;[16, 50]&quot;</span>)</span>
+<span id="cb49-2"><a href="effective-data-preparation.html#cb49-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;groupAge&quot;</span>)]))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AGE</th>
+<th align="left">groupAge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+</tr>
+<tr class="odd">
+<td align="right">48</td>
+<td align="left">[16, 50]</td>
+</tr>
+<tr class="even">
+<td align="right">53</td>
+<td align="left">(50, 150)</td>
+</tr>
+<tr class="odd">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+</tr>
+</tbody>
+</table>
+<p>If we define another <strong>groupAge</strong> with more than two categories, we can still call <strong>ifelse</strong> multiple times. For example, we define <strong>groupAge02</strong> as: <code>is AGE &gt; 50, then groupAge02 = "(50, 150)", if 30 &lt;= AGE &lt; 50, groupAge02 = [30, 50),otherewise, groupAge02 = "[16, 30)"</code></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="effective-data-preparation.html#cb50-1" tabindex="-1"></a>dat<span class="sc">$</span>groupAge02 <span class="ot">=</span> <span class="fu">ifelse</span>(dat<span class="sc">$</span>AGE <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="st">&quot;(50, 150)&quot;</span>, <span class="fu">ifelse</span>(dat<span class="sc">$</span>AGE <span class="sc">&lt;</span> <span class="dv">30</span>, <span class="st">&quot;[16, 30)&quot;</span>, <span class="st">&quot;[30, 50)&quot;</span>))</span>
+<span id="cb50-2"><a href="effective-data-preparation.html#cb50-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;groupAge&quot;</span>, <span class="st">&quot;groupAge02&quot;</span>)]))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AGE</th>
+<th align="left">groupAge</th>
+<th align="left">groupAge02</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="odd">
+<td align="right">48</td>
+<td align="left">[16, 50]</td>
+<td align="left">[30, 50)</td>
+</tr>
+<tr class="even">
+<td align="right">53</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50, 150)</td>
+</tr>
+<tr class="odd">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remark</strong>: <strong>ifelse()</strong> is particularly useful when you want to combine categories of existing categorical variables.</p>
+<p><br />
+</p>
+</div>
+<div id="the-cut-function" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> The <strong>cut()</strong> Function<a href="effective-data-preparation.html#the-cut-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>cut()</strong> function is more flexible than <strong>ifelse()</strong>.</p>
+<pre><code>Syntax
+cut(num_vector,              # Numeric input vector
+    breaks,                  # Number or vector of breaks
+    labels = NULL,           # Labels for each group
+    include.lowest = FALSE,  # Whether to include the lowest &#39;break&#39; or not
+    right = TRUE,            # Whether the right interval is closed (and the left open) or vice versa
+    dig.lab = 3,             # Number of digits of the groups if labels = NULL
+    ordered_result = FALSE,  # Whether to order the factor result or not
+    …)                       # Additional arguments</code></pre>
+<p>We still use the above example to discretize the age variable using <strong>cut()</strong> function.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="effective-data-preparation.html#cb52-1" tabindex="-1"></a>dat<span class="sc">$</span>cutAge01 <span class="ot">=</span> <span class="fu">cut</span>(dat<span class="sc">$</span>AGE, <span class="at">breaks =</span><span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">150</span>), <span class="at">labels=</span><span class="fu">c</span>( <span class="st">&quot;[16, 30)&quot;</span>, <span class="st">&quot;[30, 50)&quot;</span>, <span class="st">&quot;(50, 150)&quot;</span>), <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="effective-data-preparation.html#cb52-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;groupAge&quot;</span>, <span class="st">&quot;groupAge02&quot;</span>, <span class="st">&quot;cutAge01&quot;</span>)]))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AGE</th>
+<th align="left">groupAge</th>
+<th align="left">groupAge02</th>
+<th align="left">cutAge01</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="odd">
+<td align="right">48</td>
+<td align="left">[16, 50]</td>
+<td align="left">[30, 50)</td>
+<td align="left">[30, 50)</td>
+</tr>
+<tr class="even">
+<td align="right">53</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50, 150)</td>
+</tr>
+<tr class="odd">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="effective-data-preparation.html#cb53-1" tabindex="-1"></a>dat<span class="sc">$</span>cutAge02 <span class="ot">=</span> <span class="fu">cut</span>(dat<span class="sc">$</span>AGE, <span class="at">breaks =</span><span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">150</span>), <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-2"><a href="effective-data-preparation.html#cb53-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(dat[, <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;groupAge&quot;</span>, <span class="st">&quot;groupAge02&quot;</span>, <span class="st">&quot;cutAge01&quot;</span>, <span class="st">&quot;cutAge02&quot;</span>)]))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AGE</th>
+<th align="left">groupAge</th>
+<th align="left">groupAge02</th>
+<th align="left">cutAge01</th>
+<th align="left">cutAge02</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16,30]</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16,30]</td>
+</tr>
+<tr class="odd">
+<td align="right">48</td>
+<td align="left">[16, 50]</td>
+<td align="left">[30, 50)</td>
+<td align="left">[30, 50)</td>
+<td align="left">(30,50]</td>
+</tr>
+<tr class="even">
+<td align="right">53</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50, 150)</td>
+<td align="left">(50,150]</td>
+</tr>
+<tr class="odd">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16,30]</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">[16, 50]</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16, 30)</td>
+<td align="left">[16,30]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="with-and-within-functions" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> <strong>with()</strong> and <strong>within()</strong> Functions<a href="effective-data-preparation.html#with-and-within-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>with()</strong> and <strong>within()</strong> are two closely related yet different base R functions that are useful in data management.</p>
+<div id="the-with-function" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> The <strong>with()</strong> Function<a href="effective-data-preparation.html#the-with-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>with()</code> function enables us to define a new variable based on the variables in a <strong>data frame</strong> using basic <strong>R expressions</strong> that include mathematical and logical operations. We can add the newly defined variables to the existing data frame as usual.</p>
+<p><strong>with()</strong> Syntax</p>
+<pre><code>with(data-frame, R-expression)</code></pre>
+<p><strong>Example 1</strong></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="effective-data-preparation.html#cb55-1" tabindex="-1"></a>Num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1100</span>,<span class="dv">1700</span>,<span class="dv">1500</span>)</span>
+<span id="cb55-2"><a href="effective-data-preparation.html#cb55-2" tabindex="-1"></a>Cost <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1200</span>,<span class="dv">1300</span>,<span class="dv">1400</span>,<span class="dv">1500</span>,<span class="dv">1600</span>)</span>
+<span id="cb55-3"><a href="effective-data-preparation.html#cb55-3" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb55-4"><a href="effective-data-preparation.html#cb55-4" tabindex="-1"></a>dataA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Num,Cost,<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb55-5"><a href="effective-data-preparation.html#cb55-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb55-6"><a href="effective-data-preparation.html#cb55-6" tabindex="-1"></a>product <span class="ot">&lt;-</span> <span class="fu">with</span>(dataA, Num<span class="sc">*</span>Cost)</span>
+<span id="cb55-7"><a href="effective-data-preparation.html#cb55-7" tabindex="-1"></a>quotient <span class="ot">&lt;-</span> <span class="fu">with</span>(dataA, Cost<span class="sc">/</span>Num)</span>
+<span id="cb55-8"><a href="effective-data-preparation.html#cb55-8" tabindex="-1"></a>logical <span class="ot">&lt;-</span> <span class="fu">with</span>(dataA, Num <span class="sc">&gt;</span> Cost)</span>
+<span id="cb55-9"><a href="effective-data-preparation.html#cb55-9" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">cbind</span>(<span class="at">product =</span> product, <span class="at">quotient =</span> quotient, <span class="at">logical =</span> logical))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">product</th>
+<th align="right">quotient</th>
+<th align="right">logical</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1680000</td>
+<td align="right">0.8571429</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1560000</td>
+<td align="right">1.0833333</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1540000</td>
+<td align="right">1.2727273</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">2550000</td>
+<td align="right">0.8823529</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">2400000</td>
+<td align="right">1.0666667</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="effective-data-preparation.html#cb56-1" tabindex="-1"></a><span class="do">## add the new variables to data frame dataA</span></span>
+<span id="cb56-2"><a href="effective-data-preparation.html#cb56-2" tabindex="-1"></a>dataA<span class="sc">$</span>product <span class="ot">=</span> product</span>
+<span id="cb56-3"><a href="effective-data-preparation.html#cb56-3" tabindex="-1"></a>dataA<span class="sc">$</span>quotient <span class="ot">=</span> quotient</span>
+<span id="cb56-4"><a href="effective-data-preparation.html#cb56-4" tabindex="-1"></a>dataA<span class="sc">$</span>logical <span class="ot">=</span> logical</span>
+<span id="cb56-5"><a href="effective-data-preparation.html#cb56-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb56-6"><a href="effective-data-preparation.html#cb56-6" tabindex="-1"></a><span class="fu">kable</span>(dataA)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Num</th>
+<th align="right">Cost</th>
+<th align="right">product</th>
+<th align="right">quotient</th>
+<th align="left">logical</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1400</td>
+<td align="right">1200</td>
+<td align="right">1680000</td>
+<td align="right">0.8571429</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="right">1200</td>
+<td align="right">1300</td>
+<td align="right">1560000</td>
+<td align="right">1.0833333</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="right">1100</td>
+<td align="right">1400</td>
+<td align="right">1540000</td>
+<td align="right">1.2727273</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">1700</td>
+<td align="right">1500</td>
+<td align="right">2550000</td>
+<td align="right">0.8823529</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="right">1500</td>
+<td align="right">1600</td>
+<td align="right">2400000</td>
+<td align="right">1.0666667</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+### The <strong>within()</strong> Function</p>
+<p><strong>within()</strong> function allows us to create a copy of the data frame and add a column that would eventually store the result of the R expression.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="effective-data-preparation.html#cb57-1" tabindex="-1"></a>Num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1100</span>,<span class="dv">1700</span>,<span class="dv">1500</span>)</span>
+<span id="cb57-2"><a href="effective-data-preparation.html#cb57-2" tabindex="-1"></a>Cost <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1200</span>,<span class="dv">1300</span>,<span class="dv">1400</span>,<span class="dv">1500</span>,<span class="dv">1600</span>)</span>
+<span id="cb57-3"><a href="effective-data-preparation.html#cb57-3" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb57-4"><a href="effective-data-preparation.html#cb57-4" tabindex="-1"></a>dataA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Num,Cost,<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb57-5"><a href="effective-data-preparation.html#cb57-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb57-6"><a href="effective-data-preparation.html#cb57-6" tabindex="-1"></a>dataB <span class="ot">&lt;-</span> <span class="fu">within</span>(dataA, Product <span class="ot">&lt;-</span> Num<span class="sc">*</span>Cost)   <span class="co"># defined Product and added to dataA simultaneously</span></span>
+<span id="cb57-7"><a href="effective-data-preparation.html#cb57-7" tabindex="-1"></a>dataC <span class="ot">&lt;-</span> <span class="fu">within</span>(dataB, Quotient <span class="ot">&lt;-</span> Cost<span class="sc">/</span>Num)</span>
+<span id="cb57-8"><a href="effective-data-preparation.html#cb57-8" tabindex="-1"></a>dataD <span class="ot">&lt;-</span> <span class="fu">within</span>(dataC, Logical <span class="ot">&lt;-</span> Num <span class="sc">&gt;</span> Cost)</span>
+<span id="cb57-9"><a href="effective-data-preparation.html#cb57-9" tabindex="-1"></a><span class="fu">kable</span>(dataD)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Num</th>
+<th align="right">Cost</th>
+<th align="right">Product</th>
+<th align="right">Quotient</th>
+<th align="left">Logical</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1400</td>
+<td align="right">1200</td>
+<td align="right">1680000</td>
+<td align="right">0.8571429</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="right">1200</td>
+<td align="right">1300</td>
+<td align="right">1560000</td>
+<td align="right">1.0833333</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="right">1100</td>
+<td align="right">1400</td>
+<td align="right">1540000</td>
+<td align="right">1.2727273</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">1700</td>
+<td align="right">1500</td>
+<td align="right">2550000</td>
+<td align="right">0.8823529</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="right">1500</td>
+<td align="right">1600</td>
+<td align="right">2400000</td>
+<td align="right">1.0666667</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="the-merge-function---table-joins" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> The <strong>merge()</strong> Function - Table Joins<a href="effective-data-preparation.html#the-merge-function---table-joins" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The R <strong>merge()</strong> function allows merging two data frames by <strong>row names</strong> (common key). This function allows us to perform different database (SQL) joins, like left join, inner join, right join, or full join, among others. In this note, we only introduce four different ways of merging datasets in base R with examples. We will introduce the SQL clause in R later.</p>
+<p><br />
+</p>
+<div id="inner-join" class="section level3 hasAnchor" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Inner Join<a href="effective-data-preparation.html#inner-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following figure illustrates how A <strong>left joins</strong> B and the resulting merged data set.</p>
+<p><img src="img05/w5-innerJoin.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The following code implements the above left-join.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="effective-data-preparation.html#cb58-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> <span class="fu">c</span>(<span class="st">&quot;1/1/2020&quot;</span>, <span class="st">&quot;1/2/2020&quot;</span>, <span class="st">&quot;1/3/2020&quot;</span>, <span class="st">&quot;1/4/2020&quot;</span>),</span>
+<span id="cb58-2"><a href="effective-data-preparation.html#cb58-2" tabindex="-1"></a>               <span class="at">CountryID =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>),</span>
+<span id="cb58-3"><a href="effective-data-preparation.html#cb58-3" tabindex="-1"></a>               <span class="at">Units =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>))</span>
+<span id="cb58-4"><a href="effective-data-preparation.html#cb58-4" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ID=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb58-5"><a href="effective-data-preparation.html#cb58-5" tabindex="-1"></a>               <span class="at">Country=</span><span class="fu">c</span>( <span class="st">&quot;Panama&quot;</span>, <span class="st">&quot;Spain&quot;</span>))</span>
+<span id="cb58-6"><a href="effective-data-preparation.html#cb58-6" tabindex="-1"></a>AinnerB <span class="ot">=</span> <span class="fu">merge</span>(A, B, <span class="at">by.x =</span> <span class="st">&quot;CountryID&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;ID&quot;</span>)</span>
+<span id="cb58-7"><a href="effective-data-preparation.html#cb58-7" tabindex="-1"></a><span class="fu">kable</span>(AinnerB)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">CountryID</th>
+<th align="left">Date</th>
+<th align="right">Units</th>
+<th align="left">Country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">1/3/2020</td>
+<td align="right">30</td>
+<td align="left">Panama</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+<div id="left-join" class="section level3 hasAnchor" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> Left Join<a href="effective-data-preparation.html#left-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following figure illustrates how A <strong>left joins</strong> B and the resulting merged data set.</p>
+<p><img src="img05/w5-leftJoin.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The following code implements the above left-join.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="effective-data-preparation.html#cb59-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> <span class="fu">c</span>(<span class="st">&quot;1/1/2020&quot;</span>, <span class="st">&quot;1/2/2020&quot;</span>, <span class="st">&quot;1/3/2020&quot;</span>, <span class="st">&quot;1/4/2020&quot;</span>),</span>
+<span id="cb59-2"><a href="effective-data-preparation.html#cb59-2" tabindex="-1"></a>               <span class="at">CountryID =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb59-3"><a href="effective-data-preparation.html#cb59-3" tabindex="-1"></a>               <span class="at">Units =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>))</span>
+<span id="cb59-4"><a href="effective-data-preparation.html#cb59-4" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ID=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb59-5"><a href="effective-data-preparation.html#cb59-5" tabindex="-1"></a>               <span class="at">Country=</span><span class="fu">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Panama&quot;</span>))</span>
+<span id="cb59-6"><a href="effective-data-preparation.html#cb59-6" tabindex="-1"></a>AleftB <span class="ot">=</span> <span class="fu">merge</span>(A, B, <span class="at">by.x =</span> <span class="st">&quot;CountryID&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;ID&quot;</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-7"><a href="effective-data-preparation.html#cb59-7" tabindex="-1"></a><span class="fu">kable</span>(AleftB)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">CountryID</th>
+<th align="left">Date</th>
+<th align="right">Units</th>
+<th align="left">Country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">1/1/2020</td>
+<td align="right">40</td>
+<td align="left">USA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">1/2/2020</td>
+<td align="right">25</td>
+<td align="left">USA</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">1/3/2020</td>
+<td align="right">30</td>
+<td align="left">Panama</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">1/4/2020</td>
+<td align="right">35</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<p>Note that, left-join produces missing values of the record in A and does not have any information in B.</p>
+<p><br />
+</p>
+</div>
+<div id="right-join" class="section level3 hasAnchor" number="4.7.3">
+<h3><span class="header-section-number">4.7.3</span> Right Join<a href="effective-data-preparation.html#right-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following figure illustrates how A <strong>right joins</strong> B and the resulting merged data set.</p>
+<p><img src="img05/w5-rightJoin.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The following code implements the above left-join.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="effective-data-preparation.html#cb60-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> <span class="fu">c</span>(<span class="st">&quot;1/1/2020&quot;</span>, <span class="st">&quot;1/2/2020&quot;</span>, <span class="st">&quot;1/3/2020&quot;</span>, <span class="st">&quot;1/4/2020&quot;</span>),</span>
+<span id="cb60-2"><a href="effective-data-preparation.html#cb60-2" tabindex="-1"></a>               <span class="at">CountryID =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb60-3"><a href="effective-data-preparation.html#cb60-3" tabindex="-1"></a>               <span class="at">Units =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>))</span>
+<span id="cb60-4"><a href="effective-data-preparation.html#cb60-4" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ID=</span><span class="fu">c</span>(<span class="dv">3</span>),</span>
+<span id="cb60-5"><a href="effective-data-preparation.html#cb60-5" tabindex="-1"></a>               <span class="at">Country=</span><span class="fu">c</span>(<span class="st">&quot;Panama&quot;</span>))</span>
+<span id="cb60-6"><a href="effective-data-preparation.html#cb60-6" tabindex="-1"></a>ArightB <span class="ot">=</span> <span class="fu">merge</span>(A, B, <span class="at">by.x =</span> <span class="st">&quot;CountryID&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;ID&quot;</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb60-7"><a href="effective-data-preparation.html#cb60-7" tabindex="-1"></a><span class="fu">kable</span>(ArightB)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">CountryID</th>
+<th align="left">Date</th>
+<th align="right">Units</th>
+<th align="left">Country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">1/3/2020</td>
+<td align="right">30</td>
+<td align="left">Panama</td>
+</tr>
+</tbody>
+</table>
+<p>Note also that right-join could also produce missing values.</p>
+<p><br />
+</p>
+</div>
+<div id="full-outer-join" class="section level3 hasAnchor" number="4.7.4">
+<h3><span class="header-section-number">4.7.4</span> Full (outer) Join<a href="effective-data-preparation.html#full-outer-join" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following figure illustrates how A <strong>Full outer joins</strong> B and the resulting merged data set.</p>
+<p><img src="img05/w5-fullOuterJoin.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The following code implements the above left-join.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="effective-data-preparation.html#cb61-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> <span class="fu">c</span>(<span class="st">&quot;1/1/2020&quot;</span>, <span class="st">&quot;1/2/2020&quot;</span>, <span class="st">&quot;1/3/2020&quot;</span>, <span class="st">&quot;1/4/2020&quot;</span>),</span>
+<span id="cb61-2"><a href="effective-data-preparation.html#cb61-2" tabindex="-1"></a>               <span class="at">CountryID =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>),</span>
+<span id="cb61-3"><a href="effective-data-preparation.html#cb61-3" tabindex="-1"></a>               <span class="at">Units =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>))</span>
+<span id="cb61-4"><a href="effective-data-preparation.html#cb61-4" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ID=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb61-5"><a href="effective-data-preparation.html#cb61-5" tabindex="-1"></a>               <span class="at">Country=</span><span class="fu">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Panama&quot;</span>, <span class="st">&quot;Spain&quot;</span>))</span>
+<span id="cb61-6"><a href="effective-data-preparation.html#cb61-6" tabindex="-1"></a>AfullB <span class="ot">=</span> <span class="fu">merge</span>(A, B, <span class="at">by.x =</span> <span class="st">&quot;CountryID&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;ID&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb61-7"><a href="effective-data-preparation.html#cb61-7" tabindex="-1"></a><span class="fu">kable</span>(AfullB)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">CountryID</th>
+<th align="left">Date</th>
+<th align="right">Units</th>
+<th align="left">Country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">1/1/2020</td>
+<td align="right">40</td>
+<td align="left">USA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">1/2/2020</td>
+<td align="right">25</td>
+<td align="left">USA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">1/4/2020</td>
+<td align="right">35</td>
+<td align="left">Canada</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">1/3/2020</td>
+<td align="right">30</td>
+<td align="left">Panama</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">Spain</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+</div>
+<div id="subsetting-data-frame" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Subsetting Data Frame<a href="effective-data-preparation.html#subsetting-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are two different ways for subsetting a data frame: subsetting by rows and by columns.</p>
+<p>We first define the following working data set.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="effective-data-preparation.html#cb62-1" tabindex="-1"></a>working.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb62-2"><a href="effective-data-preparation.html#cb62-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">17</span>),</span>
+<span id="cb62-3"><a href="effective-data-preparation.html#cb62-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&#39;sai&#39;</span>,<span class="st">&#39;ram&#39;</span>,<span class="st">&#39;deepika&#39;</span>,<span class="st">&#39;sahithi&#39;</span>,<span class="st">&#39;kumar&#39;</span>,<span class="st">&#39;scott&#39;</span>,<span class="st">&#39;Don&#39;</span>,<span class="st">&#39;Lin&#39;</span>),</span>
+<span id="cb62-4"><a href="effective-data-preparation.html#cb62-4" tabindex="-1"></a>  <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&#39;M&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="cn">NA</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb62-5"><a href="effective-data-preparation.html#cb62-5" tabindex="-1"></a>  <span class="at">dob =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&#39;1990-10-02&#39;</span>,<span class="st">&#39;1981-3-24&#39;</span>,<span class="st">&#39;1987-6-14&#39;</span>,<span class="st">&#39;1985-8-16&#39;</span>,</span>
+<span id="cb62-6"><a href="effective-data-preparation.html#cb62-6" tabindex="-1"></a>                  <span class="st">&#39;1995-03-02&#39;</span>,<span class="st">&#39;1991-6-21&#39;</span>,<span class="st">&#39;1986-3-24&#39;</span>,<span class="st">&#39;1990-8-26&#39;</span>)),</span>
+<span id="cb62-7"><a href="effective-data-preparation.html#cb62-7" tabindex="-1"></a>  <span class="at">state =</span> <span class="fu">c</span>(<span class="st">&#39;CA&#39;</span>,<span class="st">&#39;NY&#39;</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="st">&#39;DC&#39;</span>,<span class="st">&#39;DW&#39;</span>,<span class="st">&#39;AZ&#39;</span>,<span class="st">&#39;PH&#39;</span>),</span>
+<span id="cb62-8"><a href="effective-data-preparation.html#cb62-8" tabindex="-1"></a>  <span class="at">row.names=</span><span class="fu">c</span>(<span class="st">&#39;r1&#39;</span>,<span class="st">&#39;r2&#39;</span>,<span class="st">&#39;r3&#39;</span>,<span class="st">&#39;r4&#39;</span>,<span class="st">&#39;r5&#39;</span>,<span class="st">&#39;r6&#39;</span>,<span class="st">&#39;r7&#39;</span>,<span class="st">&#39;r8&#39;</span>)</span>
+<span id="cb62-9"><a href="effective-data-preparation.html#cb62-9" tabindex="-1"></a>)</span>
+<span id="cb62-10"><a href="effective-data-preparation.html#cb62-10" tabindex="-1"></a><span class="fu">kable</span>(working.data)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">r1</td>
+<td align="right">10</td>
+<td align="left">sai</td>
+<td align="left">M</td>
+<td align="left">1990-10-02</td>
+<td align="left">CA</td>
+</tr>
+<tr class="even">
+<td align="left">r2</td>
+<td align="right">11</td>
+<td align="left">ram</td>
+<td align="left">M</td>
+<td align="left">1981-03-24</td>
+<td align="left">NY</td>
+</tr>
+<tr class="odd">
+<td align="left">r3</td>
+<td align="right">12</td>
+<td align="left">deepika</td>
+<td align="left">NA</td>
+<td align="left">1987-06-14</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">r4</td>
+<td align="right">13</td>
+<td align="left">sahithi</td>
+<td align="left">F</td>
+<td align="left">1985-08-16</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">r5</td>
+<td align="right">14</td>
+<td align="left">kumar</td>
+<td align="left">M</td>
+<td align="left">1995-03-02</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">r6</td>
+<td align="right">15</td>
+<td align="left">scott</td>
+<td align="left">M</td>
+<td align="left">1991-06-21</td>
+<td align="left">DW</td>
+</tr>
+<tr class="odd">
+<td align="left">r7</td>
+<td align="right">16</td>
+<td align="left">Don</td>
+<td align="left">M</td>
+<td align="left">1986-03-24</td>
+<td align="left">AZ</td>
+</tr>
+<tr class="even">
+<td align="left">r8</td>
+<td align="right">17</td>
+<td align="left">Lin</td>
+<td align="left">F</td>
+<td align="left">1990-08-26</td>
+<td align="left">PH</td>
+</tr>
+</tbody>
+</table>
+<div id="subsetting-by-columns" class="section level3 hasAnchor" number="4.8.1">
+<h3><span class="header-section-number">4.8.1</span> Subsetting by Columns<a href="effective-data-preparation.html#subsetting-by-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is a relatively easy job - we can simply select or drop variables to make a subset. The following is just an example.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="effective-data-preparation.html#cb63-1" tabindex="-1"></a><span class="co"># only keep id, name, dob</span></span>
+<span id="cb63-2"><a href="effective-data-preparation.html#cb63-2" tabindex="-1"></a>subset01 <span class="ot">=</span> working.data[, <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;dob&quot;</span>)]</span>
+<span id="cb63-3"><a href="effective-data-preparation.html#cb63-3" tabindex="-1"></a>subset01</span></code></pre></div>
+<pre><code>##    id    name        dob
+## r1 10     sai 1990-10-02
+## r2 11     ram 1981-03-24
+## r3 12 deepika 1987-06-14
+## r4 13 sahithi 1985-08-16
+## r5 14   kumar 1995-03-02
+## r6 15   scott 1991-06-21
+## r7 16     Don 1986-03-24
+## r8 17     Lin 1990-08-26</code></pre>
+<p>We could also create the above subset by dropping <code>gender</code> and <code>state</code>.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="effective-data-preparation.html#cb65-1" tabindex="-1"></a><span class="co"># drop gender, state</span></span>
+<span id="cb65-2"><a href="effective-data-preparation.html#cb65-2" tabindex="-1"></a>subset02 <span class="ot">=</span> working.data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</span>
+<span id="cb65-3"><a href="effective-data-preparation.html#cb65-3" tabindex="-1"></a>subset02</span></code></pre></div>
+<pre><code>##    id    name        dob
+## r1 10     sai 1990-10-02
+## r2 11     ram 1981-03-24
+## r3 12 deepika 1987-06-14
+## r4 13 sahithi 1985-08-16
+## r5 14   kumar 1995-03-02
+## r6 15   scott 1991-06-21
+## r7 16     Don 1986-03-24
+## r8 17     Lin 1990-08-26</code></pre>
+</div>
+<div id="subsetting-by-rows" class="section level3 hasAnchor" number="4.8.2">
+<h3><span class="header-section-number">4.8.2</span> Subsetting by Rows<a href="effective-data-preparation.html#subsetting-by-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="effective-data-preparation.html#cb67-1" tabindex="-1"></a><span class="co"># subset by row name</span></span>
+<span id="cb67-2"><a href="effective-data-preparation.html#cb67-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">subset</span>(working.data, <span class="at">subset=</span><span class="fu">rownames</span>(df) <span class="sc">==</span> <span class="st">&#39;r1&#39;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="effective-data-preparation.html#cb68-1" tabindex="-1"></a><span class="co"># subset row by the vector of row names</span></span>
+<span id="cb68-2"><a href="effective-data-preparation.html#cb68-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">subset</span>(working.data, <span class="fu">rownames</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;r1&#39;</span>,<span class="st">&#39;r2&#39;</span>,<span class="st">&#39;r3&#39;</span>)))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="effective-data-preparation.html#cb69-1" tabindex="-1"></a><span class="co"># subset by condition</span></span>
+<span id="cb69-2"><a href="effective-data-preparation.html#cb69-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">subset</span>(working.data, gender <span class="sc">==</span> <span class="st">&#39;M&#39;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">r1</td>
+<td align="right">10</td>
+<td align="left">sai</td>
+<td align="left">M</td>
+<td align="left">1990-10-02</td>
+<td align="left">CA</td>
+</tr>
+<tr class="even">
+<td align="left">r2</td>
+<td align="right">11</td>
+<td align="left">ram</td>
+<td align="left">M</td>
+<td align="left">1981-03-24</td>
+<td align="left">NY</td>
+</tr>
+<tr class="odd">
+<td align="left">r5</td>
+<td align="right">14</td>
+<td align="left">kumar</td>
+<td align="left">M</td>
+<td align="left">1995-03-02</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">r6</td>
+<td align="right">15</td>
+<td align="left">scott</td>
+<td align="left">M</td>
+<td align="left">1991-06-21</td>
+<td align="left">DW</td>
+</tr>
+<tr class="odd">
+<td align="left">r7</td>
+<td align="right">16</td>
+<td align="left">Don</td>
+<td align="left">M</td>
+<td align="left">1986-03-24</td>
+<td align="left">AZ</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="effective-data-preparation.html#cb70-1" tabindex="-1"></a><span class="co"># subset by condition with %in%</span></span>
+<span id="cb70-2"><a href="effective-data-preparation.html#cb70-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">subset</span>(working.data, state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;CA&#39;</span>,<span class="st">&#39;DC&#39;</span>)))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">r1</td>
+<td align="right">10</td>
+<td align="left">sai</td>
+<td align="left">M</td>
+<td align="left">1990-10-02</td>
+<td align="left">CA</td>
+</tr>
+<tr class="even">
+<td align="left">r5</td>
+<td align="right">14</td>
+<td align="left">kumar</td>
+<td align="left">M</td>
+<td align="left">1995-03-02</td>
+<td align="left">DC</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="effective-data-preparation.html#cb71-1" tabindex="-1"></a><span class="co"># subset by multiple conditions using |</span></span>
+<span id="cb71-2"><a href="effective-data-preparation.html#cb71-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">subset</span>(working.data, gender <span class="sc">==</span> <span class="st">&#39;M&#39;</span> <span class="sc">|</span> state <span class="sc">==</span> <span class="st">&#39;PH&#39;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">id</th>
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="left">dob</th>
+<th align="left">state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">r1</td>
+<td align="right">10</td>
+<td align="left">sai</td>
+<td align="left">M</td>
+<td align="left">1990-10-02</td>
+<td align="left">CA</td>
+</tr>
+<tr class="even">
+<td align="left">r2</td>
+<td align="right">11</td>
+<td align="left">ram</td>
+<td align="left">M</td>
+<td align="left">1981-03-24</td>
+<td align="left">NY</td>
+</tr>
+<tr class="odd">
+<td align="left">r5</td>
+<td align="right">14</td>
+<td align="left">kumar</td>
+<td align="left">M</td>
+<td align="left">1995-03-02</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">r6</td>
+<td align="right">15</td>
+<td align="left">scott</td>
+<td align="left">M</td>
+<td align="left">1991-06-21</td>
+<td align="left">DW</td>
+</tr>
+<tr class="odd">
+<td align="left">r7</td>
+<td align="right">16</td>
+<td align="left">Don</td>
+<td align="left">M</td>
+<td align="left">1986-03-24</td>
+<td align="left">AZ</td>
+</tr>
+<tr class="even">
+<td align="left">r8</td>
+<td align="right">17</td>
+<td align="left">Lin</td>
+<td align="left">F</td>
+<td align="left">1990-08-26</td>
+<td align="left">PH</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="base-r-graphical-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bootstrap-confidence-intervals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA321EB/edit/master/03-EffectiveDataPrep.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA321EB.pdf", "STA321EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
