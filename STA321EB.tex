@@ -2064,7 +2064,7 @@ There are at least five different bootstrap confidence intervals. You can find t
 
 \begin{verbatim}
 ##     2.5%    97.5% 
-## 68.43179 70.22253
+## 69.09877 71.01265
 \end{verbatim}
 
 \begin{Shaded}
@@ -2108,15 +2108,14 @@ Here is an example of taking the bootstrap sample from the original sample with 
 \end{Shaded}
 
 \begin{verbatim}
-##   [1]   2   5   5   5   6   6   6   7   7   8   8   8   9  10  11  11  12  12
-##  [19]  13  14  16  19  20  20  20  22  23  23  23  23  23  24  24  24  25  25
-##  [37]  25  27  27  28  30  31  32  32  36  40  40  44  47  48  49  53  54  55
-##  [55]  55  56  58  58  59  60  60  63  63  64  65  67  68  68  68  69  71  71
-##  [73]  72  73  74  74  79  80  81  82  82  82  82  82  83  83  86  87  89  91
-##  [91]  91  94  97  98  98  99 100 100 102 103 103 103 104 104 104 105 106 107
-## [109] 107 108 109 110 112 112 113 114 114 118 119 119 119 120 121 122 123 123
-## [127] 124 125 126 126 127 127 128 128 131 131 132 133 134 134 134 137 138 140
-## [145] 141 143 144 146 147 148
+##   [1]   1   1   1   2   2   2   4   8   9   9  12  12  12  14  14  15  18  19  19
+##  [20]  19  21  21  22  23  23  24  24  27  28  28  29  29  30  30  31  32  34  37
+##  [39]  37  37  37  38  40  41  42  42  45  46  46  48  50  50  50  51  51  52  52
+##  [58]  53  55  55  55  57  59  59  60  60  60  61  63  63  64  66  66  67  68  73
+##  [77]  74  74  77  77  78  78  79  79  79  82  83  84  85  86  89  91  91  92  92
+##  [96]  95  95  95  96  96  96  96  97  97 100 101 102 103 103 103 105 105 105 106
+## [115] 108 109 110 110 111 113 114 115 116 117 119 120 121 123 123 124 126 128 128
+## [134] 129 130 131 132 133 134 135 136 138 139 140 141 145 145 146 147 148
 \end{verbatim}
 
 Next, we use the above bt.ID to take the bootstrap sample from the original data set \textbf{iris}.
@@ -2153,7 +2152,7 @@ In this section, we construct a 95\% bootstrap percentile confidence interval fo
 
 \begin{verbatim}
 ##        2.5%       97.5% 
-## -0.25370320  0.03578238
+## -0.25208993  0.03809699
 \end{verbatim}
 
 \textbf{Interpretation:} we are 95\% confident that there is no statistically significant correlation between sepal length and sepal width based on the given sample. This may be because the data set contains three different types of iris.
@@ -2579,9 +2578,9 @@ The following steps construct bootstrap confidence intervals of regression coeff
 \hline
   & 2.5\% & 97.5\%\\
 \hline
-boot.beta0.ci & 44.4583385 & 47.2190732\\
+boot.beta0.ci & 44.5311478 & 47.2894820\\
 \hline
-boot.beta1.ci & -0.0080914 & -0.0065909\\
+boot.beta1.ci & -0.0080022 & -0.0065578\\
 \hline
 \end{tabular}
 \end{table}
@@ -2693,9 +2692,9 @@ Next, we add the confidence limits to the output inferential table from the SLR 
 \hline
   & Estimate & Std. Error & t value & Pr(>|t|) & per.025 & per.975\\
 \hline
-(Intercept) & 35.52504 & 2.3159512 & 15.33929 & 0 & 31.012926 & 39.97761\\
+(Intercept) & 35.52504 & 2.3159512 & 15.33929 & 0 & 31.197906 & 40.228050\\
 \hline
-handspan & 1.56008 & 0.1105437 & 14.11278 & 0 & 1.344807 & 1.77226\\
+handspan & 1.56008 & 0.1105437 & 14.11278 & 0 & 1.338297 & 1.770703\\
 \hline
 \end{tabular}
 
@@ -2967,22 +2966,56 @@ Significant tests and goodness-of-fit measures are used to identify the final mo
 
 Significant tests are used for selecting statistically significant variables to include in the model. However, in practical applications, some practically important variables should always be included in the model regardless of their statistical significance. The t-test is used for selecting (or dropping) individual statistically significant variables.
 
-\hypertarget{variable-model-selection-criteria}{%
-\subsubsection{Variable (model) selection criteria}\label{variable-model-selection-criteria}}
+\hypertarget{variable-model-selection-criteria---goodness-of-fit-measures}{%
+\subsubsection{Variable (model) selection criteria - Goodness-of-fit Measures}\label{variable-model-selection-criteria---goodness-of-fit-measures}}
 
-There are many different methods for model selection.
+There are many different methods based on different performance measures for model selection. Most of these goodness-of-fit measures are defined based on \textbf{sum of squares} that defined in the following (use SLR for illustration)
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{img04/w04-SSS} 
+
+}
+
+\caption{Definitions of sum od squares}\label{fig:unnamed-chunk-77}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  \(R^2\) - coefficient of determination. It explains the variation explained by the underlying regression model.
+\end{itemize}
+
+\[
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}
+\]
+
+\(R^2\) is used to compare two candidate models. Adjusted \(R^2\) is used when there are many predictor variables in the model. It is defined by
+
+\[
+R^2_{adj} = 1 - \frac{n-1}{n-p} \frac{SSE}{SST}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Information criteria - likelihood-based measures: AIC and SBC.
+\end{itemize}
+
+\[
+AIC_p = n \ln(SSE) - n\ln(n) + 2p
+\]
+\[
+BIC_p = n\ln(SSE) - n\ln(n) + p\ln(n)
+\]
 
 \begin{itemize}
 \item
-  \(R^2\) - coefficient of determination. It explains the variation explained by the underlying regression model. \(R^2\) is used to compare two candidate models. Adjusted \(R^2\) is used when there are many predictor variables in the model.
+  The \textbf{prediction sum of squares (PRESS)} is a model validation method used to assess a model's predictive ability that can also be used to compare regression models. It is defined based on an iterative algorithm - Leave-on-out (a special Jackknife resampling method to be discussed in the next module).
 \item
   Likelihood ratio \(\chi^2\) test - comparing two candidate models with a hierarchical relationship.
 \item
-  Information criteria - likelihood-based measures: AIC and SBC.
-\item
   Mallow's Cp - a residual-based measure that is used for comparing two models that do not necessarily have a hierarchical structure.
-\item
-  F tests - testing the overall significance of a group of regression coefficients.
 \end{itemize}
 
 \hypertarget{variable-selection-methods}{%
@@ -2996,6 +3029,21 @@ There are many different methods for model selection.
 \end{itemize}
 
 This short note summarized the above two methods for \href{http://www.biostat.jhsph.edu/~iruczins/teaching/jf/ch10.pdf}{Variable Selection}(click the link to view the text).
+
+\hypertarget{multicollinearity-detection---vif}{%
+\subsubsection{Multicollinearity Detection - VIF}\label{multicollinearity-detection---vif}}
+
+As the name suggests, a variance inflation factor (VIF) quantifies how much the variance is inflated. A variance inflation factor exists for each of the predictors in a multiple regression model. For example, the variance inflation factor for the estimated regression coefficient \(b_j\) ---denoted \(VIF_j\) ---is just the factor by which the variance of \(b_j\) is ``inflated'' by the existence of correlation among the predictor variables in the model. To be more specific, the VIF of j-th predictor is defined to be
+
+\[
+\text{VIF}_j = \frac{1}{1-R_j^2}
+\]
+
+Where \(R^2_j\) is the coefficient of determination of of regression \(E(x_j) = \alpha_0 + \alpha_1x_1 + \cdots+\alpha_{j-1}x_{j-1} + \alpha_{j+1}x_{j+1} + \cdots + \alpha_kx_k\).
+
+A VIF of 1 means that there is no correlation among the jth predictor and the remaining predictor variables, and hence the variance of bj is not inflated at all. The general rule of thumb is that VIFs exceeding 4 warrant further investigation, while VIFs exceeding 10 are signs of serious multicollinearity requiring correction.
+
+R function in the machine learning library \texttt{\{car\}}(classification and regression) can be used to calculate the variance inflation factor for individual predictor.
 
 \hypertarget{case-study--factors-that-impact-the-house-sale-prices}{%
 \section{Case Study -Factors That Impact the House Sale Prices}\label{case-study--factors-that-impact-the-house-sale-prices}}
@@ -3052,7 +3100,7 @@ To start, we load the data to R.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-77-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-78-1} \end{center}
 
 We use longitude and latitude to define a group variable, \textbf{geo.group}, in the following.
 
@@ -3067,7 +3115,7 @@ From the map representation of the locations of these houses given below (genera
 
 }
 
-\caption{Locations of houses for sale}\label{fig:unnamed-chunk-78}
+\caption{Locations of houses for sale}\label{fig:unnamed-chunk-79}
 \end{figure}
 
 We also turn the variable \textbf{TransactionYear} into an indicator variable. At the same time, we scale the distance from the house to the nearest MRT by defining \textbf{Dist2MRT = Distance2MRT/1000}.
@@ -3122,7 +3170,7 @@ We start with a linear model that includes all predictor variables.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-80}Statistics of Regression Coefficients}
+\caption{\label{tab:unnamed-chunk-81}Statistics of Regression Coefficients}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -3154,11 +3202,11 @@ Next, we conduct residual diagnostic analysis to check the validity of the model
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-81-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-82-1} 
 
 }
 
-\caption{Residual plots of the full model}\label{fig:unnamed-chunk-81}
+\caption{Residual plots of the full model}\label{fig:unnamed-chunk-82}
 \end{figure}
 
 We can see from the residual plots that there are some minor violations:
@@ -3207,7 +3255,7 @@ Since non-constant variance, we perform the Box-Cox procedure to search for a tr
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-82-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-83-1} \end{center}
 
 The above Box-cox transformation plots indicate the optimal \(\lambda\) under different transformed predictor variables. log-Transformed distance from MRT impacts the coefficient of the power transformation: \(\lambda\).
 
@@ -3227,7 +3275,7 @@ We perform Box-Cox transformation with log-transformed distance to the nearest M
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-83}log-transformed model}
+\caption{\label{tab:unnamed-chunk-84}log-transformed model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -3257,7 +3305,7 @@ Residual plots are given below.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-84-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-85-1} \end{center}
 
 There are two improvements in the above residual diagnostic plots: (1) the weak curve pattern has been removed from the residual plot; (2) the non-constant variance has also been corrected. However, the violation of the normality assumption is still an issue.
 
@@ -3275,7 +3323,7 @@ We take the log transformation of the sale price according to the Box-Cox transf
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-85}log-transformed model}
+\caption{\label{tab:unnamed-chunk-86}log-transformed model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -3305,7 +3353,7 @@ Residual plots are given below.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-86-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-87-1} \end{center}
 
 The above residual diagnostic plots are similar to that of the previous model. The Q-Q plots of all three models are similar to each other, this means that the assumption of normal residuals is not satisfied for all three models.
 
@@ -3325,7 +3373,7 @@ The above residual diagnostic plots are similar to that of the previous model. T
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-87-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-88-1} \end{center}
 
 \hypertarget{goodness-of-fit-measures}{%
 \paragraph{Goodness-of-fit Measures}\label{goodness-of-fit-measures}}
@@ -3355,6 +3403,10 @@ Next, we extract several other goodness-of-fit from each of the three candidate 
 \end{Highlighting}
 \end{Shaded}
 
+\textbf{\color{red}CAUTION}: \emph{\color{red}SSE, AIC, SBC, and PRESS are dependent on the magnitude of the response. \(R^2\), \(R^2_{adj}\), and \(C_p\) are scaled (index-like measure) and therefore independent on the magnitude of Response. This means that models with transformed response and those with the original magnitude can NOT be compared using SSE, AIC, SBC, and PRESS!}
+
+\textbf{\color{blue}In the following table, three models have different magnitudes due to different transformations, the valid goodness of fit measures are \(R^2\), \(R^2_{adj}\), and \(C_p\)!}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{output.sum }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{select}\NormalTok{(full.model), }\FunctionTok{select}\NormalTok{(sqrt.price.log.dist), }\FunctionTok{select}\NormalTok{(log.price))}
@@ -3365,7 +3417,7 @@ Next, we extract several other goodness-of-fit from each of the three candidate 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-89}Goodness-of-fit Measures of Candidate Models}
+\caption{\label{tab:unnamed-chunk-90}Goodness-of-fit Measures of Candidate Models}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r|r}
 \hline
@@ -3395,7 +3447,7 @@ The inferential statistics of the final working model are summarized in the foll
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-90}Inferential Statistics of Final Model}
+\caption{\label{tab:unnamed-chunk-91}Inferential Statistics of Final Model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -3517,6 +3569,195 @@ Your analysis and write-up should have all components in the case study of this 
 
 In this note, we introduce two versions of bootstrap procedures to generate bootstrap samples to estimate the confidence intervals of the coefficients of the regression model identified in the previous note. We first fit the linear model to the data and then use bootstrap methods to construct the confidence intervals of regression coefficients.
 
+\hypertarget{bootstrap-method-revisited}{%
+\section{Bootstrap Method Revisited}\label{bootstrap-method-revisited}}
+
+The \textbf{bootstrap} is one of the computationally intensive techniques that is now part of the broad umbrella of \textbf{nonparametric statistics} that are commonly called \textbf{resampling methods}.
+
+We have used this method to construct the confidence interval for a unknown population mean and correlation coefficient of two numerical variables (populations). We also fit bootstrap simple linear regression in two different ways and will use it to build bootstrap MLR.
+
+Based on the limited experience using the bootstrap procedure we had, it is time to look into the resampling technique a little more closer to how and why it works. We will also discuss the implicit assumptions for bootstrap resampling procedures. For ease of illustration, we need to review some concepts learned earlier: probability density function (\texttt{pdf}) and cumulative distribution function (\texttt{CDF}).
+
+\hypertarget{pdf-vs-cdf}{%
+\subsection{\texorpdfstring{\texttt{pdf} vs \texttt{CDF}}{pdf vs CDF}}\label{pdf-vs-cdf}}
+
+Let \(f(x)\) denote the density function of the distribution of the population of interest. The corresponding cumulative distribution is given by
+
+\[
+F(x) = \int_{-\infty}^x f(y)dy
+\]
+
+That is, \(F^{\prime}(x) = f(x)\). The following animated graph illustrates the relationship geometrically.
+
+\url{https://github.com/pengdsci/STA504/blob/main/topic03/w04-PDFvsCDF.gif?raw=true}
+
+\hypertarget{comparing-two-distributions}{%
+\subsection{Comparing Two Distributions}\label{comparing-two-distributions}}
+
+Next, we use two examples to show how to do visual comparison between distributions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{x }\OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{20}\NormalTok{, }\AttributeTok{length =} \DecValTok{200}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(x, }\FunctionTok{dnorm}\NormalTok{(x,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{""}\NormalTok{, }\AttributeTok{ylab =} \StringTok{""}\NormalTok{,}
+        \AttributeTok{main =} \StringTok{"Comparing Two Normal Density Curves"}\NormalTok{,}
+        \AttributeTok{cex.main =} \FloatTok{0.8}\NormalTok{, }\AttributeTok{col.main =} \StringTok{"navy"}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty=}\DecValTok{1}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, }\FunctionTok{dnorm}\NormalTok{(x, }\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =}\DecValTok{2}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"right"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"N(5,1)"}\NormalTok{, }\StringTok{"N(7,2)"}\NormalTok{), }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{), }\AttributeTok{lty=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }
+                   \AttributeTok{lwd =} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{cex =} \FloatTok{0.8}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\DocumentationTok{\#\#\#}
+\NormalTok{dist }\OtherTok{=} \FunctionTok{abs}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(x, }\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(x,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{max.id }\OtherTok{=} \FunctionTok{which}\NormalTok{(dist }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(dist))}
+\FunctionTok{plot}\NormalTok{(x, }\FunctionTok{pnorm}\NormalTok{(x,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{""}\NormalTok{, }\AttributeTok{ylab =} \StringTok{""}\NormalTok{, }
+        \AttributeTok{main =} \StringTok{"Comparing Two Normal CDF Curves"}\NormalTok{,}
+        \AttributeTok{cex.main =} \FloatTok{0.8}\NormalTok{, }\AttributeTok{col.main =} \StringTok{"navy"}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty=}\DecValTok{1}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, }\FunctionTok{pnorm}\NormalTok{(x, }\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(x[}\DecValTok{63}\NormalTok{],}\FunctionTok{pnorm}\NormalTok{(x, }\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{)[}\DecValTok{63}\NormalTok{], x[}\DecValTok{63}\NormalTok{], }\FunctionTok{pnorm}\NormalTok{(x,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)[}\DecValTok{63}\NormalTok{], }\AttributeTok{col =} \StringTok{"purple"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{rep}\NormalTok{(x[}\DecValTok{63}\NormalTok{],}\DecValTok{2}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(x, }\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{)[}\DecValTok{63}\NormalTok{], }\FunctionTok{pnorm}\NormalTok{(x,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)[}\DecValTok{63}\NormalTok{]), }\AttributeTok{pch=}\DecValTok{19}\NormalTok{, }\AttributeTok{cex =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{col =} \StringTok{"purple"}\NormalTok{)}
+\DocumentationTok{\#\#\#}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"right"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"N(5,1)"}\NormalTok{, }\StringTok{"N(7,2)"}\NormalTok{), }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{), }\AttributeTok{lty=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }
+                   \AttributeTok{lwd =} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{cex =} \FloatTok{0.8}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-93-1} 
+
+}
+
+\caption{Comparison between two normal distributions}\label{fig:unnamed-chunk-93}
+\end{figure}
+
+We can see from the above figure that the \textbf{maximum distance between the two CDF curves} (the length of the purple line segment) measures that discrepancy the two distributions.
+
+\hypertarget{empirical-distribution-and-cdf}{%
+\subsection{Empirical Distribution and CDF}\label{empirical-distribution-and-cdf}}
+
+An empirical distribution is a non-parametric estimation of a theoretical distribution based on a random sample taken from the population. Assume that \(\{x_1, x_2, x_3, \cdots, x_n \}\) is a random sample taken from a population with CDF \(F(x|\theta)\) (\(\theta\) is the population parameter). **The empirical distribution of \(F(x|\theta)\) based on the given random sample is defined to be
+
+\[
+F_n(x) = \frac{\text{number of values in random sample } \le x}{n}
+\]
+
+For example, let's look at the emprical distribution based on the toy data set \(\{ 1, 1.4, 2.1, 2.5, 5\}\).
+
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-94-1} \end{center}
+
+\hypertarget{relationship-between-fx-and-f_nx}{%
+\subsection{\texorpdfstring{Relationship between \(F(x)\) and \(F_n(X)\)}{Relationship between F(x) and F\_n(X)}}\label{relationship-between-fx-and-f_nx}}
+
+As stated earlier, An empirical distribution, \(F_n(x)\), is used to estimate the theoretical CDF, \(F(x)\). Next, we use several examples to visually check the goodness of the estimation.
+
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-95-1} \end{center}
+
+We can see two general but important facts:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The goodness of the estimation is dependent on the sample size. The bigger the sample size, the more accurate the estimation.
+\item
+  With the same size, the goodness of estimation is dependent on the population distribution.
+\end{enumerate}
+
+\hypertarget{why-bootstrap-procedure-works}{%
+\subsection{Why Bootstrap Procedure Works?}\label{why-bootstrap-procedure-works}}
+
+For a given population, if the sample size is large enough so that the empirical distribution is close to the theoretical distribution, we can take bootstrap samples for non-parametric inference. The following chart explains how bootstrap method works.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{img05/w05-HowBootstrapWorks} 
+
+}
+
+\caption{How bootstrap procedure works.}\label{fig:unnamed-chunk-96}
+\end{figure}
+
+The above
+
+\hypertarget{a-bigger-picture}{%
+\subsection{A Bigger Picture}\label{a-bigger-picture}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{img05/w05-Bootstrap-Monte-Carlo} 
+
+}
+
+\caption{Monte Carlo, Bootstrap, parametric, and asymptoic confidence intervals}\label{fig:unnamed-chunk-97}
+\end{figure}
+
+\hfill\break
+
+\hypertarget{other-resampling-methods}{%
+\section{Other Resampling Methods}\label{other-resampling-methods}}
+
+In the last module, we listed several goodness-of-fit measures. The \textbf{predicted residual error sum of squares (PRESS)} is one of them. It definition is not clearly given. Before we discuss this measure in little bit more details, we first introduce a popular resampling method - Jackknife.
+
+\hypertarget{jackknif-resampling}{%
+\subsection{Jackknif Resampling}\label{jackknif-resampling}}
+
+The jackknife estimator of a parameter is found by systematically \textbf{leaving out each observation from a dataset} and \textbf{calculating the parameter estimate over the remaining observations} and \textbf{then aggregating these calculations}. It was developed by Maurice Quenouille in 1949 and refined in 1956. John Tukey expanded on the technique in 1958 and name the method ``jackknife'' because it is handy like a physical jack-knife. Jackknife resampling can improvise a solution for many specific problems more efficiently than some purpose-designed tools.
+
+The basic leave-one-out Jackknife resampling method is illustrated in the following chart.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{img05/w05-JackknifeResampling} 
+
+}
+
+\caption{Illustration of leave-one-out Jackknife resampling method}\label{fig:unnamed-chunk-98}
+\end{figure}
+
+\hypertarget{jackknife-for-predictive-sum-of-squares-press}{%
+\subsection{Jackknife for Predictive Sum of Squares (PRESS)}\label{jackknife-for-predictive-sum-of-squares-press}}
+
+A fitted model having been produced, each observation in turn is removed and the model is refitted using the remaining observations. The out-of-sample predicted value is calculated for the omitted observation in each case, and the PRESS statistic is calculated as the sum of the squares of all the resulting prediction errors.
+
+\[
+\text{PRESS}=\sum _{{i=1}}^{n}(y_{i}-{\hat  {y}}_{{i,-i}})^{2}
+\]
+
+The PRESS statistic can be calculated for a number of candidate models for the same dataset, with the lowest values of PRESS indicating the best model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{realestate }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03{-}Realestate.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{unitPrice }\OtherTok{\textless{}{-}}\NormalTok{ realestate}\SpecialCharTok{$}\NormalTok{PriceUnitArea}
+\NormalTok{HouseAge }\OtherTok{\textless{}{-}}\NormalTok{ realestate}\SpecialCharTok{$}\NormalTok{HouseAge}
+\NormalTok{nn }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(HouseAge)}
+\NormalTok{JK.pred }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nn)\{}
+\NormalTok{  unitPrice0 }\OtherTok{\textless{}{-}}\NormalTok{ unitPrice[}\SpecialCharTok{{-}}\NormalTok{i]}
+\NormalTok{  HouseAge0 }\OtherTok{\textless{}{-}}\NormalTok{ HouseAge[}\SpecialCharTok{{-}}\NormalTok{i]}
+\NormalTok{  mm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(unitPrice0 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ HouseAge0)}
+\NormalTok{  JK.pred[i] }\OtherTok{=} \FunctionTok{as.vector}\NormalTok{(}\FunctionTok{predict}\NormalTok{(mm, }\AttributeTok{newdata =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{HouseAge0 =}\NormalTok{ HouseAge[i])))}
+\NormalTok{\}}
+\NormalTok{PRESS }\OtherTok{=} \FunctionTok{sum}\NormalTok{((unitPrice}\SpecialCharTok{{-}}\NormalTok{JK.pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{PRESS}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 73815.25
+\end{verbatim}
+
+\hypertarget{some-comments-on-jackknife}{%
+\subsection{Some Comments on Jackknife}\label{some-comments-on-jackknife}}
+
+\begin{itemize}
+\item
+  Jackknife samples can also be used for estimating population parameters just like what we did in bootstrap methods, but the procedure is not as straightforward as that of bootstrap. We will not go to details in this direction.
+\item
+  The logic of Jackknife sampling is used to define various data-driven methods that used in modern statistics, data science and machine learning. One of such methods is \textbf{cross-validation}. We will introduce this method in the second part this course - generalized linear regression.
+\end{itemize}
+
+/
+
 \hypertarget{parametric-linear-regression-model}{%
 \section{Parametric Linear Regression Model}\label{parametric-linear-regression-model}}
 
@@ -3556,7 +3797,7 @@ For reference, we copy the code from the last note that creates the analytic dat
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-91}Inferential Statistics of Final Model}
+\caption{\label{tab:unnamed-chunk-100}Inferential Statistics of Final Model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -3596,21 +3837,10 @@ Let's consider \textbf{the set of all houses} that are in the same conditions ex
 
 }
 
-\caption{Location of Houses for Sale}\label{fig:unnamed-chunk-92}
+\caption{Location of Houses for Sale}\label{fig:unnamed-chunk-101}
 \end{figure}
 
-Next, we explain the estimated regression coefficient of 0.1826. Let \(p_{TRUE}\) be the mean price of a house in the region \texttt{TRUE} and \(p_{FALSE}\) be the mean price of houses in the region \texttt{FALSE}. Then
-
-\[
-\log (p_{TRUE}) - \log(p_{FALSE}) = 0.1826  \to \log(p_{TRUE}/p_{FALSE}) = 0.1826 \to p_{TRUE} = 1.20p_{FALSE}
-\]
-We re-express the above equation can be re-written as
-
-\[
-p_{TRUE} - p_{FALSE} = 0.206p_{FALSE} \to \frac{p_{TRUE}-p_{FALSE}}{p_{FALSE}} = 0.20 = 20\%.
-\]
-
-That is, the average house sales price in the \texttt{TRUE} region (top right corner on the map) is about 20\% higher than that in the \texttt{FALSE} region. We can similarly interpret other regression coefficients.
+\hfill\break
 
 \hypertarget{bootstrap-cases-boot.c}{%
 \section{Bootstrap Cases (BOOT.C)}\label{bootstrap-cases-boot.c}}
@@ -3681,11 +3911,11 @@ The following histograms of the bootstrap estimates of regression coefficients r
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-95-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-104-1} 
 
 }
 
-\caption{(Case) Bootstrap confidence intervals of regression coefficients}\label{fig:unnamed-chunk-95}
+\caption{(Case) Bootstrap confidence intervals of regression coefficients}\label{fig:unnamed-chunk-104}
 \end{figure}
 
 Two normal-density curves were placed on each of the histograms.
@@ -3718,23 +3948,23 @@ We can see from the above histograms that the two density curves in all histogra
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-96}Regression Coefficient Matrix}
+\caption{\label{tab:unnamed-chunk-105}Regression Coefficient Matrix}
 \centering
 \begin{tabular}[t]{l|l|l|l|l|l}
 \hline
   & Estimate & Std. Error & t value & Pr(>|t|) & btc.ci\\
 \hline
-(Intercept) & 3.5724 & 0.0443 & 80.599 & 0 & [ 3.4742 ,  3.6675 ]\\
+(Intercept) & 3.5724 & 0.0443 & 80.599 & 0 & [ 3.4742 ,  3.6668 ]\\
 \hline
-HouseAge & -0.0076 & 0.001 & -7.4985 & 0 & [ -0.0094 ,  -0.0057 ]\\
+HouseAge & -0.0076 & 0.001 & -7.4985 & 0 & [ -0.0097 ,  -0.0056 ]\\
 \hline
-NumConvenStores & 0.0275 & 0.0049 & 5.5987 & 0 & [ 0.0172 ,  0.0374 ]\\
+NumConvenStores & 0.0275 & 0.0049 & 5.5987 & 0 & [ 0.017 ,  0.0379 ]\\
 \hline
-sale.year2013 & 0.0806 & 0.0244 & 3.2963 & 0.0011 & [ 0.0374 ,  0.1242 ]\\
+sale.year2013 & 0.0806 & 0.0244 & 3.2963 & 0.0011 & [ 0.0361 ,  0.125 ]\\
 \hline
-Dist2MRT.kilo & -0.1445 & 0.0138 & -10.5068 & 0 & [ -0.1733 ,  -0.1162 ]\\
+Dist2MRT.kilo & -0.1445 & 0.0138 & -10.5068 & 0 & [ -0.176 ,  -0.1148 ]\\
 \hline
-geo.groupTRUE & 0.1826 & 0.0347 & 5.2596 & 0 & [ 0.1135 ,  0.2574 ]\\
+geo.groupTRUE & 0.1826 & 0.0347 & 5.2596 & 0 & [ 0.1175 ,  0.2489 ]\\
 \hline
 \end{tabular}
 \end{table}
@@ -3744,7 +3974,9 @@ We can see from the above table of summarized statistics, the significance tests
 \hypertarget{bootstrap-residuals-boot.r}{%
 \section{Bootstrap Residuals (BOOT.R)}\label{bootstrap-residuals-boot.r}}
 
-In this section, we introduce bootstrap residual methods to estimate bootstrap confidence intervals. The idea is straightforward and is summarized in the following.
+In this section, we introduce bootstrap residual methods to construct bootstrap confidence intervals. The idea is straightforward and is summarized in the following.
+
+\begin{center}\includegraphics[width=1\linewidth]{img05/w05-BootsResiduals} \end{center}
 
 \hypertarget{fitted-model}{%
 \subsection{Fitted Model}\label{fitted-model}}
@@ -3777,11 +4009,11 @@ The distribution of the residuals is depicted in the following histogram.
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-97-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-107-1} 
 
 }
 
-\caption{Distribution of residuals of the linear regression model}\label{fig:unnamed-chunk-97}
+\caption{Distribution of residuals of the linear regression model}\label{fig:unnamed-chunk-107}
 \end{figure}
 
 The above histogram reveals the same information as we saw in the residual plot in the last note: (1) one out-lier; (2). The distribution is skewed to the right.
@@ -3922,11 +4154,11 @@ Next, we make histograms of the residual bootstrap estimates of the regression c
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-100-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-110-1} 
 
 }
 
-\caption{(Residual) Bootstrap confidence intervals}\label{fig:unnamed-chunk-100}
+\caption{(Residual) Bootstrap confidence intervals}\label{fig:unnamed-chunk-110}
 \end{figure}
 
 The residual bootstrap sampling distributions of each estimated regression coefficient. The normal and LOESS curves are close to each other. This also indicated that the inference of the significance of variables based on p-values and residual bootstrap will yield the same results.
@@ -3959,12 +4191,12 @@ The 95\% residual bootstrap confidence intervals are given in the following
 ## Dist2MRT.kilo   "-0.1445" "0.0138"   "-10.5068" "0"     
 ## geo.groupTRUE   "0.1826"  "0.0347"   "5.2596"   "0"     
 ##                 btr.ci.95               
-## (Intercept)     "[ 3.4847 ,  3.6516 ]"  
-## HouseAge        "[ -0.0096 ,  -0.0058 ]"
-## NumConvenStores "[ 0.018 ,  0.0375 ]"   
-## sale.year2013   "[ 0.033 ,  0.1268 ]"   
-## Dist2MRT.kilo   "[ -0.1727 ,  -0.1182 ]"
-## geo.groupTRUE   "[ 0.1182 ,  0.2487 ]"
+## (Intercept)     "[ 3.4854 ,  3.6623 ]"  
+## HouseAge        "[ -0.0096 ,  -0.0056 ]"
+## NumConvenStores "[ 0.0174 ,  0.037 ]"   
+## sale.year2013   "[ 0.0367 ,  0.1292 ]"  
+## Dist2MRT.kilo   "[ -0.172 ,  -0.1144 ]" 
+## geo.groupTRUE   "[ 0.1153 ,  0.2514 ]"
 \end{verbatim}
 
 \begin{Shaded}
@@ -3990,23 +4222,23 @@ Finally, we put all inferential statistics in a single table so we can compare t
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-102}Final Combined Inferential Statistics: p-values and Bootstrap CIs}
+\caption{\label{tab:unnamed-chunk-112}Final Combined Inferential Statistics: p-values and Bootstrap CIs}
 \centering
 \begin{tabular}[t]{l|l|l|l|l|l}
 \hline
   & Estimate & Std. Error & Pr(>|t|) & btc.ci.95 & btr.ci.95\\
 \hline
-(Intercept) & 3.5724 & 0.0443 & 0 & [ 3.4742 ,  3.6675 ] & [ 3.4847 ,  3.6516 ]\\
+(Intercept) & 3.5724 & 0.0443 & 0 & [ 3.4742 ,  3.6668 ] & [ 3.4854 ,  3.6623 ]\\
 \hline
-HouseAge & -0.0076 & 0.001 & 0 & [ -0.0094 ,  -0.0057 ] & [ -0.0096 ,  -0.0058 ]\\
+HouseAge & -0.0076 & 0.001 & 0 & [ -0.0097 ,  -0.0056 ] & [ -0.0096 ,  -0.0056 ]\\
 \hline
-NumConvenStores & 0.0275 & 0.0049 & 0 & [ 0.0172 ,  0.0374 ] & [ 0.018 ,  0.0375 ]\\
+NumConvenStores & 0.0275 & 0.0049 & 0 & [ 0.017 ,  0.0379 ] & [ 0.0174 ,  0.037 ]\\
 \hline
-sale.year2013 & 0.0806 & 0.0244 & 0.0011 & [ 0.0374 ,  0.1242 ] & [ 0.033 ,  0.1268 ]\\
+sale.year2013 & 0.0806 & 0.0244 & 0.0011 & [ 0.0361 ,  0.125 ] & [ 0.0367 ,  0.1292 ]\\
 \hline
-Dist2MRT.kilo & -0.1445 & 0.0138 & 0 & [ -0.1733 ,  -0.1162 ] & [ -0.1727 ,  -0.1182 ]\\
+Dist2MRT.kilo & -0.1445 & 0.0138 & 0 & [ -0.176 ,  -0.1148 ] & [ -0.172 ,  -0.1144 ]\\
 \hline
-geo.groupTRUE & 0.1826 & 0.0347 & 0 & [ 0.1135 ,  0.2574 ] & [ 0.1182 ,  0.2487 ]\\
+geo.groupTRUE & 0.1826 & 0.0347 & 0 & [ 0.1175 ,  0.2489 ] & [ 0.1153 ,  0.2514 ]\\
 \hline
 \end{tabular}
 \end{table}
@@ -4027,23 +4259,23 @@ The above table shows that
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-103}width of the two bootstrap confidence intervals}
+\caption{\label{tab:unnamed-chunk-113}width of the two bootstrap confidence intervals}
 \centering
 \begin{tabular}[t]{r|r}
 \hline
 btc.wd & btr.wd\\
 \hline
-0.1932667 & 0.1668870\\
+0.1925855 & 0.1769694\\
 \hline
-0.0037541 & 0.0037804\\
+0.0040454 & 0.0039738\\
 \hline
-0.0202037 & 0.0195303\\
+0.0209244 & 0.0196569\\
 \hline
-0.0868612 & 0.0937271\\
+0.0888693 & 0.0925008\\
 \hline
-0.0571331 & 0.0544304\\
+0.0612208 & 0.0575790\\
 \hline
-0.1439029 & 0.1304962\\
+0.1313630 & 0.1361225\\
 \hline
 \end{tabular}
 \end{table}
@@ -4053,6 +4285,156 @@ btc.wd & btr.wd\\
 \item
   The widths of residual bootstrap and case-bootstrap confidence intervals are similar to each other. See the above table for the widths of each confidence interval.
 \end{itemize}
+
+We see from the above table that the widths of residual-bootstrap and case-bootstrap confidence intervals are similar to each other.
+
+\hfill\break
+
+\hypertarget{discussions-on-model-reporting}{%
+\section{Discussions on Model Reporting}\label{discussions-on-model-reporting}}
+
+We have used different methods to perform regression analysis. The inferential results of all three major methods yield similar results. We chose the parametric model to report.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(cmtrx, }\AttributeTok{caption =} \StringTok{"Inferential Statistics of Final Model"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-114}Inferential Statistics of Final Model}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+  & Estimate & Std. Error & t value & Pr(>|t|)\\
+\hline
+(Intercept) & 3.5724 & 0.0443 & 80.5990 & 0.0000\\
+\hline
+HouseAge & -0.0076 & 0.0010 & -7.4985 & 0.0000\\
+\hline
+NumConvenStores & 0.0275 & 0.0049 & 5.5987 & 0.0000\\
+\hline
+sale.year2013 & 0.0806 & 0.0244 & 3.2963 & 0.0011\\
+\hline
+Dist2MRT.kilo & -0.1445 & 0.0138 & -10.5068 & 0.0000\\
+\hline
+geo.groupTRUE & 0.1826 & 0.0347 & 5.2596 & 0.0000\\
+\hline
+\end{tabular}
+\end{table}
+
+Regression coefficients explain the correlation between log price and the corresponding explanatory variables. As an example, We explain the estimated regression coefficient of 0.1826. Let \(p_{TRUE}\) be the mean price of a house in the region \texttt{TRUE} and \(p_{FALSE}\) be the mean price of houses in the region \texttt{FALSE}. Then
+
+\[
+\log (p_{TRUE}) - \log(p_{FALSE}) = 0.1826  \to \log(p_{TRUE}/p_{FALSE}) = 0.1826 \to p_{TRUE} = 1.20p_{FALSE}
+\]
+We re-express the above equation can be re-written as
+
+\[
+p_{TRUE} - p_{FALSE} = 0.206p_{FALSE} \to \frac{p_{TRUE}-p_{FALSE}}{p_{FALSE}} = 0.20 = 20\%.
+\]
+
+That is, the average house sales price in the \texttt{TRUE} region (top right corner on the map) is about 20\% higher than that in the \texttt{FALSE} region. We can similarly interpret other regression coefficients.
+
+\hypertarget{some-concluding-remarks}{%
+\section{Some Concluding Remarks}\label{some-concluding-remarks}}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{img05/w05-LetDataSpeak} \end{center}
+
+\hypertarget{key-elements-in-storytelling}{%
+\subsection{Key Elements in Storytelling}\label{key-elements-in-storytelling}}
+
+Data storytelling is an effective way of communicating insights. It involves constructing a clear and relevant narrative in context, analyzing and visualizing data, and presenting findings effectively and persuasively. Data storytelling is an essential skill for statisticians.
+
+Effective data storytelling involves three core elements: data, narrative, and visuals.
+
+\textbf{Data} is the foundation of every data story.
+
+\textbf{Narrative} is the structure of the data story. It's not just about the words or context that are used to explain the information extracted from data, it is about how to organize the information into a meaningful and engaging story.
+
+\textbf{Visuals} are the scenes of the data story. When the data is complex, visualizing it in data charts helps the audience to \textbf{see} the \textbf{information} they might not otherwise see.
+
+\hypertarget{title-and-heading-in-statistics-report}{%
+\subsection{Title and Heading in Statistics Report}\label{title-and-heading-in-statistics-report}}
+
+Although headings and titles are similar, they are distinct: A title leads the entire document and captures its content in one or two phrases; a heading leads only a chapter or section and captures only the content of that chapter or section.
+
+\begin{itemize}
+\tightlist
+\item
+  A good \textbf{title} should be
+
+  \begin{itemize}
+  \tightlist
+  \item
+    descriptive,
+  \item
+    Direct
+  \item
+    Accurate
+  \item
+    appropriate
+  \item
+    concise
+  \item
+    precise
+  \item
+    unique and
+  \item
+    should \textbf{not} be misleading.
+  \end{itemize}
+\item
+  A good \textbf{heading} should be
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Headings should be as long as it takes to communicate the content of the sections they head.
+  \item
+    Higher-level headings often make do with a single word (e.g.~\textbf{Introduction} or \textbf{Methods}), while lower-level headings are often longer.
+  \item
+    Headings should be as descriptive as possible.
+  \item
+    Headings should be unique.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{regression-modeling-and-reporting}{%
+\subsection{Regression Modeling and Reporting}\label{regression-modeling-and-reporting}}
+
+There are different approaches to regression modeling and reporting. We summarized the modeling process and techniques learned and suggested guidelines for reporting.
+
+\hypertarget{modeling-workflow}{%
+\subsubsection{Modeling Workflow}\label{modeling-workflow}}
+
+Linear regression workflow is summarized in the following chart
+
+\begin{center}\includegraphics[width=1\linewidth]{img05/w05-LinearRegWorkflow} \end{center}
+
+The specific model diagnostic methods and remedies to be included in the analysis are
+
+\begin{itemize}
+\item
+  residual analysis - normality, constant variance, linearity of the regression equation, etc.
+\item
+  multicollinearity - variance inflation factor
+\item
+  potential transformation of the response variable - conventional and Box-cox methods
+\item
+  variable selection - expert-assisted variable selection (focusing on practical importance) and automatic variable selection (focusing on statistical significance).
+\item
+  non-parametric robust estimation of regression coefficients - two types of bootstrap methods.
+\end{itemize}
+
+\hypertarget{reporting-guidelines}{%
+\subsubsection{Reporting Guidelines}\label{reporting-guidelines}}
+
+We have discussed the basic components of a statistics report. The following book chapter summarizes methods of writing and organizing statistical reports.
+
+\url{https://instruction.bus.wisc.edu/jfrees/jfreesbooks/Regression\%20Modeling/BookWebDec2010/Writing/Chap20FreesRegBook03May2009.pdf}
+
+We have adopted the major components for our project reporting. Please review this document and pay attention to the sections related to how to report tables and figures.
 
 \hypertarget{modeling-assignment}{%
 \section{Modeling Assignment}\label{modeling-assignment}}
@@ -4432,7 +4814,7 @@ Since we only study the simple logistic regression model, only one predictor var
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-110-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 Since the simple logistic regression contains only one continuous variable of a binary categorical variable as the predictor variable, no there is no issue of potential imbalance. We will not transform BMI and fit a logistic regression directly to the data.
 
@@ -4495,7 +4877,7 @@ The summary of major statistics is given below.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-112}The summary stats of regression coefficients}
+\caption{\label{tab:unnamed-chunk-125}The summary stats of regression coefficients}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r}
 \hline
@@ -4524,7 +4906,7 @@ It is more common to interpret the association results from a practical perspect
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-113}Summary Stats with Odds Ratios}
+\caption{\label{tab:unnamed-chunk-126}Summary Stats with Odds Ratios}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -4608,7 +4990,7 @@ The success probability curve (so-called S curve) is given below.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-115-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-128-1} \end{center}
 
 The left-hand side plot in the above figure is the standard \textbf{S curve} representing how the probability of a positive test increases as the BMI increases. After diving deeper to see the rate of change in the probability of a positive test, we obtain the curve on the right-hand side that indicates that the rate of change in the probability of positive test increases when BMI is less than 40 and decreases when BMI is greater than 40. The turning point is about 40.
 
@@ -5027,7 +5409,7 @@ We first make the following pairwise scatter plots to inspect the potential issu
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-131-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5051,7 +5433,7 @@ From the correlation matrix plot, we can see several patterns in the predictor v
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-132-1} \end{center}
 
 Based on the above histogram, we discretize \textbf{pregnant} and \textbf{age} in the following.
 
@@ -5103,7 +5485,7 @@ Based on the above exploratory analysis, we first build the full model and the s
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-121}Summary of inferential statistics of the full model}
+\caption{\label{tab:unnamed-chunk-134}Summary of inferential statistics of the full model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -5158,7 +5540,7 @@ grp.age50 + & 2.0014940 & 0.7174832 & 2.7896040 & 0.0052773\\
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-122}Summary of inferential statistics of the reduced model}
+\caption{\label{tab:unnamed-chunk-135}Summary of inferential statistics of the reduced model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -5191,7 +5573,7 @@ pedigree & 1.0779952 & 0.3601870 & 2.992876 & 0.0027636\\
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-123}Summary of inferential statistics of the final model}
+\caption{\label{tab:unnamed-chunk-136}Summary of inferential statistics of the final model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -5239,7 +5621,7 @@ grp.age50 + & 1.9277491 & 0.5802575 & 3.3222305 & 0.0008930\\
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-124}Comparison of global goodness-of-fit statistics}
+\caption{\label{tab:unnamed-chunk-137}Comparison of global goodness-of-fit statistics}
 \centering
 \begin{tabular}[t]{l|r|r|r}
 \hline
@@ -5271,7 +5653,7 @@ In the exploratory analysis, we observed three pairs of variables are linearly c
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-125}Summary Stats with Odds Ratios}
+\caption{\label{tab:unnamed-chunk-138}Summary Stats with Odds Ratios}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -5427,7 +5809,7 @@ The general idea is to randomly partition the data into several subsets for diff
 
 }
 
-\caption{Three-way splitting mechanism}\label{fig:unnamed-chunk-126}
+\caption{Three-way splitting mechanism}\label{fig:unnamed-chunk-139}
 \end{figure}
 
 With this three-way split, the \textbf{model selection} and the \textbf{true error rate computation} can be carried out simultaneously. One important observation is that the error rate estimate of the final model on validation data is, in general, underestimated since the validation set is used to select the final model. Therefore, a third independent part of the data, the \textbf{test data}, is needed to report the actual prediction performance.
@@ -5447,7 +5829,7 @@ Among the methods available for estimating prediction error, the most widely use
 
 }
 
-\caption{Three-way data splitting versus cross-validation}\label{fig:unnamed-chunk-127}
+\caption{Three-way data splitting versus cross-validation}\label{fig:unnamed-chunk-140}
 \end{figure}
 
 Essentially cross-validation includes techniques to split the sample into multiple training and test data sets. To obtain multiple training and testing subsets, we use various random sub-sampling methods to perform K data splits of the entire sample. Different random splits constitute different cross-validation methods. The most commonly used cross-validation method is k-fold cross-validation.
@@ -5485,7 +5867,7 @@ The above process is summarized in the following figure.
 
 }
 
-\caption{The workflow of the cross-validation process}\label{fig:unnamed-chunk-128}
+\caption{The workflow of the cross-validation process}\label{fig:unnamed-chunk-141}
 \end{figure}
 
 \textbf{Remarks} on the cross-validation.
@@ -5576,7 +5958,7 @@ An ROC curve is the plot of sensitivity (i.e., TPR = True Positive Rate) against
 
 }
 
-\caption{An illustrative ROC curve}\label{fig:unnamed-chunk-129}
+\caption{An illustrative ROC curve}\label{fig:unnamed-chunk-142}
 \end{figure}
 
 Using the same set of cut-off probabilities, different candidate models have different ROC curves. The area under the curve (AUC) reflects the \textbf{global goodness of the model}. See the following illustrative curve.
@@ -5587,7 +5969,7 @@ Using the same set of cut-off probabilities, different candidate models have dif
 
 }
 
-\caption{Illustrative comparison of multiple ROC curves associated with the corresponding candidate models}\label{fig:unnamed-chunk-130}
+\caption{Illustrative comparison of multiple ROC curves associated with the corresponding candidate models}\label{fig:unnamed-chunk-143}
 \end{figure}
 
 With the ROC curve, we can answer the questions in the opening paragraph of this section.
@@ -5603,7 +5985,7 @@ If two or more ROC curves intersect at least one point, we may want to report th
 
 }
 
-\caption{Using ROC for model selection.}\label{fig:unnamed-chunk-131}
+\caption{Using ROC for model selection.}\label{fig:unnamed-chunk-144}
 \end{figure}
 
 There are several R packages that have functions to calculate the AUC. We are going use R functions \texttt{roc()} and \texttt{auc()} in package \texttt{pROC} to calculate the AUC in the case study.
@@ -5690,7 +6072,7 @@ We first make the following pairwise scatter plots to inspect the potential issu
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-133-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-146-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5831,13 +6213,13 @@ Since our training data is relatively small, I will use 5-fold cross-validation 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-137}Average of prediction errors of candidate models}
+\caption{\label{tab:unnamed-chunk-150}Average of prediction errors of candidate models}
 \centering
 \begin{tabular}[t]{r|r|r}
 \hline
 PE1 & PE2 & PE3\\
 \hline
-0.7870968 & 0.7870968 & 0.7870968\\
+0.7903226 & 0.7903226 & 0.7903226\\
 \hline
 \end{tabular}
 \end{table}
@@ -5861,13 +6243,13 @@ The previous cross-validation procedure identified the best model with pre-selec
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-138}The actual accuracy of the final model}
+\caption{\label{tab:unnamed-chunk-151}The actual accuracy of the final model}
 \centering
 \begin{tabular}[t]{r}
 \hline
 x\\
 \hline
-0.7435897\\
+0.8076923\\
 \hline
 \end{tabular}
 \end{table}
@@ -5912,6 +6294,15 @@ The ROC curves of the three candidate models are given below.
    \FunctionTok{install.packages}\NormalTok{(}\StringTok{"pROC"}\NormalTok{)}
    \FunctionTok{library}\NormalTok{(pROC)}
 \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 程辑包'pROC'是用R版本4.2.3 来建造的
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \DocumentationTok{\#\#  candidate models}
 \DocumentationTok{\#\#  full model}
 \NormalTok{candidate01 }\OtherTok{=} \FunctionTok{glm}\NormalTok{(diabetes }\SpecialCharTok{\textasciitilde{}}\NormalTok{grp.preg }\SpecialCharTok{+}\NormalTok{ sd.glucose }\SpecialCharTok{+}\NormalTok{sd.pressure}\SpecialCharTok{+}\NormalTok{ sd.triceps }\SpecialCharTok{+}\NormalTok{ sd.insulin }\SpecialCharTok{+} 
@@ -5959,7 +6350,7 @@ The ROC curves of the three candidate models are given below.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-153-1} \end{center}
 
 We can see from the ROC curve that full model and the stepwise model are better than the reduced model. However, the full model and the stepwise model have similar ROC curve and AUCs. Since stepwise model is simpler than the full model, therefore, the final model to report to the client is the stepwise model.
 
@@ -6219,6 +6610,15 @@ The data set was built in the R library \{ISwR\}.
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(knitr)}
 \FunctionTok{library}\NormalTok{(ISwR)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 程辑包'ISwR'是用R版本4.2.3 来建造的
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\#eba1977 = read.csv("eba1977.csv")}
 \FunctionTok{data}\NormalTok{(eba1977)}
 \FunctionTok{kable}\NormalTok{(}\FunctionTok{head}\NormalTok{(eba1977), }\AttributeTok{caption =} \StringTok{"First few records in the data set"}\NormalTok{) }
@@ -6227,7 +6627,7 @@ The data set was built in the R library \{ISwR\}.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-142}First few records in the data set}
+\caption{\label{tab:unnamed-chunk-155}First few records in the data set}
 \centering
 \begin{tabular}[t]{l|l|r|r}
 \hline
@@ -6270,7 +6670,7 @@ We first build a Poisson frequency regression model and ignore the population si
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-143}The Poisson regression model for the counts of lung cancer cases versus the geographical locations and the age group.}
+\caption{\label{tab:unnamed-chunk-156}The Poisson regression model for the counts of lung cancer cases versus the geographical locations and the age group.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -6320,7 +6720,7 @@ The following model assesses the potential relationship between cancer death rat
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-144}Poisson regression on the rate of the the cancer rate in the four Danish cities adjusted by age.}
+\caption{\label{tab:unnamed-chunk-157}Poisson regression on the rate of the the cancer rate in the four Danish cities adjusted by age.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -6398,7 +6798,7 @@ The above table indicates that the log of cancer rate is not identical across th
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-145}Poisson regression on the rate of the  the cancer rate in the four Danish cities adjusted by age.}
+\caption{\label{tab:unnamed-chunk-158}Poisson regression on the rate of the  the cancer rate in the four Danish cities adjusted by age.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -6513,7 +6913,7 @@ For example, \(\exp(-5.632)\) gives the cancer rate of the baseline city, Freder
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-147-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-160-1.pdf}
 
 \hypertarget{discussions-and-conclusions}{%
 \subsection{Discussions and Conclusions}\label{discussions-and-conclusions}}
@@ -6534,7 +6934,7 @@ The regression model based on the cancer count is not appropriate since the info
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-148}The Poisson regression model for the counts of lung cancer cases versus the geographical locations, population size, and age group.}
+\caption{\label{tab:unnamed-chunk-161}The Poisson regression model for the counts of lung cancer cases versus the geographical locations, population size, and age group.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -6800,7 +7200,7 @@ Next, we extract the residuals (\(y_i-\hat{\mu}_i\)) direct from the linear regr
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-150-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-163-1} \end{center}
 
 Both the Q-Q plot and histogram indicate that the distribution of Pearson residuals is skewed. There is a discrepancy between frequency distribution and normal distribution. Since the Pearson residuals are derived based on the least square algorithm, they don't have good distributional properties to develop a test.
 
@@ -6844,7 +7244,7 @@ The residual deviance of Poisson (or other generalized linear models) is defined
 
 }
 
-\caption{R glm() output of Poisson regression model}\label{fig:unnamed-chunk-151}
+\caption{R glm() output of Poisson regression model}\label{fig:unnamed-chunk-164}
 \end{figure}
 
 We can see from the Poisson regression output in R that only deviance residuals and the corresponding descriptive statistics are reported (the five-number-summary of deviance residuals, null deviance, and deviance with corresponding degrees of freedoms). This is because the inference of Poisson regression in \textbf{glm()} is based on the likelihood theory.
@@ -6864,7 +7264,7 @@ We can also extract the deviance residuals from \textbf{glm()} object and make a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-152-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-165-1} \end{center}
 
 Both Q-Q plot and histogram indicate that the distribution of the deviance residuals is slightly different from a normal distribution. If the model is correctly specified, the sum of squared residuals \(\sum_i(\text{Deviance.Residual}_i)^2\) is distributed as \(\chi^2_{n-p}\). The deviance and the degrees of freedom of the deviance are given in the output of the \textbf{glm()} (see the output given in the above figure).
 
@@ -6883,7 +7283,7 @@ For example, we next extract the deviance and degrees of freedom from the output
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-153}The p-value of deviance chi-square test}
+\caption{\label{tab:unnamed-chunk-166}The p-value of deviance chi-square test}
 \centering
 \begin{tabular}[t]{r}
 \hline
@@ -6986,7 +7386,7 @@ Next, we use \textbf{glm()} to fit the quasi-Poisson model and compare its outpu
 
 }
 
-\caption{R glm() output of quasi-Poisson regression model}\label{fig:unnamed-chunk-155}
+\caption{R glm() output of quasi-Poisson regression model}\label{fig:unnamed-chunk-168}
 \end{figure}
 
 We can see from the output of the quasi-likelihood-based Poisson regression that the dispersion parameter is \(\hat{\phi} = 5.420292\). Since the dispersion parameter is significantly different from 1, the p-values in the output of the Poisson regression model are not reliable. The main effect is the substantially larger errors for the estimates (the point estimates do not change), and hence potentially changed the significance of explanatory variables.
@@ -7091,7 +7491,7 @@ The data set was built in the R library \{ISwR\}.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-157}First few records in the data set}
+\caption{\label{tab:unnamed-chunk-170}First few records in the data set}
 \centering
 \begin{tabular}[t]{l|l|r|r}
 \hline
@@ -7137,7 +7537,7 @@ We first build a Poisson frequency regression model and ignore the population si
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-158}The Poisson regression model for the counts of lung 
+\caption{\label{tab:unnamed-chunk-171}The Poisson regression model for the counts of lung 
       cancer cases versus the geographical locations and the age group.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
@@ -7187,7 +7587,7 @@ The following model assesses the potential relationship between cancer death rat
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-159}Poisson regression on the rate of the 
+\caption{\label{tab:unnamed-chunk-172}Poisson regression on the rate of the 
       the cancer rate in the four Danish cities adjusted by age.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
@@ -7234,7 +7634,7 @@ The above two Poison models assume that there is no dispersion issue in the mode
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-160}Quasi-Poisson regression on the rate of the cancer rate in the four Danish cities adjusted by age.}
+\caption{\label{tab:unnamed-chunk-173}Quasi-Poisson regression on the rate of the cancer rate in the four Danish cities adjusted by age.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -7398,7 +7798,7 @@ We use age as the horizontal axis and the estimated cancer rates (in the above t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-163-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-176-1.pdf}
 
 \hypertarget{discussions-and-conclusions-1}{%
 \subsection{Discussions and Conclusions}\label{discussions-and-conclusions-1}}
@@ -7421,7 +7821,7 @@ The regression model based on the cancer count is not appropriate since the info
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-164}The Poisson regression model for 
+\caption{\label{tab:unnamed-chunk-177}The Poisson regression model for 
          the counts of lung cancer cases versus the geographical locations, 
          population size, and age group.}
 \centering
@@ -7536,7 +7936,7 @@ We build both the regular Poisson and Quasi-Poisson regression models and extrac
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-166}Dispersion parameter}
+\caption{\label{tab:unnamed-chunk-179}Dispersion parameter}
 \centering
 \begin{tabular}[t]{c}
 \hline
@@ -7560,7 +7960,7 @@ Next, we summarize the inferential statistics about the regression coefficients 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-167}Summary statistics of quasi-poisson regression model}
+\caption{\label{tab:unnamed-chunk-180}Summary statistics of quasi-poisson regression model}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -7594,7 +7994,7 @@ In the above quasi-Poisson regression, variable prestige is insignificant (p-val
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-168}Inferential statistics of 
+\caption{\label{tab:unnamed-chunk-181}Inferential statistics of 
 the Poisson regression coefficients  in the final working model.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
@@ -7657,7 +8057,7 @@ Next, We exponentiate the log-count of publications of Ph.D.~students to the act
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-169-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-182-1} \end{center}
 
 We can see the relationship between the number of publications of doctoral students and other factors.
 
@@ -7707,6 +8107,20 @@ Here are the steps for building Poisson (quasi-Poisson) model (similar to the tw
 
 \hypertarget{concepts-of-time-series-forecasting}{%
 \chapter{Concepts of Time Series Forecasting}\label{concepts-of-time-series-forecasting}}
+
+\begin{verbatim}
+## 载入需要的程辑包：forecast
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: 程辑包'forecast'是用R版本4.2.3 来建造的
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
 
 A univariate time series is a sequence of data values with certain random behaviors that occur in successive order over some period of time. A time series can be constructed by any data that is measured over time at evenly-spaced intervals. Some examples are historical stock prices, earnings, GDP, rainfalls, university enrollments, daily counts of ER patients, annual death counts due to traffic accidents in a country, inflation rates, or other sequences of financial or economic data that can be analyzed as a time series.
 
@@ -7948,7 +8362,7 @@ The moving average method forecasts all future values to be equal to the average
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-181-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-194-1.pdf}
 
 The forecasted values for 10 future periods (h = 10 is called the forecast horizon) are given below
 
@@ -7994,7 +8408,7 @@ The forecasted values for the three future periods and the forecasted intervals 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-183-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-196-1} \end{center}
 
 The corresponding values and confidence intervals are given in the following table.
 
@@ -8006,7 +8420,7 @@ The corresponding values and confidence intervals are given in the following tab
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-184}Naive forecasting method on Nile River data}
+\caption{\label{tab:unnamed-chunk-197}Naive forecasting method on Nile River data}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -8066,7 +8480,7 @@ Next, we plot the original series and the forecasted future values as well. Assu
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-186-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-199-1.pdf}
 
 The actual forecasted temperatures in the next 5 months and their predictive intervals are given by
 
@@ -8078,7 +8492,7 @@ The actual forecasted temperatures in the next 5 months and their predictive int
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-187}Forecasted monthly average temperatures of Nottingham between Jan - May 1940}
+\caption{\label{tab:unnamed-chunk-200}Forecasted monthly average temperatures of Nottingham between Jan - May 1940}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -8115,7 +8529,7 @@ where the amount of change over time \(y_T-y_1\) is called the drift. This is wh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-188-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-201-1.pdf}
 
 As usual, we can extract the predicted value from the above drift forecast procedure in the following
 
@@ -8127,7 +8541,7 @@ As usual, we can extract the predicted value from the above drift forecast proce
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-189}Forecast birth counts using the drift method}
+\caption{\label{tab:unnamed-chunk-202}Forecast birth counts using the drift method}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -8208,7 +8622,7 @@ We next use the four baseline forecasting methods and the first 30 data values t
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-193}Forecasting Table}
+\caption{\label{tab:unnamed-chunk-206}Forecasting Table}
 \centering
 \begin{tabular}[t]{r|r|r|r}
 \hline
@@ -8275,7 +8689,7 @@ We now make a time series plot and the predicted values. Note that, the forecast
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-194-1.pdf}
+\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-207-1.pdf}
 
 We can see that the \textbf{moving average} method worked pretty well. The performance of naive and drift methods in this seasonal time series are close to each other. But \textbf{naive}, \textbf{seasonal naive}, and \textbf{drift} methods worked poorly compared to the \textbf{moving average} method.
 
@@ -8325,7 +8739,7 @@ We will use the mean absolute prediction error (MAPE) to compare the performance
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-195}Overall performance of the four forecasting methods}
+\caption{\label{tab:unnamed-chunk-208}Overall performance of the four forecasting methods}
 \centering
 \begin{tabular}[t]{l|r|r|r}
 \hline
@@ -8447,11 +8861,11 @@ The following two time series represent the above two basic types of times serie
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-199-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-212-1} 
 
 }
 
-\caption{time series plots of additive and multiplicative series}\label{fig:unnamed-chunk-199}
+\caption{time series plots of additive and multiplicative series}\label{fig:unnamed-chunk-212}
 \end{figure}
 
 Denote \(T = trend\), \(S = seasonality\), and \(E = error\). With these notations, we can characterize the structure of \textbf{additive and multiplicative} time series.
@@ -8496,11 +8910,11 @@ To detect the underlying trend, we use a smoothing technique called \textbf{movi
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-200-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-213-1} 
 
 }
 
-\caption{Serires plot with trend curve}\label{fig:unnamed-chunk-200}
+\caption{Serires plot with trend curve}\label{fig:unnamed-chunk-213}
 \end{figure}
 
 \textbf{Example 2}: The airline passenger data were recorded monthly. It has an annual seasonal pattern. We choose a moving average window of 12 to extract the trend from this multiplicative time series.
@@ -8519,11 +8933,11 @@ To detect the underlying trend, we use a smoothing technique called \textbf{movi
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-201-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-214-1} 
 
 }
 
-\caption{series plot with curve trend}\label{fig:unnamed-chunk-201}
+\caption{series plot with curve trend}\label{fig:unnamed-chunk-214}
 \end{figure}
 
 The \textbf{moving averages} of both time series are recorded in the above two code chunks and will be used to restore the original series.
@@ -8549,11 +8963,11 @@ The way of detrending a time series is dependent on the types of the time series
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-202-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-215-1} 
 
 }
 
-\caption{Detrended series}\label{fig:unnamed-chunk-202}
+\caption{Detrended series}\label{fig:unnamed-chunk-215}
 \end{figure}
 
 The technique we used in removing the trend from a time series model is a non-parametric smoothing procedure. There are different techniques in statistics to estimate a curve for a given set. The \textbf{moving average} is one of the simplest ones and is widely used in time series.
@@ -8585,11 +8999,11 @@ The idea is to redefine a \textbf{seasonal series} based on the detrended series
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-203-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-216-1} 
 
 }
 
-\caption{Seasonal series}\label{fig:unnamed-chunk-203}
+\caption{Seasonal series}\label{fig:unnamed-chunk-216}
 \end{figure}
 
 \hypertarget{extracting-remainder-errors}{%
@@ -8614,11 +9028,11 @@ In the additive model, the random \textbf{error term} is given by \(E_t = y_t - 
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-204-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-217-1} 
 
 }
 
-\caption{Random error components}\label{fig:unnamed-chunk-204}
+\caption{Random error components}\label{fig:unnamed-chunk-217}
 \end{figure}
 
 \hypertarget{reconstruct-the-original-series-compose-new-series}{%
@@ -8649,11 +9063,11 @@ The original series can be \textbf{reconstructed} by using the decomposed compon
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-205-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-218-1} 
 
 }
 
-\caption{Adding trend series to the original series}\label{fig:unnamed-chunk-205}
+\caption{Adding trend series to the original series}\label{fig:unnamed-chunk-218}
 \end{figure}
 
 \hypertarget{decomposing-time-series-with-decompose}{%
@@ -8672,7 +9086,7 @@ The R library \textbf{forecast} was created by a team led by a leading expert in
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-219-1} \end{center}
 
 \textbf{Example 7}: Plot the components of the Airline Passenger Data.
 
@@ -8685,7 +9099,7 @@ The R library \textbf{forecast} was created by a team led by a leading expert in
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-207-1} \end{center}
+\begin{center}\includegraphics{STA321EB_files/figure-latex/unnamed-chunk-220-1} \end{center}
 
 Th R function \textbf{decompose()} can be used to extract the individual components from a given additive and multiplicative model using the following code.
 
@@ -8754,7 +9168,7 @@ where \(\hat{A}_t = \hat{T} + \hat{E}_t\) is the seasonally adjusted component. 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-210}Forecasting with decomposing - drift method}
+\caption{\label{tab:unnamed-chunk-223}Forecasting with decomposing - drift method}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -8791,11 +9205,11 @@ Since the deseasonalized series has two missing values in the beginning and two 
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-211-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-224-1} 
 
 }
 
-\caption{forecasting with classical decomposing}\label{fig:unnamed-chunk-211}
+\caption{forecasting with classical decomposing}\label{fig:unnamed-chunk-224}
 \end{figure}
 
 The plot of the forecast values and the original values. The red plot represented quarters 3-4 of 1973 and forecast values in quarters 3 - quarters 4, 1974, are plotted in \textbf{blue}. We can see that
@@ -8822,11 +9236,11 @@ Seasonal and Trend decomposition using LOESS (STL) combines the classical time s
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-212-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-225-1} 
 
 }
 
-\caption{Decomposing with STL approach}\label{fig:unnamed-chunk-212}
+\caption{Decomposing with STL approach}\label{fig:unnamed-chunk-225}
 \end{figure}
 
 We can also plot the above-decomposed components in a single step as follows with the STL model.
@@ -8839,11 +9253,11 @@ We can also plot the above-decomposed components in a single step as follows wit
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-213-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-226-1} 
 
 }
 
-\caption{plot component panel with STL object}\label{fig:unnamed-chunk-213}
+\caption{plot component panel with STL object}\label{fig:unnamed-chunk-226}
 \end{figure}
 
 \hypertarget{forecast-with-stl-decomposing}{%
@@ -8861,11 +9275,11 @@ For the additive model, we can use the R function \textbf{stl()} to decompose th
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-214-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-227-1} 
 
 }
 
-\caption{Forecas with STL decomposing}\label{fig:unnamed-chunk-214}
+\caption{Forecas with STL decomposing}\label{fig:unnamed-chunk-227}
 \end{figure}
 
 \hypertarget{length-of-time-series}{%
@@ -8908,11 +9322,11 @@ Since this is monthly data, frequency =12 will be used the define the time serie
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-216-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-229-1} 
 
 }
 
-\caption{US bond monthly rates}\label{fig:unnamed-chunk-216}
+\caption{US bond monthly rates}\label{fig:unnamed-chunk-229}
 \end{figure}
 
 \hypertarget{forecasting-with-decomposing-1}{%
@@ -8930,11 +9344,11 @@ Notice that the classical decomposition method does not work as well as the STL 
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-217-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-230-1} 
 
 }
 
-\caption{Classical decomposition of additive time series}\label{fig:unnamed-chunk-217}
+\caption{Classical decomposition of additive time series}\label{fig:unnamed-chunk-230}
 \end{figure}
 
 \begin{Shaded}
@@ -8947,11 +9361,11 @@ Notice that the classical decomposition method does not work as well as the STL 
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-218-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-231-1} 
 
 }
 
-\caption{STL decomposition of additive time series}\label{fig:unnamed-chunk-218}
+\caption{STL decomposition of additive time series}\label{fig:unnamed-chunk-231}
 \end{figure}
 
 \textbf{Training and Testing Data}
@@ -9024,7 +9438,7 @@ We next perform error analysis.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-220}Error comparison between forecast results with different sample sizes}
+\caption{\label{tab:unnamed-chunk-233}Error comparison between forecast results with different sample sizes}
 \centering
 \begin{tabular}[t]{l|r|r}
 \hline
@@ -9059,11 +9473,11 @@ n. 48 & 0.8055530 & 0.4649921\\
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-221-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-234-1} 
 
 }
 
-\caption{Comparing forecast errors}\label{fig:unnamed-chunk-221}
+\caption{Comparing forecast errors}\label{fig:unnamed-chunk-234}
 \end{figure}
 
 We trained the same algorithm with different sample sizes and compared the resulting accuracy measures. Among four training sizes 144, 109, 73, and 48. training data size 73 yields the best performance.
@@ -9176,7 +9590,7 @@ The idea of exponential smoothing is to smooth out the random fluctuations to se
 
 }
 
-\caption{ETS smoothing methods}\label{fig:unnamed-chunk-223}
+\caption{ETS smoothing methods}\label{fig:unnamed-chunk-236}
 \end{figure}
 
 The patterns in different smoothing methods (except for the damped additive trend) are sketched in the following figure.
@@ -9187,7 +9601,7 @@ The patterns in different smoothing methods (except for the damped additive tren
 
 }
 
-\caption{ETS smoothing charts}\label{fig:unnamed-chunk-224}
+\caption{ETS smoothing charts}\label{fig:unnamed-chunk-237}
 \end{figure}
 
 These patterns can be used in selecting specific smoothing models from the complete list of all possible models outlined in the following section.
@@ -9203,7 +9617,7 @@ The smoothing methods can only produce a point forecast. We can attach random er
 
 }
 
-\caption{ETS smoothing models}\label{fig:unnamed-chunk-225}
+\caption{ETS smoothing models}\label{fig:unnamed-chunk-238}
 \end{figure}
 
 We can use the notation \textbf{ETS(error, trend, seasonality)} to represent different smoothing models. For example, (1) \textbf{ETS(A,N,N)} - simple exponential smoothing model with additive errors, (2) \textbf{ETS(A,A,N)} - additive trend with additive errors (so Holt's linear method with additive errors).
@@ -9284,11 +9698,11 @@ It provides a forecasting method that is most effective when the components like
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-226-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-239-1} 
 
 }
 
-\caption{Comparing simple exponential models with various smoothing coefficients.}\label{fig:unnamed-chunk-226}
+\caption{Comparing simple exponential models with various smoothing coefficients.}\label{fig:unnamed-chunk-239}
 \end{figure}
 
 The following table summarizes the accuracy measures based on various smoothing models with different smoothing coefficients.
@@ -9304,7 +9718,7 @@ The following table summarizes the accuracy measures based on various smoothing 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-227}The accuracy measures of simple exponential 
+\caption{\label{tab:unnamed-chunk-240}The accuracy measures of simple exponential 
       smoothing models with different smoothing coefficients.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r|r}
@@ -9368,11 +9782,11 @@ The R function \textbf{holt()} computes the smoothing coefficients and forecasts
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-228-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-241-1} 
 
 }
 
-\caption{ Comparing Holt's exponential trend models with various smoothing coefficients.}\label{fig:unnamed-chunk-228}
+\caption{ Comparing Holt's exponential trend models with various smoothing coefficients.}\label{fig:unnamed-chunk-241}
 \end{figure}
 
 As expected, we can see from the above chart that
@@ -9465,11 +9879,11 @@ Let error \(e_t = y_t - \hat{y}_{t-1|t} = y_t-\mathfrak{l}_{t-1}b_{t-1}\). The c
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-229-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-242-1} 
 
 }
 
-\caption{Comparing Holt's exponential damped trend models.}\label{fig:unnamed-chunk-229}
+\caption{Comparing Holt's exponential damped trend models.}\label{fig:unnamed-chunk-242}
 \end{figure}
 
 \begin{Shaded}
@@ -9485,7 +9899,7 @@ Let error \(e_t = y_t - \hat{y}_{t-1|t} = y_t-\mathfrak{l}_{t-1}b_{t-1}\). The c
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-230}The accuracy measures of various exponential 
+\caption{\label{tab:unnamed-chunk-243}The accuracy measures of various exponential 
       smoothing models}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r|r}
@@ -9633,11 +10047,11 @@ Three R functions can be used to fit Holt-Winters model: \textbf{hw()},\textbf{e
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-231-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-244-1} 
 
 }
 
-\caption{ Comparing Holt-Winter's (damped) trend and seasonal models.}\label{fig:unnamed-chunk-231}
+\caption{ Comparing Holt-Winter's (damped) trend and seasonal models.}\label{fig:unnamed-chunk-244}
 \end{figure}
 
 The accuracy measures of the three models are summarized in the following table.
@@ -9654,7 +10068,7 @@ The accuracy measures of the three models are summarized in the following table.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-232}The accuracy measures of various Holt-Winter's 
+\caption{\label{tab:unnamed-chunk-245}The accuracy measures of various Holt-Winter's 
         exponential smoothing models}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r|r}
@@ -9695,11 +10109,11 @@ We can see from the above table that Holt-Winter's additive model outperformed t
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-233-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-246-1} 
 
 }
 
-\caption{Comparing Holt's exponential trend and seasonal models.}\label{fig:unnamed-chunk-233}
+\caption{Comparing Holt's exponential trend and seasonal models.}\label{fig:unnamed-chunk-246}
 \end{figure}
 
 The accuracy measures of the three models are summarized in the following table.
@@ -9723,11 +10137,11 @@ The accuracy measures of the three models are summarized in the following table.
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-234-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-247-1} 
 
 }
 
-\caption{Exponential damped trend models with Holt-Winters Filtering.}\label{fig:unnamed-chunk-234}
+\caption{Exponential damped trend models with Holt-Winters Filtering.}\label{fig:unnamed-chunk-247}
 \end{figure}
 
 The above figure shows that the original series is a typical exponential trend with a seasonal pattern. As expected, the Holt-Winters additive model performed poorly (a very wide prediction band).
@@ -9767,7 +10181,7 @@ In this case study, we use the beverage consumption data to compare various mode
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-236}The accuracy measures of various exponential smoothing models 
+\caption{\label{tab:unnamed-chunk-249}The accuracy measures of various exponential smoothing models 
       based on the training data}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r|r}
@@ -9838,11 +10252,11 @@ The above table shows that the HW additive seems to be the most appropriate.
 
 \begin{figure}
 
-{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-237-1} 
+{\centering \includegraphics{STA321EB_files/figure-latex/unnamed-chunk-250-1} 
 
 }
 
-\caption{Case study: Comparing various exponential smoothing models.}\label{fig:unnamed-chunk-237}
+\caption{Case study: Comparing various exponential smoothing models.}\label{fig:unnamed-chunk-250}
 \end{figure}
 
 We can see from the above accuracy table that HW's linear trend with an additive seasonal model is the best of the eight smoothing models. This is consistent with the patterns in the original serial plot.
@@ -9881,7 +10295,7 @@ Since we train the model with the training data and identify the best model usin
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-239}The accuracy measures of various exponential smoothing models 
+\caption{\label{tab:unnamed-chunk-252}The accuracy measures of various exponential smoothing models 
       based on the testing data}
 \centering
 \begin{tabular}[t]{l|r|r}
@@ -9924,7 +10338,7 @@ In the previous analysis, we train the model with the training data and identify
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-240}Estimated values of the smoothing parameters in
+\caption{\label{tab:unnamed-chunk-253}Estimated values of the smoothing parameters in
       Holt-Winters linear trend with additive seasonality}
 \centering
 \begin{tabular}[t]{l|r}
